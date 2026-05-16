@@ -140,7 +140,7 @@
 
 \NewDocumentEnvironment{vardfn}{s o m s o O{contributor}}{\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4, dotted}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{dfncounter}\textbf{{\large Definition \thedfncountercustomsub:~#3 *}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{dfn:#2}}}
+    {\stepcounter{dfncounter}\textbf{{\large Definition \thedfncountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{dfn:#2}}}
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}}
 
@@ -153,7 +153,7 @@
 
 \NewDocumentEnvironment{varthm}{s o m s o O{contributor}}{\begin{tcolorbox} % bool(newline), label, name, bool(contributor displayed), subname, contributor
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, interior style={left color=blue1, right color=blue3, middle color=white}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub:~#3 *}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
+    {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}}
 
@@ -257,6 +257,7 @@
 
 \DeclareMathOperator{\card}{card}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\spn}{span}
 
 \DeclareMathOperator{\Id}{Id}                           % Identity
 \DeclareMathOperator{\img}{im}                          % Image
@@ -284,10 +285,6 @@
 \newcommand{\colorc}[1]{\textcolor{blue6}{#1}}
 \newcommand{\colord}[1]{\textcolor{darkpurple}{#1}}
 
-% Logic:
-\newcommand{\tru}{\textcolor{green1}{\texttt{True}}}
-\newcommand{\fls}{\textcolor{red}{\texttt{False}}}
-
 % Non-mathematical
 \newcommand{\nohref}[1]{\textcolor{darkpurple}{``#1''}}
 \newcommand{\nohrefconcept}[1]{\textcolor{blue4}{``#1''}}
@@ -310,7 +307,7 @@
 \fancyhead[R]{MATH3611-01}
 \fancyfoot[C]{Page.\thepage}
 
-\title{Some Notes about Functional Analysis}
+\title{{\huge 泛函分析} \\ Functional Analysis}
 \author{Dedicatiaaaaa}
 \date{Mar. 3rd, 2026}
 
@@ -327,6 +324,19 @@
 \end{center}
 \newpage
 \tableofcontents
+\newpage
+\def\presectionname{0\quad Preface}
+\section*{\presectionname}
+\addcontentsline{toc}{section}{\presectionname}
+
+本文是作者 \Dedicatia{} 在学习泛函分析时的笔记, 来源于课堂讲授内容, 后经细微调整顺序、添加例子、注释等得到. 
+
+本课程虽名为泛函分析, 但其内容涵盖了一些集合论、拓扑、实分析等方面的理论. 这些章节名称将使用【】进行标注, 以示区别.
+
+另有一部分内容为作者自学过程中补充, 使用星号进行了标注. 阅读时请注意区分.
+
+由于作者水平有限, 笔记中难免存在错误, 欢迎指正.
+
 \newpage
 \section{基本定义}
 
@@ -503,9 +513,9 @@
 
         \begin{rmk}
             [Dedicatia]
-            有界线性算子不仅是连续的, 而且是 Lipschitz 连续的. 也就是说
+            在 Banach 空间中, 算子的有界性与连续性等价, 这是因为线性空间有数乘结构, 可以将单位球缩放到任意小.\\
+            事实上有界线性算子不仅是连续的, 而且是 Lipschitz 连续的. 也就是说
             \[\norm{Tx-Ty}_Y\leq\norm{T}\norm{x-y}_X\]
-            这是由于线性空间中存在标量乘法.
         \end{rmk}
 
         \begin{thm}
@@ -664,7 +674,7 @@
             [CanonicalEmbedding]
             {典范嵌入}
             [Canonical Embedding]
-            定义 \(X\) 的\textbf{典范嵌入} \(J:X\to X^{**}\) 是一个线性映射, 定义为:
+            定义 \(X\) 的\textbf{典范嵌入} \(J:X\to X^{**}\) 是一个线性映射:
             \[J_X(f)(x) = f(x).\]
             根据定义, 这是一个单射, 记作 \(J_X:X\hookrightarrow X^{**}\).
         \end{dfn}
@@ -678,10 +688,14 @@
         \begin{rmk}
             注意: 这里的自反空间是利用典范嵌入定义的. 有可能出现如下的情况:
             \begin{itemize}
-                \item \(X\cong X^{**}\), 但 \(J_X\) 不是双射; 这时 \(X\) 不是自反空间;
+                \item \(X\cong X^{**}\), 但 \(J_X\) 不是双射; 这时按定义 \(X\) 不是自反空间;
             \end{itemize}
             即使 \(X\) 同构于 \(X^{**}\) 也不能说明它们是通过 \(J_X\) 建立的同构.
         \end{rmk}
+
+        \begin{ppt}
+            {有限维赋范线性空间是自反空间}
+        \end{ppt}
 
         \continued
 
@@ -739,7 +753,7 @@
             [HahnBanach]
             {Hahn-Banach 定理}
             [Hahn-Banach Theorem]
-            设 \(X\) 是一个线性空间, \(p\) 是 \(X\) 上的一个次线性泛函, \(Y\) 是 \(X\) 的一个线性子空间, \(f:Y\to\R\) 是一个线性泛函且满足
+            设 \(X\) 是一个线性赋范空间, \(p\) 是 \(X\) 上的一个次线性泛函, \(Y\) 是 \(X\) 的一个线性子空间, \(f:Y\to\R\) 是一个线性泛函且满足
             \[f(y)\leq p(y), \quad \forall y\in Y.\]
             则存在一个线性泛函 \(F:X\to\R\) 使得
             \[F(y)=f(y), \quad \forall y\in Y,\]
@@ -751,6 +765,77 @@
             [Dedicatia]
             这个定理的意义在于, 在满足某些条件的情况下, 可以将一个定义在子空间上的线性函数(i)扩展到整个空间上, (ii)同时保持被某个次线性函数的控制.
         \end{rmk}
+
+        \begin{prf}
+            先考虑一步延拓, 设 \(x_0\in X\setminus Y\). 我们要把 \(f\) 从 \(Y\) 延拓到 \(Y\oplus\spn(x_0)\) 上. 为此考虑
+            \[\tilde{f} (y+\alpha x_0)=f(y)+\alpha\cdot \tilde{f}(x_0)\]
+            我们只需要确定 \(\tilde{f}(x_0)\) 的值. 由于 \(\tilde{f}\) 需要满足 \(\tilde{f}(y+\alpha x_0)\leq p(y+\alpha x_0)\), 则对于任意 \(y\in Y\) 和 \(\alpha\in\R\), 都有:\\
+            (1) 如果 \(\alpha=0\), 显然成立;\\
+            (2) 如果 \(\alpha>0\), 则
+            \[f(x_0)\leq\frac{p(y+\alpha x_0)-f(y)}{\alpha}=\frac{p(y+\alpha x_0)}{\alpha}-\frac{f(y)}{\alpha} \]
+            等价于
+            \[\tilde{f}(x_0)\leq p(z+x_0)-f(z)\]
+            其中 \(z=\frac{y}{\alpha}\);\\
+            (3) 如果 \(\alpha<0\), 则同理可得
+            \[\tilde{f}(x_0)\geq p(z+x_0)-f(z)\]
+            这就说明了
+            \[\sup_{z\in Y}\{-f(z)+p(z+x_0)\}\leq \tilde{f}(x_0)\leq\inf_{z\in Y}\{p(z+x_0)-f(z)\}\]
+            这等价于
+            \[\forall y_1,y_2\in Y, \quad -f(y_2)+p(y_2+x_0)\leq p(y_1+x_0)-f(y_1)\]
+            只要证明
+            \[\sup_{z\in Y}\{-f(z)+p(z+x_0)\}\leq\inf_{z\in Y}\{p(z+x_0)-f(z)\}\]
+            就说明了 \(\tilde{f}(x_0)\) 的取值可以被夹出来. 由于
+            \[p(y_1+x_0)+p(y_2+x_0)-f(y_1)-f(y_2)\geq p(y_1+y_2)-f(y_1+y_2)\geq 0\]
+            从而该延拓是一定存在的. \\
+            构造集合 \(\mathcal{S}:=\{(Y_i, g_i)\}\). 其中 \(Y_i\) 是 \(X\) 的某个子空间, \(g_i\) 是 \(Y_i\) 上的一个线性泛函, 满足 \(Y\subseteq Y_i\), \(g_i|_Y=f\), 且 \(g_i(x)\leq p(x)\) 对所有 \(x\in Y_i\) 成立. \\
+            这是一个偏序集, 其中的偏序定义为: \((Y_i, g_i)\leq (Y_j, g_j)\) 当且仅当 \(Y_i\subseteq Y_j\) 且 \(g_j|_{Y_i}=g_i\). 设 \(\mathcal{C}\) 是 \(\mathcal{S}\) 中的一个全序子集. 则 \(\mathcal{C}\) 中的元素可以被包含在一个更大的元素中. 也就是说, 定义
+            \[Y_0=\bigcup_{(Y_i, g_i)\in\mathcal{C}} Y_i, \quad g_0:Y_0\to\R, g_0(x)=g_i(x) \text{ if } x\in Y_i\]
+            则 \((Y_0, g_0)\) 是 \(\mathcal{S}\) 中的一个元素, 且包含了 \(\mathcal{C}\) 中的所有元素. 根据 Zorn 引理, \(\mathcal{S}\) 中存在一个极大元 \((Y_0, g_0)\). 如果 \(Y_0\neq X\), 则可以通过上面的一步延拓来得到一个更大的元素, 矛盾. 因此 \(Y_0=X\), \(g_0\) 就是我们要找的 \(F\). 
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            Hahn-Banach 定理只适用于对泛函的延拓, 不适用于对任意先行算子的延拓.
+        \end{rmk}
+
+        \begin{thm}
+            {赋范延拓}
+            [Norming Extension]
+            设 $X$ 是赋范线性空间, $Y$ 是 $X$ 的子空间, $f$ 是定义在 $Y$ 上的线性泛函, $\exists F \in \blo (X, \R)$ 使得 $F$ 是 $f$ 的延拓, 且 $\norm{F}=\norm{f}$.
+        \end{thm}
+
+        \begin{prf}
+            定义
+            \[p(x)=\norm{f}\norm{x}, \quad \forall x\in X.\]
+            则 \(p\) 是 \(X\) 上的一个次线性泛函, 且对于任意 \(y\in Y\), \(f(y)\leq\norm{f}\norm{y}=p(y)\). 根据 Hahn-Banach 定理, 存在一个线性泛函 \(F:X\to\R\) 使得 \(F|_Y=f\) 且 \(F(x)\leq p(x)\) 对所有 \(x\in X\) 成立. 从而 \(\norm{F}\leq\norm{f}\). \\
+            另一方面, 因为 \(F|_Y=f\), 所以 \(\norm{f}\leq\norm{F}\). 因此 \(\norm{F}=\norm{f}\).
+        \end{prf}
+
+        \begin{thm}
+            {赋范泛函}
+            [Norming Functional]
+            设 \(X\) 是赋范线性空间, \(\forall x\neq 0\), \(\exists\,f\in X^*\st f(x)=\norm{x}\) 且 \(\norm{f}=1\).
+        \end{thm}
+
+        \begin{prf}
+            设 \(f\) 定义在 \(\spn(x)\) 上且满足 \(f(\alpha x)=\alpha\norm{x}\). 则根据 Hahn-Banach 定理, 可以将其延拓到整个空间上且保持范数不变. 从而存在 \(F\in X^*\) 使得 \(F(x)=\norm{x}\) 且 \(\norm{F}=\norm{f}=1\).
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个定理保证了 $X$ 的对偶空间足够丰富, 以至于每个非零向量都可以通过某个对偶空间中的元素来“测量”其范数. 
+        \end{rmk}
+
+        \begin{crl}
+            {范数的等价定义}
+            [Equivalent Definition of Norm]
+            设 \(X\) 是一个线性空间, \(\norm{\cdot}\) 是 \(X\) 上的一个函数. 则 \(\norm{\cdot}\) 是 \(X\) 上的一个范数, 当且仅当
+            \[\forall x\in X, \norm{x}=\sup_{f\in X^*, \norm{f}=1} |f(x)|.\]
+        \end{crl}
+
+        \begin{prf}
+            \(|f(x)|\leq\norm{f}\norm{x}\) 成立, 所以 \(\sup_{f\in X^*, \norm{f}=1} |f(x)|\leq\norm{x}\). 另一方面, 根据上一个定理, 存在 \(f\in X^*\) 使得 \(f(x)=\norm{x}\) 且 \(\norm{f}=1\). 从而等号取到, \(\sup_{f\in X^*, \norm{f}=1} |f(x)|=\norm{x}\).
+        \end{prf}
 
     \subsection{【集合论】序结构与 Zorn 引理}
 
@@ -787,7 +872,7 @@
             [Dedicatia]
             直观地理解:
             \begin{itemize}
-                \item 偏序结构: 只是元素之间的二元关系\\
+                \item 偏序结构: 只是元素之间的二元关系;
                 \item 全序结构: 任何两个元素之间都有二元关系, 也就是说, 任意两个元素之间可以比较大小.
             \end{itemize}
         \end{rmk}
@@ -857,12 +942,12 @@
 
         \begin{rmk}
             [Dedicatia]
-            Hamel 基的定义不能给出构造性的、具体的形式, 因为 Zorn 引理是非构造性的. 这也少有的先有定理再有定义的例子.
+            Hamel 基的定义不能给出构造性的、具体的形式, 因为 Zorn 引理是非构造性的. 这也是为什么我们很少使用 Hamel 基去研究分析学.
         \end{rmk}
 
         \begin{ins}
             {存在满足可加性但不满足齐次性的函数}
-            在 \(\R\) 中, \(1\) 和 \(\sqrt{2}\) 是线性无关的. 我们可以由此得到一组 Hamel 基 \(\{e_i\}_{i\in I}\). 其中 \(e_1=1\), \(e_2=\sqrt{2}\). 定义函数
+            在 \(\R\) 中, \(1\) 和 \(\sqrt{2}\) 是线性无关的. 我们可以由此得到一组 Hamel 基 \(\{e_i\}_{i\in I}\). 其中 \(e_1=1\), \(e_2=\sqrt{2}\). 定义函数 \(f:\R\to\R\):
             \[f(1)=\sqrt{2}, f(\sqrt{2})=1, f(e_i)=e_i, \forall i \in I\setminus\{1,\sqrt{2}\}. \]
             则 \(f\) 满足可加性: 只需按分量定义 \(f\) 的值即可. 但是 \(f\) 不满足齐次性. 
         \end{ins}
@@ -871,7 +956,7 @@
             [Ordinal]
             {序数}
             [Ordinals]
-            序数是所有按序同构的良序集的等价类.
+            序数是所有按序同构的良序集的等价类. 记作 \(\ordinal\).
         \end{dfn}
         
         \begin{rmk}
@@ -879,6 +964,186 @@
             序数的定义从直观上说就是一个元素的位置的编号. 但是为了描述无限集合的结构, 有一些特殊的编号. 这也正是我们定义序数的动机.
         \end{rmk}
 
+        \begin{ppt}
+            {序数集合是全序的}
+        \end{ppt}
+
+        \begin{dfn}
+            {前驱序数 / 后继序数}
+            [Predecessor / Successor Ordinal]
+            设 \(\alpha\) 是一个序数. 定义 \(\alpha\) 的\textbf{前驱序数}是 \(\alpha-1\), 定义 \(\alpha\) 的\textbf{后继序数}是 \(\alpha+1\).
+        \end{dfn}
+
+        \begin{dfn}
+            {极限序数}
+            设 \(\alpha\in\ordinal\) 且 \(\alpha\neq 0\), 定义 \(\alpha\) 是一个\textbf{极限序数}, 当且仅当 \(\alpha\) 不是任何序数的后继. \\
+            也就是说, \(\alpha\) 是一个极限序数当且仅当 \(\alpha\) 可以表示为一个小于 \(\alpha\) 的序数的集合的并.
+        \end{dfn}
+
+        \begin{ins}
+            {第一个极限序数 \(\omega\)}
+            设 \(\omega\) 是所有自然数的集合. 则 \(\omega\) 是第一个极限序数.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            事实上, 还有更多的从 \(\omega\) 得到的极限序数, 例如 \(\omega+\omega\), \(\omega^2\) 等等. 这些极限序数的结构非常复杂. \\
+            由于 \(\N\) 是可数的, 我们还可以在不可数集上定义序数, 这就是不可数序数 \(\omega_1, \omega_2, \cdots\).
+        \end{rmk}
+
+        \begin{vardfn}
+            {基数}
+            [Cardinal]
+            基数是所有按双射同构的集合的等价类.
+        \end{vardfn}
+
+        \begin{ins}
+            {可数无穷基数}
+            设 \(\aleph_0\) 是所有可以与自然数 \(\N\) 建立双射关系的集合. \(\aleph_0\) 是第一个可数无穷基数.
+        \end{ins}
+
+        \begin{ins}
+            {不可数无穷基数 / 连续统基数}
+            设 \(\mathfrak{c}\) 是所有可以与实数 \(\R\) 建立双射关系的集合. \(\mathfrak{c}\) 是不可数无穷基数, 也叫连续统基数.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{连续统假设}\; 不存在一个基数 \(\kappa\) 使得 \(\aleph_0 < \kappa < \mathfrak{c}\). \\
+            也就是说, 没有一个集合的基数介于可数无穷和连续统之间. 这个假设是独立于 ZFC 公理系统的, 也就是说, 无论我们接受还是拒绝这个假设, 都不会导致矛盾. Godel 证明了连续统假设在 ZFC 中是无法被否定的, Cohen 证明了连续统假设在 ZFC 中是无法被证明的.
+        \end{rmk}
+
+        \begin{thm}
+            {超限归纳法}
+            [Transfinite Induction]
+            设 \(P(\alpha)\) 是一个关于序数 \(\alpha\) 的命题. 如果满足以下条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item \(P(0)\) 成立;
+                \item 对于任意序数 \(\alpha\), 如果 \(P(\beta)\) 对所有 \(\beta<\alpha\) 都成立, 则 \(P(\alpha)\) 也成立.
+            \end{enumerate}
+            则 \(P(\alpha)\) 对所有序数 \(\alpha\) 都成立.
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{超限归纳法对于序数 \(\ordinal\) 的关系就好比普通数学归纳法对于自然数 \(\N\) 的关系}.\\
+            超限归纳法是对普通数学归纳法的推广. 可以用于任意序数. 这使得我们可以在更广泛的范围内进行归纳证明.
+        \end{rmk}
+
+        \begin{ins}
+            {Bernstein 集合}
+            \(\R\) 上存在集合 \(A\) 使得 \(A\) 和 \(A^c\) 都满足以下条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item 与 \(\R\) 的任意完全集交集非空;
+                \item 不包含任何完全集.
+            \end{enumerate}
+            这是基于以下两条事实:
+            \begin{itemize}
+                \item \(\R\) 中完全集的个数是 \(\mathfrak{c}\);
+                \item 每一个完全集中也有 \(\mathfrak{c}\) 个元素.
+            \end{itemize}
+            证明时, 将 \(\R\) 中的所有完全集赋予序数, 然后使用超限归纳: 在序数为 \(\alpha\) 步的时候, 处理完全集 \(P_\alpha\):\\
+            1. 从第 \(\alpha\) 个完全集中取一个元素加入 \(A\);\\
+            2. 从第 \(\alpha\) 个完全集中取一个元素加入 \(A^c\).\\
+            事实上我们不用担心在某一步的时候完全集中的元素已经被之前的步骤取完了, 因为每个完全集中都有 \(\mathfrak{c}\) 个元素, 而我们在每一步只取一个元素. 因此我们总是可以从第 \(\alpha\) 个完全集中取出一个元素加入 \(A\) 和 \(A^c\). 重复直到所有完全集都被处理完了. 最后得到的集合 \(A\) 和 \(A^c\) 就满足要求了:\\
+            (1) 对任意完全集 \(P_\alpha\), \(A\) 和 \(A^c\) 都与 \(P_\alpha\) 有交集;\\
+            (2) \(A\) 和 \(A^c\) 都不包含任何完全集, 因为每个完全集都必然有元素在 \(A\) 中, 也有元素在 \(A^c\) 中. 如果包含了完整的完全集就会导致矛盾.\\
+            这就得到了 \(A\). \(A\) 被称为 \textbf{Bernstein 集合}.
+            \tcbline
+            无论是分析还是拓扑, Bernstein 集合都是非常奇怪的: 它有如下性质:
+            \begin{itemize}
+                \item \(A\) 和 \(A^c\) 都在 \(\R\) 中稠密, 它的所有元素都是极限点, 但 \(A\) 和 \(A^c\) 都不包含任意区间;
+                \item \(A\) 和 \(A^c\) 都具有零外测度, 这是因为如果 \(A\) 或 \(A^c\) 有正外测度, 那么它就包含一个完全集, 这与 \(A\) 和 \(A^c\) 都不包含任何完全集的性质矛盾. 因而 \(A\) 与 \(A^c\) 都是不可测集;
+                \item \(A\) 和 \(A^c\) 都既不是第一纲集, 也不是余纲集.
+            \end{itemize}
+        \end{ins}
+
     \subsection{凸集分离定理}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节讲述的是 Hahn-Banach 定理的几何形式, 也就是凸集分离定理.在这之前我们需要一些概念和定义.
+        \end{intrormk}
+
+        \begin{ppt}
+            {线性泛函可以精准区分向量}
+            [Linear Functionals Separate Points]
+            设 \(X\) 是 Banach 空间, 则
+            \[\forall\,x,y\in X, x\neq y\implies\exists\,f\in X^*\st f(x)\neq f(y).\]
+        \end{ppt}
+
+        \begin{prf}
+            只需证明 \(\forall x\in X, x\neq 0\implies\exists f\in X^*\st f(x)\neq 0\). 存在赋范泛函 \(f\in X^*\) 使得 \(f(x)=\norm{x}\neq 0\).
+        \end{prf}
+
+        \begin{ppt}
+            {线性泛函可以精准区分点和闭子空间}
+            [Linear Functionals Separate Points and Closed Subspaces]
+            设 \(X\) 是 Banach 空间, \(Y\) 是 \(X\) 的一个闭子空间, \(x\in X\setminus Y\), 则
+            \[\exists f\in X^*\st \norm{f}=1, f(x)\neq 0, f(y)=0, \forall y\in Y.\]
+        \end{ppt}
+
+        \begin{prf}
+            设 
+            \[d=\dist(x_0, Y)=\inf_{y\in Y}\norm{x_0-y}.\]
+            设
+            \[g:Y \oplus \spn (x_0)=: Z \to \R, g(y+\alpha x_0) = \alpha d\]
+            则 \(g\) 是 \(Z\) 上的一个线性泛函, 且 \(\forall y\in Y, \alpha\in\R\), 都有
+            \[g(y+\alpha x_0)=\alpha d\leq \alpha\norm{x_0-y}\leq\norm{y+\alpha x_0}.\]
+            根据 Hahn-Banach 定理, 存在 \(f:X\to\R\) 使得 \(\forall y\in Y, \alpha\in\R\), 都有 \(f(y+\alpha x_0)\leq\alpha\norm{y+\alpha x_0} \), \(f(y)=0\), \(f(x_0)=d>0\). 这就是我们要的线性泛函.\\
+            考虑 \(\forall\epsilon>0\), 设 \(y\in Y\) s.t. \(\norm{x-y}\leq\eta+d\), 其中 \(\eta=\frac{d\epsilon}{1-\epsilon}\), 这样的 \(y\) 是可以找到的. 则
+            \[\frac{|f(x_0-y)|}{\norm{x_0-y}}=\frac{d}{\norm{x_0-y}}>\frac{d}{d+\eta}\geq 1-\epsilon\] 
+            由于 \(\epsilon\) 是任意的, 所以 \(\norm{f}\geq 1\). 另一方面因为 \(f(y+\alpha x_0)\leq\alpha\norm{y+\alpha x_0}\), 所以 \(\norm{f}\leq 1\). 因此 \(\norm{f}=1\).
+        \end{prf}
+
+        \begin{dfn}
+            [AbsorbingSet]
+            {吸收集}
+            [Absorbing Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{吸收集}, 当且仅当
+            \[\forall\,x\in X, \exists\,\lambda>0\st x\in\lambda A:=\left\{\lambda a : a\in A\right\}\]
+        \end{dfn}
+
+        \begin{dfn}
+            [MinkowskiFunctional]
+            {Minkowski 泛函}
+            [Minkowski Functional]
+            设 \(X\) 是一个线性空间, \(A\subseteq X\) 是一个吸收集. 定义 \(A\) 的 Minkowski 泛函 \(\mu_A:X\to\R\) 为
+            \[\mu_A(x)=\inf\{\lambda>0 : x\in\lambda A\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [BalacedSet]
+            {平衡集}
+            [Balanced Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{平衡集}, 当且仅当
+            \[\forall\,x\in A, \forall\,\lambda\in\R, |\lambda|\leq 1\implies \lambda x\in A.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [ConvexSet]
+            {凸集}
+            [Convex Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{凸集}, 当且仅当
+            \[\forall\,x,y\in A, \forall\,t\in[0,1], tx+(1-t)y\in A.\]
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            直观上理解, 这三类集合的定义是这样的:
+            \begin{itemize}
+                \item 吸收集是指对于空间中的任意向量, 都存在一个足够大的标量使得该向量被包含在这个标量倍的集合中. 这意味着吸收集可以通过标量缩放覆盖整个空间.
+                \item 平衡集是指对于集合中的任意元素其乘以一个绝对值不超过1的标量时, 结果仍然在集合中. 这意味着均衡集中的点不会因为缩放而离开集合.
+                \item 凸集是指对于集合中的任意两个元素, 连接它们的线段也完全包含在集合中, 凸集中的点之间的线性组合仍然在集合中.
+            \end{itemize}
+            需要注意的是, 这三类集合都是定义在线性空间上的. 如果没有线性空间结构就无法定义这些集合.
+        \end{rmk}
+
+        \begin{dfn}
+            [AbsoluteConvexSet]
+            {绝对凸集}
+            [Absolute Convex Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{绝对凸集}, 当且仅当 \(A\) 同时是一个吸收集、平衡集、凸集.
+        \end{dfn}
 
 \end{document}
