@@ -258,6 +258,7 @@
 \DeclareMathOperator{\card}{card}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\interior}{int}                     % Interior
 
 \DeclareMathOperator{\Id}{Id}                           % Identity
 \DeclareMathOperator{\img}{im}                          % Image
@@ -697,8 +698,6 @@
             {有限维赋范线性空间是自反空间}
         \end{ppt}
 
-        \continued
-
 \section{线性泛函分析基础}
 
     \subsection{Hahn-Banach 定理}
@@ -952,6 +951,29 @@
             则 \(f\) 满足可加性: 只需按分量定义 \(f\) 的值即可. 但是 \(f\) 不满足齐次性. 
         \end{ins}
 
+        \begin{thm}
+            {无限维 Banach 空间的 Hamel 基是不可数的}
+            设 \(X\) 是一个无限维的 Banach 空间, 则 \(X\) 的任何 Hamel 基都是不可数的.
+        \end{thm}
+
+        \begin{prf}
+            设 \(X\) 是 Banach 空间, \(\dim X=\infty\), \(X\) 具有可数的 Hamel 基 \(\{e_i\}_{i=1}^{\infty}\). \\
+            那么 \(X=\spn(\{e_i\})\). 
+            \[X=\bigcup_{i=1}^{\infty}V_n\]
+            \(V_n\) 作为 \(X\) 的闭子空间显然不可能是无处稠密的, 设 $V_i \supset B(r,x_0)$. 则 $V_i \supseteq\{x-y: x,y\in B(r,x_0)\} \supset B(0,r)$. 得到
+            \[V_i\supset\bigcup_{a\in\R}\{ax: x\in B(0,r)\} \]
+            这说明 \(V_i=X\). 矛盾.
+        \end{prf}
+
+        \begin{xmp}
+            {序列空间 \(\ell_{00}\) 不是 Banach 空间}
+            只有有限项非零项的序列组成的空间 \(\ell_{00}\) 不是 Banach 空间. 因为 \(\ell_{00}\) 的 Hamel 基是可数的, 但是 \(\ell_{00}\) 是无限维的线性空间.
+        \end{xmp}
+
+        \begin{rmk}
+            这说明在 Hamel 基的意义下 Banach 空间要么是有限维的, 要么是不可数维的. 这是强完备性的体现.
+        \end{rmk}
+
         \begin{dfn}
             [Ordinal]
             {序数}
@@ -1053,7 +1075,7 @@
             无论是分析还是拓扑, Bernstein 集合都是非常奇怪的: 它有如下性质:
             \begin{itemize}
                 \item \(A\) 和 \(A^c\) 都在 \(\R\) 中稠密, 它的所有元素都是极限点, 但 \(A\) 和 \(A^c\) 都不包含任意区间;
-                \item \(A\) 和 \(A^c\) 都具有零外测度, 这是因为如果 \(A\) 或 \(A^c\) 有正外测度, 那么它就包含一个完全集, 这与 \(A\) 和 \(A^c\) 都不包含任何完全集的性质矛盾. 因而 \(A\) 与 \(A^c\) 都是不可测集;
+                \item \(A\) 和 \(A^c\) 都具有零内测度, 这是因为如果 \(A\) 或 \(A^c\) 有正的内测度, 那么它就包含一个完全集, 这与 \(A\) 和 \(A^c\) 都不包含任何完全集的性质矛盾. 因而 \(A\) 与 \(A^c\) 都是不可测集;
                 \item \(A\) 和 \(A^c\) 都既不是第一纲集, 也不是余纲集.
             \end{itemize}
         \end{ins}
@@ -1145,5 +1167,241 @@
             [Absolute Convex Set]
             设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{绝对凸集}, 当且仅当 \(A\) 同时是一个吸收集、平衡集、凸集.
         \end{dfn}
+
+        \continued
+
+    \subsection{【点集拓扑】Baire 纲定理}
+
+        \begin{dfn}
+            [Metric]
+            {度量}
+            [Metric]
+            设 \(X\) 是一个集合. 定义 \(X\) 上的一个\textbf{度量}是一个函数 \(d:X\times X\to\R\), 满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{正定性}: \(d(x,y)\geq 0\), \(d(x,y)=0\iff x=y\);
+                \item \textbf{对称性}: \(d(x,y)=d(y,x)\), \(\forall x,y\in X\);
+                \item \textbf{次可加性 / 三角不等式}: \(d(x,z)\leq d(x,y)+d(y,z)\), \(\forall x,y,z\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{dfn}
+            [MetricSpace]
+            {度量空间}
+            [Metric Space]
+            设 \(X\) 是一个集合, \(d\) 是 \(X\) 上的一个度量. 则 \((X, d)\) 是一个\textbf{度量空间(Metric Space)}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            可以证明, 由度量可以定义拓扑, 二者是相容的. 因此我们将不再重复拓扑空间中的各种概念的定义.
+        \end{rmk}
+
+        \begin{dfn}
+            [DenseSet]
+            {稠密集}
+            [Dense Set]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是 \(X\) 中的一个\textbf{稠密集}, 当且仅当 \(\overline{A}=X\).  \\
+            也就是说, \(A\) 的闭包是整个空间.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            等价地理解, \(A\) 在 \(X\) 中稠密, 即是 \(X\) 中的任意点都可以被 \(A\) 中的点任意接近. 这也是为什么叫稠密集的原因.
+        \end{rmk}
+
+        \begin{dfn}
+            [NowhereDense]
+            {无处稠密}
+            [Nowhere Dense]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是 \(X\) 中的一个\textbf{无处稠密}, 当且仅当 \(\interior(\overline{A})=\varnothing\). 
+        \end{dfn}
+
+        \begin{thm}
+            {完备化定理}
+            对任意度量空间 \(X\), 都存在一个完备度量空间 \(Y\) 使得 \(X\) 是 \(Y\) 的一个稠密度量子空间.
+        \end{thm}
+
+        \begin{ins}
+            {\(Q\) 在 \(\R\) 中稠密}
+            这是因为对任意实数, 都能找到一列有理数收敛到它. 从而 \(\overline{\Q}=\R\).\\
+            事实上, \(\R\) 就是 \(\Q\) 的完备化度量空间.
+        \end{ins}
+
+        \begin{dfn}
+            [Meager]
+            {Baire 第一纲集}
+            [Baire 1st Category Set / Meager Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第一纲集}, 当且仅当 \(A\) 可以表示为可数个无处稠密集的并集:
+            \[A=\bigcup_{n=1}^\infty A_n, \interior(\overline{A_n})=\varnothing.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [Residual]
+            {余纲集}
+            [Residual Set / Comeager Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{余纲集}, 当且仅当 \(A^c\) 是第一纲集.
+        \end{dfn}
+
+        \begin{dfn}
+            [SecondCategory]
+            {Baire 第二纲集}
+            [Baire 2nd Category Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第二纲集}, 当且仅当 \(A\) 不是第一纲集.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            需要注意的是, \colora{第二纲集和余纲集是不同的概念}. 存在既不是第一纲集也不是余纲集的集合. 但一个集合一定要么是第一纲集, 要么是第二纲集.
+        \end{rmk}
+
+        \begin{ins}
+            {\(\Q\) 是 \(\R\) 中的第一纲集}
+            这是因为有理数是可数的, 而单点集的闭包是自己, 内部是空集.
+        \end{ins}
+
+        \begin{ins}
+            {Cantor 集是 \([0,1]\) 中的第一纲集}
+            因为它本身就是无处稠密的.
+        \end{ins}
+
+        \begin{ppt}
+            {第一纲集的任意子集仍然是第一纲集}
+        \end{ppt}
+
+        \begin{ppt}
+            {第一纲集的可数并仍然是第一纲集}
+            其对偶结论为: 余纲集的可数交仍然是余纲集.
+        \end{ppt}
+
+        \begin{ppt}
+            {可数个稠密开集的交是余纲集}
+            这是第一纲集的定义的对偶结论.
+        \end{ppt}
+
+        \begin{rmk}
+            由于
+            \[X\setminus\interior A=\overline{X\setminus A}\]
+            \[X\setminus\overline{B}=\interior(X\setminus B) \]
+            仅证明第一个:\\
+            设 \(x\in X\setminus\interior A\), 那么 \(x\) 的任意半径为 \(\epsilon\) 的开邻域都与 \(A\) 有交集. 从而 \(x\) 是 \(X\setminus A\) 的一个极限点, 也就是说 \(x\in\overline{X\setminus A}\). \\
+            另一方面, 设 \(x\in \overline{X\setminus A}\), 存在一列 \(x_n\in X\setminus A\) 收敛到 \(x\). 但 \(x\) 的任意半径为 \(\epsilon\) 的开邻域都包含 \(x_n\) 中的某个元素, 从而 \(x\) 不可能是 \(\interior A\) 中的元素. 因此 \(x\in X\setminus\interior A\).
+        \end{rmk}
+
+        \begin{rmk}
+             设 \(\{O_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列稠密开集, 那么
+            \[\bigcap_{n=1}^{\infty} (X\setminus O_n)\]
+            是 \(X\) 中的第一纲集. 考虑 \(X\setminus O_n\) 是闭集, 因为 \(O_n\) 是开集. 由于 \(O_n\) 是稠密的, 所以 \(\overline{O_n}=X\). 从而
+            \[\interior(\overline{X\setminus O_n})=\interior(X\setminus O_n)=X\setminus\overline{O_n}=\varnothing\]
+            这说明 \(X\setminus O_n\) 是 \(X\) 中的一个无处稠密集. 从而 \(\bigcap_{n=1}^{\infty} (X\setminus O_n)\) 是 \(X\) 中的第一纲集.
+        \end{rmk}
+
+        \begin{dfn}
+            [BaireSpace]
+            {Baire 空间}
+            [Baire Space]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 是一个\textbf{Baire 空间}, 当且仅当 \(X\) 中任意可数个稠密开集的交集也是稠密的.
+        \end{dfn}
+
+        \begin{thm}
+            {完备度量空间一个是 Baire 空间}
+            设 \(X\) 是一个完备度量空间, 则 \(X\) 是一个 Baire 空间.
+        \end{thm}
+
+        \begin{thm}
+            [BCT]
+            {Baire 纲定理}
+            [Baire Category Theorem]
+            Baire 空间本身一定是第二纲的.
+        \end{thm}
+
+        \begin{prf}
+            设 \(\{O_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列稠密开集, 则我们要证明 \(\bigcap_{n=1}^{\infty} O_n\) 是稠密的, 等价于它与任意非空开集都有交集. 设 \(B:=\{y:|y-x|<r\}\) 是一个非空开球, 则我们要证明 \(B\cap \bigcap_{n=1}^{\infty} O_n\neq \varnothing\). \\
+            从 \(O_1\) 开始, 由于 \(O_1\) 是稠密的, \(B(x,r)\) 与 \(O_1\) 有交集. 从而存在 \(x_1\in O_1\cap B\), \(r_1<\frac{r}{2}\) 使得 \(B(x_1,r_1)\subseteq O_1\cap B\). 从 \(O_2\) 开始, 由于 \(O_2\) 是稠密的, \(B(x_1,r_1)\) 与 \(O_2\) 有交集. 从而存在 \(x_2\in O_2\cap B(x_1,r_1)\), \(r_2<\frac{r}{4}\) 使得 \(B(x_2,r_2)\subseteq O_2\cap B(x_1,r_1)\). 重复这个过程, 可以得到一列点 \(\{x_n\}_{n=1}^{\infty}\) 和一列半径 \(\{r_n\}_{n=1}^{\infty}\), 使得
+            \[|x_n-x_{n+p}|<r_p\]
+            这说明 \(\{x_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一个 Cauchy 列. 由于 \(X\) 是完备的, \(\{x_n\}_{n=1}^{\infty}\) 收敛到 \(X\) 中的一个点 \(x_0\). 
+            \[x_0\in \bigcap_{n=1}^{\infty} O_n\]
+            因此 \(B\cap \bigcap_{n=1}^{\infty} O_n\neq \varnothing\). 证毕.
+            \tcbline
+            该性质的对偶结论为: Baire 空间中可数个无处稠密的闭集的并有空的内部. 如果某个 Baire 空间是第一纲的, 那么它就可以表示为可数个无处稠密的闭集的并, 从而它的内部是空的. 这是不可能发生的.
+        \end{prf}
+
+        \begin{ppt}
+            {余纲集的等价定义}
+            Baire 空间中的 \(X\) 中的集合 \(A\) 是余纲集当且仅当存在 G-delta 集 \(G\) 使得 \(G\subseteq A\), \(\overline{G}=A\).
+        \end{ppt}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{F-sigma 集是可数闭集的并集, G-delta 集是可数开集的交集}.\\
+            定义一个集合 \(A\) 是一个 F-sigma 集当且仅当 \(A\) 可以表示为可数个闭集的并集. 定义一个集合 \(B\) 是一个 G-delta 集当且仅当 \(B\) 可以表示为可数个开集的交集.\\
+            理解符号的含义有助于记忆:
+            \begin{itemize}
+                \item F-sigma 集中的 F 代表法语单词 ``Fermé'', 意为 ``闭集'', sigma 代表法语单词 ``Somme'', 意为``并'', 因此 F-sigma 集是可数闭集的并集.
+                \item G-delta 集中的 G 代表德语单词 ``Gebiet'', 意为 ``区域(开集)'', delta 代表德语单词 ``Durchschnitt'', 意为``交'', 因此 G-delta 集是可数开集的交集.
+            \end{itemize}
+        \end{rmk}
+
+        \begin{prf}
+            "(\(\impliedby\))": 设 \(E\supseteq G:=\bigcap_{n=1}^{\infty} O_n\). 则 \(O_n\) 必定是一列稠密开集, 否则 \(G\) 就不是稠密的了. 从而根据上面的性质, \(E\) 是余纲集. \\
+            "(\(\implies\))": 设 \(E\) 是余纲集. 则 \(X\setminus E\) 是第一纲集. 即
+            \[X\setminus E=\bigcup_{n=1}^{\infty} A_n, \interior(\overline{A_n})=\varnothing.\]
+            那么
+            \[E=X\setminus\qty(\bigcup_{n=1}^{\infty}A_n)=\bigcap_{i=1}^{\infty}(X\setminus A_n)\supseteq\bigcap_{n=1}^{\infty}(X\setminus\overline{A_n} )=:G \]
+            这就证明了 \(E\) 包含了稠密的 G-delta 集 \(G\).
+        \end{prf}
+
+        \begin{ppt}
+            {Baire 空间中的余纲集是第二纲集}
+            显然它不是第一纲集.
+        \end{ppt}
+
+        \begin{ins}
+            {连续函数空间中处处不可微的函数是一个余纲集}
+            装备了上确界范数的连续函数空间 \(C[0,1], \norm{\cdot}_{\infty}\) 中的处处不可微的函数集合是余纲集.\\
+            我们考虑至少在某一点可微的函数集 \(Y\):
+            \[Y\subset\bigcup_{n=1}^{\infty} \bigcup_{m=1}^{\infty} \qty{f:\exists\,x\in[0,1], 0\leq |x-y|<\frac{1}{n}, |f(x)-f(y)|<m|x-y| }=:\mathcal{D} \]
+            事实上, 只要给 \(f\) 加上高频震荡波, 就可以使得 \(f\) 范数不变但导数变化很剧烈. 从而 \(\mathcal{D}\) 是第一纲集.
+        \end{ins}
+
+        \begin{ins}
+            {存在零测的余纲集}
+            将 \([0,1]\) 的有理数枚举为 \(q_i\) 并定义区间
+            \[I_{i,j}:=\qty(q_i-\frac{1}{i+j},q_i+\frac{1}{i+j})\]
+            定义
+            \[G_j:=\bigcup_{i=1}^{\infty}I_{i,j}\]
+            \[B:=\bigcap_{j=1}^{\infty}G_j\]
+            则 \(G\) 有以下性质:
+            \begin{enumerate}[label=(\arabic*)]
+                \item \(G\) 是 G-delta 集, 因为 \(G\) 是可数个开集的交集;
+                \item \(G\) 是余纲集, 因为它是可数的稠密开集 \(G_j\) 的交集;
+                \item \(G\) 的外测度为零.
+            \end{enumerate}
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            这说明测度意义下的 ``大'' 和 Baire 纲意义下的 ``大'' 是不同的概念. 例如上面的集合 \(G\) 在测度意义下是一个零测集, 但在 Baire 纲意义下却是一个余纲集, 也就是一个 ``大'' 集.\\
+            四类集合都有例子:
+            \begin{center}
+                \begin{tabular}{c|cc}
+                    & 零测集 & 正测度的 Lebesgue 可测集 \\
+                    \hline
+                    第一纲集 & \(\Q\) & \([0,1]\setminus G\) \\
+                    余纲集 & \(G\) & \([0,1]\)
+                \end{tabular}
+            \end{center}
+        \end{rmk}
+
+        \begin{ins}
+            {不存在仅在有理点连续的函数}
+            设 \(f:[0,1]\to\R\). 则我们知道存在仅在无理点连续的函数 \(f\), 例如 Dirichlet 函数. 但是不存在仅在有理点连续的函数. \\
+            更一般地, 设度量空间 $X,Y$, 函数 $f:X \to Y$, 则 $f$ 的连续点集是一个 G-delta 集. \\
+            因此, 仅在有理数点连续的函数不存在, 因为 $\Q$ 不是 G-delta 集. 但仅在无理数点连续的函数存在, 因为 $\R \setminus \Q$ 是 G-delta 集.
+        \end{ins}
+
+        \begin{ins}
+            {无穷可微函数的性质}
+            设 \(f\) 是无穷阶可微的实函数, 并且 \(\forall\,n\in\N, \exists\,x\in\R\) s.t. \(f^{(n)}(x)=0\), 则 \(f\) 是一个多项式函数.
+        \end{ins}
 
 \end{document}
