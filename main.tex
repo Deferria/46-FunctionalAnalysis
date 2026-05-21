@@ -273,10 +273,15 @@
 
 \DeclareMathOperator{\F}{\mathbb{F}}                    % Number Field (F)
 \DeclareMathOperator{\mlim}{\xrightarrow{m}}
+\DeclareMathOperator{\wlim}{\xrightarrow{w}}
+\DeclareMathOperator{\wslim}{\xrightarrow{w^*}}
 \DeclareMathOperator{\aelim}{\xrightarrow{\text{a.e.}}}
+\DeclareMathOperator*{\esssup}{\mathrm{ess\,sup}}              % Essential Supremum
 
 % Operators
 \DeclareMathOperator{\blo}{\mathscr{B}}
+\DeclareMathOperator{\Cont}{\mathrm{C}}
+\NewDocumentCommand{\Lp}{O{p}}{\mathrm{L}^{#1}}
 \DeclareMathOperator{\ordinal}{\mathbb{O}}
 
 % Hyperrefs
@@ -340,6 +345,36 @@
 由于作者水平有限, 笔记中难免存在错误, 欢迎指正.
 
 \newpage
+\begin{center}
+    \Large\textbf{符号表与索引}
+\end{center}
+\begin{center}
+    \begin{tabular}{c|c}
+        \toprule
+        \textbf{符号} & \textbf{含义} \\
+        \midrule
+        \(\N\) & 自然数集 \\
+        \(\Z\) & 整数集 \\
+        \(\Q\) & 有理数集 \\
+        \(\R\) & 实数集 \\
+        \(\C\) & 复数集 \\
+        \(\ordinal\) & \hyperref[dfn:Ordinal]{序数} \\
+        \(\D\) & \(\R^2\) 或 \(\C\) 中的单位圆盘 \\
+        \(\card\) & \hyperref[dfn:Cardinal]{集合的基数} \\
+        \(\dist\) & 点/集合间的距离 \\
+        \(\spn\) & 向量空间中的线性张成 \\
+        \(\interior\) & 集合的内部 \\
+        \(\img\) & 映射的像集 \\
+        \(\blo\) & \hyperref[dfn:BLO]{有界线性算子的集合} \\
+        \(\Cont(X)\) & \(X\) 上的连续函数空间 \\
+        \(\Lp(X)\) & \(X\) 上的 \(p\)-\hyperref[xmp:LP]{可积函数空间} \\
+        \(\langle\cdot,\cdot\rangle\) & \hyperref[dfn:InnerProduct]{内积} \\
+        \(S^\perp\) & 向量空间中子集 \(S\) 的\hyperref[dfn:OrthogonalComplement]{正交补} \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\newpage
+
 \section{基本定义}
 
     \subsection{Banach 空间}
@@ -369,6 +404,18 @@
         \end{rmk}
 
         \begin{dfn}
+            {Cauchy 列}
+            [Cauchy Sequence]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 中的一个序列 \(\{x_n\}\) 是一个\textbf{Cauchy 列}, 当且仅当对于任意 \(\varepsilon>0\), 存在 \(N\in\N\) 使得当 \(m,n>N\) 时, \(\norm{x_n-x_m}<\varepsilon\).
+        \end{dfn}
+        
+        \begin{dfn}
+            {完备}
+            [Completeness]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{完备的}, 当且仅当 \(X\) 中的每个 Cauchy 列都收敛于 \(X\) 中的某个元素.
+        \end{dfn}
+
+        \begin{dfn}
             [BS]
             {Banach 空间}
             [Banach Space]
@@ -379,6 +426,50 @@
             [Dedicatia]
             所谓\textbf{完备}, 就是 \(X\) 中的每个 Cauchy 列都收敛于 \(X\) 中的某个元素.
         \end{rmk}
+
+        \begin{ins}
+            [Euclid]
+            {配备 \(p\) 范数的有限维 Euclid 空间是 Banach 空间}
+            设 \(n\in\N\), \(1<p<\infty\), 定义 \(\R^n\) 上的范数 \(\norm{\cdot}_p\) 为
+            \[\norm{x}_p=\left(\sum_{i=1}^n\abs{x_i}^p\right)^{\frac{1}{p}}, \forall x=(x_1,\cdots,x_n)\in\R^n\]
+            则 \((\R^n, \norm{\cdot}_p)\) 是 Banach 空间.\\
+            当 \(p=\infty\) 时, 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{x}_\infty=\max_{1\leq i\leq n}\abs{x_i}, \forall x=(x_1,\cdots,x_n)\in\R^n\]
+            则 \((\R^n, \norm{\cdot}_\infty)\) 也是 Banach 空间.
+            \tcbline
+            可以验证范数的三个条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item 正定性: \(\norm{x}_p=0\) 当且仅当 \(x=0\). 
+                \item 绝对齐次性: \(\norm{\alpha x}_p=\abs{\alpha}\norm{x}_p\), \(\forall \alpha\in\R, x\in\R^n\). 
+                \item 次可加性: 使用 Holder 不等式证明.
+            \end{enumerate}
+            然后证明完备性即可.
+        \end{ins}
+
+        \begin{ins}
+            {配备 \(p\) 范数的可和序列空间是 Banach 空间}
+            设 \(1\leq p<\infty\), 定义 \(\ell^p\) 为所有满足 \(\sum_{i=1}^\infty\abs{x_i}^p<\infty\) 的序列 \(x=(x_1,x_2,\cdots)\) 的集合. 定义 \(\norm{\cdot}_p\) 为
+            \[\norm{x}_p=\left(\sum_{i=1}^\infty\abs{x_i}^p\right)^{\frac{1}{p}}, \forall x=(x_1,x_2,\cdots)\in\ell^p\]
+            则 \((\ell^p, \norm{\cdot}_p)\) 是 Banach 空间.\\
+            当 \(p=\infty\) 时, 定义 \(\ell^\infty\) 为所有有界序列, 即满足 \(\sup_{i\in\N}\abs{x_i}<\infty\) 的序列 \(x=(x_1,x_2,\cdots)\) 的集合. 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{x}_\infty=\sup_{i\in\N}\abs{x_i}, \forall x=(x_1,x_2,\cdots)\in\ell^\infty\]
+        \end{ins}
+
+        \begin{ins}
+            {配备上确界范数的连续函数空间是 Banach 空间}
+            设 \(X\) 是紧度量空间, 定义 \(\Cont(X)\) 为 \(X\) 上的连续函数空间. 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{f}_\infty=\sup_{x\in X}\abs{f(x)}, \forall f\in\Cont(X)\]
+            则 \((\Cont(X), \norm{\cdot}_\infty)\) 是 Banach 空间.
+            \tcbline
+            证明的思路如下: 首先 \(\norm{\cdot}_\infty\) 确实是一个范数. 接下来我们只需考虑它是完备的, 也就是证明一致收敛保持连续性.\\
+            对于 \(\Cont(X)\) 中的函数列 \(\{f_n\}_{n=1}^\infty\), 考虑极限函数 \(f(x)=\lim_{n\to\infty}f_n(x)\). 因为 \(\{f_n\}\) 是 Cauchy 列, 所以对于任意 \(\varepsilon>0\), 存在 \(N\in\N\) 使得当 \(m,n>N\) 时, \(\norm{f_n-f_m}_\infty<\varepsilon\). 从而对于任意 \(x\in X\), \(\abs{f_n(x)-f_m(x)}<\varepsilon\). 这说明 \(\{f_n(x)\}\) 是一个 Cauchy 列. \\
+            因为 \(\R\) 是完备的, 所以 \(\{f_n(x)\}\) 收敛于某个实数 \(f(x)\). 接下来证明 \(f\) 是连续的. 设 \(x_0\in X\), 设 \(\varepsilon>0\). 因为 \(\{f_n\}\) 是 Cauchy 列, 所以存在 \(N\in\N\) 使得当 \(n>N\) 时, \(\norm{f_n-f}_\infty<\varepsilon/3\). 从而对于任意 \(x\in X\), \(\abs{f_n(x)-f(x)}<\varepsilon/3\). 因为 \(f_{N+1}\) 是连续的, 所以存在 \(\delta>0\) 使得当 \(d(x,x_0)<\delta\) 时, \(\abs{f_{N+1}(x)-f_{N+1}(x_0)}<\varepsilon/3\). 从而当 \(d(x,x_0)<\delta\) 时,
+            \begin{align*}
+            \abs{f(x)-f(x_0)} &\leq \abs{f(x)-f_{N+1}(x)} + \abs{f_{N+1}(x)-f_{N+1}(x_0)} + \abs{f_{N+1}(x_0)-f(x_0)} \\
+            &< \varepsilon/3 + \varepsilon/3 + \varepsilon/3 = \varepsilon
+            \end{align*}
+            从而 \(f\) 是连续的. 
+        \end{ins}
 
         \begin{thm}
             {Banach 空间的子空间是 Banach 空间的充要条件}
@@ -524,6 +615,27 @@
             设 $X$ 是 Banach 空间, $T \in \blo(X,X)$ 是双射, 则 $T^{-1} \in \blo (X,X)$.
         \end{thm}
 
+        \begin{ins}
+            {全矩阵空间是 Banach 空间}
+            全体矩阵 \(M_{m\times n}(\R)\cong\blo(\R^n, \R^m)\) 是 Banach 空间, 其范数定义为
+            \[\norm{A}=\sup_{\norm{x}=1}\norm{Ax}\]
+            且满足 \(\dim M_{m\times n}(\R)=mn\).
+        \end{ins}
+
+        \begin{ins}
+            {积分算子是有界线性算子}
+            定义算子 \(T:\Cont([0,1])\to\Cont([0,1])\) 使得
+            \[Tf(x)=\int_0^x f(t)dt\]
+            则 \(T\) 是一个有界线性算子, 且 \(\norm{T}=1\).
+        \end{ins}
+
+        \begin{cxmp}
+            {微分算子不是有界线性算子}
+            定义算子 \(D:\Cont^1([0,1])\to\Cont([0,1])\) 使得
+            \[Df(x)=f'(x)\]
+            则 \(D\) 不是一个有界线性算子. 这是因为考虑函数列 \(f_n=x^n\), 则 \(\norm{f_n}_\infty=1\), 但 \(\norm{Df_n}_\infty=n\to\infty\).
+        \end{cxmp}
+
         \begin{vardfn}
             {Banach 代数}
             [Banach Algebra]
@@ -605,6 +717,19 @@
             继续: \(x_1, x_2\) 张成了子空间 \(X_2:=\{\alpha x_1+\beta x_2: \alpha, \beta \in \R\}\), 根据 Riesz 引理, 存在 \(x_3\in X\) 使得 \(\norm{x_3}=1\) 且 \(\inf_{x\in X_2}\norm{x_3-x}\geq\frac{1}{2}\). \\
             以此类推, 可以得到一列 \(\{x_n\}\) 使得 \(\norm{x_n}=1\) 且 \(\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\), 其中 \(X_{n-1}=\{\sum_{i=1}^{n-1}\alpha_i x_i: \alpha_i \in \R\}\). 则对于任意 \(m<n\), \(\norm{x_n-x_m}=\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\). 从而 \(\{x_n\}\) 中不存在收敛子列. 因此单位闭球不是紧的.
         \end{prf}
+
+        \begin{cxmp}
+            {连续函数空间的单位闭球不是紧的}
+            定义 \(\Cont([0,1])\) 上的函数列为
+            \[f_n(x) = x^n\]
+            则可以验证 \(\norm{f_n}_\infty=1\), 这是一个有界函数列, 它确实在单位闭球中, 但 \(f_n\) 的极限函数是
+            \[f(x) = \begin{cases}
+                0, & x\in[0,1) \\
+                1, & x=1
+            \end{cases}\]
+            这说明 \(\{f_n\}\) 中不存在收敛子列. 从而 \(\Cont([0,1])\) 的单位闭球不是序列紧的, 从而不是紧的.\\
+            这个函数列不是 Cauchy 列, 也不具有一致收敛极限. 因此它不能用来说明 \(\Cont([0,1])\) 不是 Banach 空间.
+        \end{cxmp}
 
         \begin{thm}
             {有限维赋范线性空间同构定理}
@@ -688,6 +813,12 @@
 
     \subsection{Hilbert 空间}
 
+        \begin{intrormk}
+            [Dedicatia]
+            Hilbert 空间被称为``最像 Euclid 空间的 Banach 空间'', 因为它具有内积结构, 可以定义角度和正交. 这使得 Hilbert 空间在数学和物理中都有广泛的应用.\\
+            本节我们就来介绍一下 Hilbert 空间的基本概念和性质.
+        \end{intrormk}
+
         \begin{dfn}
             [InnerProduct]
             {内积}
@@ -750,12 +881,6 @@
             [Dedicatia]
             平行四边形法则是很强的限制. 这说明了多数范数都不来源于内积.
         \end{rmk}
-
-        \begin{ins}
-            {\(L^p\) 空间族中的 Hilbert 空间}
-            在 \(L^p\) 空间族中, 只有当 \(p=2\) 时, \(L^p\) 空间才是 Hilbert 空间. \\
-            这是因为只有当 \(p=2\) 时, \(L^p\) 空间满足平行四边形法则.
-        \end{ins}
 
         \begin{thm}
             {赋范线性空间的内积的显式表示 / 极化恒等式}
@@ -919,6 +1044,30 @@
             若存在可数的稠密子集, 则可以利用正交化过程得到可数的标准正交基.
         \end{prf}
 
+        \begin{thm}
+            [Riesz.Hilbert]
+            {Hilbert 空间的 Riesz 表示定理}
+            [Riesz Representation Theorem for Hilbert Spaces]
+            \(X\) 是 Hilbert 空间, 则 \(X\cong X^*\). 其中的等距同构为:\\
+            给定 \(f\in X^*\), 存在唯一的 \(x\in X\) 使得
+            \[\forall y\in X, f(y)=\langle y,x\rangle\]
+            且
+            \[\norm{f}_{X^*}=\norm{x}_X.\]
+        \end{thm}
+
+        \begin{prf}
+            我们仅考虑实的情况, 复数域上的情况类似.
+            若 \(f=0\), 则取 \(x=0\) 即可. \\
+            否则, \(Z:=\{y\in X: f(y)=0\}\), 则 \(Z=\ker f\) 是一个闭子空间. Hilbert 空间 \(X=Z\oplus Z^\perp\). 取 \(x_0\in Z^\perp\), 则 \(\forall\,y\in X\):
+            \[y-\frac{f(y)}{f(x_0)x_0}\in Z\implies\left\langle y-\frac{f(y)}{f(x_0)}, x_0\right\rangle =0\implies f(y)=\frac{f(x_0)}{\norm{x_0}^2}\left\langle y,x_0\right\rangle  \]
+            设 \(x=\frac{f(x_0)}{\norm{x_0}^2}x_0\), 则
+            \[\forall y\in X, f(y)=\langle y,x\rangle.\]
+            下面考虑等距性
+            \[|f(y)|=|\left\langle y,x\right\rangle|\leq\norm{y}\norm{x} \implies \norm{f}_{X^*}\leq\norm{x}_X.\]
+            等号取到的原因是范数的定义
+            \[\norm{f}_{X^*}\geq\frac{|f(x)|}{\norm{x}}=\frac{|\langle x,x\rangle|}{\norm{x}}=\norm{x}.\]
+        \end{prf}
+
 \section{线性泛函分析基础}
 
     \subsection{Hahn-Banach 定理}
@@ -955,8 +1104,8 @@
         \end{ppt}
 
         \begin{ins}
-            {\(L^p\) 空间上的 \(L^p\) 半范数诱导的范数}
-            取等价类为几乎处处相等的函数, 则 $L^p$ 半范数在 $L^p$ 空间上成为范数. 这也是我们一般认为的 $L^p$ 空间的定义. 严格上认为 \(L^p\) 空间中的元素是函数的等价类而不是函数本身.
+            {\(\Lp\) 空间上的 \(\Lp\) 半范数诱导的范数}
+            取等价类为几乎处处相等的函数, 则 $\Lp$ 半范数在 $\Lp$ 空间上成为范数. 这也是我们一般认为的 $\Lp$ 空间的定义. 严格上认为 \(\Lp\) 空间中的元素是函数的等价类而不是函数本身.
         \end{ins}
 
         \begin{dfn}
@@ -1235,6 +1384,7 @@
         \end{rmk}
 
         \begin{vardfn}
+            [Cardinal]
             {基数}
             [Cardinal]
             基数是所有按双射同构的集合的等价类.
@@ -1827,5 +1977,165 @@
             则 \(\mathcal{N}\) 是 \(X^*\) 中的一个线性子空间且使得: \(\forall \lambda\in\R, |F(\lambda f)|\leq 1\), 所以 \(F(f)=0\) 对任意 \(f\in\mathcal{N}\) 都成立. 所以
             \[F = \sum_{i=1}^n \alpha_i J_X(x_i).\]
         \end{prf}
+
+        \begin{dfn}
+            [WeakConvergence]
+            {弱收敛}
+            [Weak Convergence]
+            设 \(X\) 是一个赋范线性空间, \(\{x_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列元素, \(x\in X\). 定义 \(\{x_n\}_{n=1}^{\infty}\) \textbf{弱收敛}到 \(x\), 当且仅当 \(\forall\,f\in X^*, f(x_n)\to f(x)\).\\
+            记作 \(x_n\wlim x\).
+        \end{dfn}
+
+        \begin{dfn}
+            [WeakstarConvergence]
+            {弱*收敛}
+            [Weak-star Convergence]
+            设 \(X\) 是一个赋范线性空间, \(\{f_n\}_{n=1}^{\infty}\) 是 \(X^*\) 中的一列元素, \(f\in X^*\). 定义 \(\{f_n\}_{n=1}^{\infty}\) \textbf{弱*收敛}到 \(f\), 当且仅当 \(\forall\,x\in X, f_n(x)\to f(x)\).\\
+            记作 \(f_n\wslim f\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            弱收敛/弱*收敛就是在弱拓扑/弱*拓扑下的收敛方式.
+        \end{rmk}
+
+    \subsection{【实分析】Lp 空间}
+
+        \begin{intrormk}
+            [Dedicatia]
+            在实分析中, 最常用的具有研究价值的空间就是 \(\Lp\) 可积函数空间. 本节我们将以 \(\Lp\) 空间为例, 来介绍弱拓扑和弱*拓扑在实分析中的应用. 通过对 \(\Lp\) 空间中函数的弱收敛和弱*收敛的研究, 我们可以更深入地理解函数空间的结构和性质.
+        \end{intrormk}
+
+        \begin{ins}
+            [LP]
+            {Lp 空间}
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(1\leq p < +\infty\). 定义 \(\Lp(X)\) 是所有满足 \(\int_X |f|^p \dd{m} < +\infty\) 的可测函数 \(f\) 的集合. 定义 \(L^\infty(X)\) 是所有满足 \(\esssup\limits_{x\in X} |f(x)| < +\infty\) 的可测函数 \(f\) 的集合, 统称为 \(\Lp\) 空间.
+        \end{ins}
+
+        \begin{varthm}
+            {Lp 空间是赋范线性空间}
+            \(\Lp\) 空间上定义范数
+            \[\norm{f}_p = \begin{cases}
+                \left(\int_X |f|^p \dd{m}\right)^{\frac{1}{p}}, & 1\leq p < +\infty;\\
+                \esssup\limits_{x\in X} |f(x)|, & p = +\infty.
+            \end{cases}\]
+            则 \(\Lp(X)\) 是一个赋范线性空间.
+        \end{varthm}
+
+        \begin{prf}
+            先证明 Holder 不等式
+            \[\int_X |fg| \dd{m} \leq \norm{f}_p \norm{g}_q\]
+            其中 \(1<p,q<\infty\). 设 \(y=\phi(x)\) 是一个严格递增的连续函数, \(x=\psi(y)\) 是其反函数. 则下列不等式成立:
+            \[\int_0^a \phi(x)\dd{x}+\int_0^b \psi(y)\dd{y} \geq ab\]
+            取等条件为 \(b=\phi(a)\). 则令 \(\phi(x)=x^{p-1}, \psi(y)=y^{q-1}\), 得到
+            \[\int_0^a x^{p-1}\dd{x}+\int_0^b y^{q-1}\dd{y} = \frac{a^p}{p} + \frac{b^q}{q} \geq ab\]
+            记作
+            \[A^{1/p}B^{1/q} \geq \frac{A}{p}+\frac{B}{q}.\]
+            现在来证明 Holder 不等式. 如果 \(\norm{f}_p\) 或 \(\norm{g}_q\) 中至少有一个为零, 则不等式显然成立. \\
+            否则, 取 \(\phi(x)=\frac{f(x)}{\norm{f}_p}\), \(\psi(y)=\frac{g(y)}{\norm{g}_q}\), \(A=|\phi(x)|^p\), \(B=|\psi(x)|^q\), 则
+            \[|\phi(x)\psi(x)|\leq\frac{|\phi(x)|^p}{p}+\frac{|\psi(x)|^q}{q}\]
+            积分, 得
+            \[\int_X |\phi\psi| \dd{m} \leq \frac{1}{p}\int_X |\phi|^p \dd{m} + \frac{1}{q}\int_X |\psi|^q \dd{m} = 1.\]
+            换回 \(f,g\), 得到
+            \[\int_X |fg| \dd{m} \leq \norm{f}_p \norm{g}_q.\]
+            我们验证范数前两个性质:
+            \begin{enumerate}[label=(\roman*)]
+                \item 正定性: 由于是对非负函数积分, 所以显然是非负的. 由于将 Lp 空间中的元素视作等价类, 所以 \(\norm{f}_p=0\) 当且仅当 \(f=0\) a.e., 正定性得证;
+                \item 绝对齐次性: \(\norm{\lambda f}_p = |\lambda| \norm{f}_p\) 显然成立.
+            \end{enumerate}
+            接下来证明 Minkowski 不等式
+            \[\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.\]
+            特殊情况1: 如果 \(p=1\), 则不等式显然成立. \\
+            特殊情况2: 如果 \(\norm{f+g}_p=0\), 不等式也成立. \\
+            令 \(1/p+1/q=1\), 由 Holder 不等式得到
+            \[\int_X|f||f+g|^{p/q}\dd{m}\leq\qty(\int_X|f|^p\dd{m})^{1/p}\qty(\int_X|f+g|^q\dd{m})^{1/q}\]
+            \[\int_X|g||f+g|^{p/q}\dd{m}\leq\qty(\int_X|g|^p\dd{m})^{1/p}\qty(\int_X|f+g|^q\dd{m})^{1/q}\]
+            从而
+            \[\int_X |f+g|^p\dd{m}=\int_X |f+g|^{1+\frac{p}{q}}\dd{m}\leq\int_X(|f|+|g|)\cdot|f+g|^{p/q}\dd{m}\]
+            由 Holder 不等式, 得到
+            \[\int_X |f+g|^p\dd{m} \leq (\norm{f}_p + \norm{g}_p) \norm{f+g}_p^{p-1}.\]
+            除以 \(\norm{f+g}_p^{p-1}\), 得到
+            \[\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.\]
+            这就说明了范数满足次可加性. 所以 \(\Lp(X)\) 是一个赋范线性空间.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            习惯上称 Lp 空间中的依范数收敛为\textbf{均方收敛} / \textbf{平均收敛} / \textbf{Lp 收敛}, 以区别于其他的收敛方式, i.e. 依测度收敛和几乎处处收敛.
+        \end{rmk}
+
+        \begin{vardfn}
+            {依测度收敛}
+            [Convergence in Measure]
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(\{f_n\}_{n=1}^{\infty}\) 是 \(\Lp(X)\) 中的可积函数列, \(f\in \Lp(X)\). 定义 \(\{f_n\}_{n=1}^{\infty}\) \textbf{依测度收敛}到 \(f\), 当且仅当 
+            \[\forall\,\epsilon>0, m(\{x\in X: |f_n(x)-f(x)|>\epsilon\})\to 0.\]
+            记作 \(f_n\mlim f\).
+        \end{vardfn}
+
+        \begin{varthm}
+            {均方收敛蕴含依测度收敛}
+            设 \(\{f_n\}\) 是 \(\Lp(X)\) 中的可积函数列, \(f\in \Lp(X)\). 则
+            \[\int_X |f_n-f|^p \dd{m} \to 0 \implies f_n\mlim f.\]
+        \end{varthm}
+
+        \begin{prf}
+            任取 \(\delta>0\), 
+            \[\int_X|f_n-f|^p\dd{m}\geq\int_{X\cap \{x:|f_n(x)-f(x)|\geq\delta\}}|f_n-f|^p\dd{m}\geq\delta^p m\qty(\{x:|f_n(x)-f(x)|\geq\delta\}).\]
+            令 \(n\to\infty\).
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            依测度收敛是很弱的收敛方式. 为 \(X=[0,1]\) 配备 Lebesgue 测度, 则得到\textbf{概率空间}, 依测度收敛就是概率意义下的收敛, 这时也称为也\textbf{依概率收敛}. 它的含义是某件事情发生的概率越来越大, 但并不能阻止它不发生.
+        \end{rmk}
+
+        \begin{varthm}
+            {Lp 空间是 Banach 空间}
+            \(\Lp(X)\) 是一个 Banach 空间.
+        \end{varthm}
+
+        \begin{prf}
+            我们这里仅证明 \(1\leq n<\infty\) 的情况:
+            设 \(\{f_n\}\) 是 Cauchy 列. 对任何 \(\delta>0\), 
+            \[m(\{x\in X : |f_n(x)-f_m(x)|\geq\delta\}) < \frac{1}{\delta}\qty(\int_X |f_n-f_m|^p \dd{m})^{1/p}=\frac{1}{\delta} \norm{f_n-f_m}_p\]
+            这表明了 \(\{f_n\}\) 是依测度收敛的 Cauchy 列. 设 \(f\) 是 \(\{f_n\}\) 的一个依测度收敛的极限. 则根据 F.Riesz 定理, 存在一个子列 \(\{f_{n_k}\}\) 使得 \(\{f_{n_k}\}\) 几乎处处收敛到 \(f\). 取 
+            \[\norm{f_n-f_{n_k}}<\epsilon\]
+            根据 Fatou 引理, 固定 \(n\),
+            \[\epsilon\geq\lim_{k\to\infty}\norm{f_{n_k}-f_n}_p=\lim_{k\to\infty}\qty(\int_X |f_{n_k}-f_n|^p \dd{m})^{1/p}=\qty(\lim_{k\to\infty}\int_X |f_{n_k}-f_n|^p \dd{m})^{1/p}\]
+            \[\geq\qty(\int_X |f_n-f|^p \dd{m})^{1/p}=\norm{f_n-f}_p\]
+            这表明了当 \(n\) 足够大的时候, \(\norm{f_n-f}_p<\epsilon\). 从而 \(\{f_n\}\) 依范数收敛到 \(f\). 这就说明了 \(\Lp(X)\) 是完备的.
+        \end{prf}
+
+        \begin{thm}
+            {Lp 空间的对偶空间}
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(1\leq p < +\infty\), 则 \(\Lp(X)^* \cong L^q(X)\), 其中 \(1/p+1/q=1\). 
+        \end{thm}
+
+        \begin{prf}
+            我们只需给出一个等距同构:
+            定义
+            \[T:\qquad\begin{matrix}
+                L^q(X) & \to & \Lp(X)^*\\
+                g & \mapsto & T_g:=\qty(f\mapsto\int_X fg \dd{m})
+            \end{matrix}\]
+            其证明与\hyperref[thm:Riesz.Hilbert]{Riesz 表示定理}类似.
+        \end{prf}
+
+        \begin{ins}
+            {L2 空间是 Lp 空间中唯一的 Hilbert 空间}
+            \(\Lp[2](X)\) 是一个 Hilbert 空间, 内积定义为
+            \[\langle f, g\rangle = \int_X f\cdot\overline{g} \dd{m}.\]
+            这是因为只有 \(\Lp[2]\) 空间是自反的.
+        \end{ins}
+
+        \begin{thm}
+            {Lp 空间的自反性}
+            Lp 空间是自反的当且仅当 \(1<p<\infty\).
+        \end{thm}
+
+        \begin{cxmp}
+            {L1 空间的非自反性}
+            \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). 
+        \end{cxmp}
 
 \end{document}
