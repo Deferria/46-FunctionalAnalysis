@@ -73,6 +73,7 @@
 }
 
 \usepackage[most]{tcolorbox}
+\usepackage{fontawesome5}
 
 \newtcbox{\highl}[1][red]{on line,
     arc=0pt,outer arc=0pt,colback=#1!10!white,colframe=#1!50!black,
@@ -152,7 +153,7 @@
 }{\end{tcolorbox}}
 
 \NewDocumentEnvironment{varthm}{s o m s o O{contributor}}{\begin{tcolorbox} % bool(newline), label, name, bool(contributor displayed), subname, contributor
-    [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, interior style={left color=blue1, right color=blue3, middle color=white}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
+    [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}}
@@ -726,7 +727,7 @@
         \end{rmk}
 
         \begin{thm}
-            {Cahchy-Schwarz 不等式}
+            {Cauchy-Schwarz 不等式}
             [Cauchy-Schwarz Inequality]
             设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(\norm{\cdot}\) 是由内积诱导的范数. 则对于任意 \(x,y\in X\), 都有
             \[\abs{\langle x,y\rangle}\leq\norm{x}\norm{y}.\]
@@ -816,7 +817,7 @@
             \[\lambda=\frac{\langle x-y_0, z\rangle}{\norm{z}^2}\]
             则
             \[d^2\leq d^2-\frac{|\langle x-y_0, z\rangle|^2}{\norm{z}^2}\]
-            因此只能有 \(\langle x-y_0, z\rangle=0\). 从而 \(x-y_0\in Y^\perp\).\\
+            因此只能有 \(\langle x-y_0, z\rangle=0\). 从而 \(x-y_0\in Y^\perp\).
         \end{prf}
 
         \begin{ppt}
@@ -912,7 +913,7 @@
             取 \(X\) 的一个可数的标准正交基 \(\{e_n\}\), 定义映射
             \[T:\qquad\begin{matrix}
                 X & \to & \ell^2 \\
-                x & \mapsto & (\langle x, e_n\rangle)_{n\in\mathbb{N}}
+                x & \mapsto & \qty{\langle x, e_n\rangle}_{n\in\mathbb{N}}
             \end{matrix}\]
             是一个等距同构; 这也正是 Fourier 级数的定义; Fourier 级数张成的线性空间在 \(X\) 中稠密, 也就是说可以用标准正交基的线性组合来逼近 \(X\) 中的任意元素.\\
             若存在可数的稠密子集, 则可以利用正交化过程得到可数的标准正交基.
@@ -1246,7 +1247,7 @@
 
         \begin{ins}
             {不可数无穷基数 / 连续统基数}
-            设 \(\mathfrak{c}\) 是所有可以与实数 \(\R\) 建立双射关系的集合. \(\mathfrak{c}\) 是不可数无穷基数, 也叫连续统基数.
+            设 \(\mathfrak{c}\) 是所有可以与实数 \(\R\) 建立双射关系的集合. \(\mathfrak{c}\) 是\textbf{不可数无穷基数}, 也叫\textbf{连续统基数(Continuum Cardinal)}.
         \end{ins}
 
         \begin{rmk}
@@ -1636,5 +1637,195 @@
             {无穷可微函数的性质}
             设 \(f\) 是无穷阶可微的实函数, 并且 \(\forall\,n\in\N, \exists\,x\in\R\) s.t. \(f^{(n)}(x)=0\), 则 \(f\) 是一个多项式函数.
         \end{ins}
+
+\section{弱拓扑}
+
+    \subsection{【点集拓扑】紧致性与序列紧性}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节先介绍拓扑学中的几个一般概念.
+        \end{intrormk}
+
+        \begin{vardfn}
+            {开覆盖}
+            [Open Cover]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 的一个\textbf{开覆盖}是 \(X\) 中的一族开集 \(\{O_\alpha\}_{\alpha\in I}\), 使得 
+            \[A\subseteq\bigcup_{\alpha\in I} O_\alpha.\]
+            这时也称 \(\{O_\alpha\}_{\alpha\in I}\) 覆盖住了 \(A\).
+        \end{vardfn}
+
+        \begin{vardfn}
+            {紧致集 / 紧集}
+            [Compact Set]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是一个\textbf{紧致集}, 当且仅当 \(A\) 的任意开覆盖都存在一个有限子覆盖. \\
+            也就是说, 对任意 \(A\) 的开覆盖 \(\{O_\alpha\}_{\alpha\in I}\), 都存在 \(\alpha_1,\dots,\alpha_n\in I\) 使得
+            \[A\subseteq\bigcup_{i=1}^n O_{\alpha_i}.\]
+        \end{vardfn}
+
+        \begin{vardfn}
+            {有限交性}
+            [Finite Intersection Property]
+            设 \(X\) 是拓扑空间, \(\{A_\alpha\}_{\alpha\in I}\) 是 \(X\) 中的一族集合. 定义 \(\{A_\alpha\}_{\alpha\in I}\) 满足有限交性当且仅当
+            \[\bigcap_{i=1}^n A_{\alpha_i} \neq \varnothing.\]
+            也就是说, 任意有限个集合的交集都非空.
+        \end{vardfn}
+
+        \begin{varthm}
+            {紧集的等价定义}
+            \(A\) 是 \(X\) 中的紧集当且仅当对 \(X\) 中的任意一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 都满足:
+            若 \(\{F_\alpha\cap A\}_{\alpha\in I}\) 满足有限交性, 则 \(\bigcap_{\alpha\in I} F_\alpha\cap A\neq\varnothing.\)
+        \end{varthm}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个等价定义实际上是使用开集定义的紧集的对偶版本. 只需利用闭集是开集的补、以及 De Morgan 定律就可以证明了.
+        \end{rmk}
+
+        \begin{varthm}
+            {紧集的闭子集是紧的}
+            设 \(A\) 是 \(X\) 中的一个紧集, 则 \(A\) 的任意闭子集 \(B\) 也是 \(X\) 中的一个紧集.
+        \end{varthm}
+
+        \begin{prf}
+            设 \(B\) 是紧集 \(A\) 的闭子集. 则 \(X\) 中的一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 满足 \(\{F_\alpha\cap B\}_{\alpha\in I} = \{(F_\alpha\cap B)\cap A\}_{\alpha\in I}\) 满足有限交性. 利用 \(A\) 的紧性, 
+            \[\bigcap_{\alpha\in I} (F_\alpha\cap B) = \bigcap_{\alpha\in I} ((F_\alpha\cap B)\cap A) \neq \varnothing.\]
+            这就说明了 \(B\) 是紧集.
+        \end{prf}
+
+        \begin{varthm}
+            {连续映射保持紧致性}
+            设 \(f:X\to Y\) 是拓扑空间 \(X\) 到 \(Y\) 的一个连续映射, \(A\subseteq X\) 是 \(X\) 中的一个紧集, 则 \(f(A)\) 是 \(Y\) 中的一个紧集.
+        \end{varthm}
+
+        \begin{prf}
+            设 \(\{O_\alpha\}_{\alpha\in I}\) 是 \(Y\) 中的一族开集, 使得 \(f(A)\subseteq\bigcup_{\alpha\in I} O_\alpha\). 则 \(\{f^{-1}(O_\alpha)\}_{\alpha\in I}\) 是 \(X\) 中的一族开集, 使得
+            \[A\subseteq f^{-1}(f(A)) \subseteq \bigcup_{\alpha\in I} f^{-1}(O_\alpha).\]
+            根据 \(A\) 的紧性, 存在 \(\alpha_1,\dots,\alpha_n\in I\) 使得
+            \[A\subseteq \bigcup_{i=1}^n f^{-1}(O_{\alpha_i}).\]
+            从而
+            \[f(A)\subseteq \bigcup_{i=1}^n O_{\alpha_i}.\]
+            这就说明了 \(f(A)\) 是 \(Y\) 中的一个紧集.
+        \end{prf}
+
+        \begin{varthm}
+            {Tychonoff 定理}
+            设 \(X_\alpha\) 是一族紧拓扑空间. 则积拓扑空间
+            \[\prod_{\alpha\in I} X_\alpha\]
+            是一个紧拓扑空间.
+        \end{varthm}
+
+        \begin{prf}
+            证明该定理需要承认 Zo
+            rn 引理. 设 \(\mathscr{F}\) 是积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 的一族满足有限交性质的闭集. 根据 Zorn 引理, 设 \(\mathscr{P}\) 是任意包含了 \(\mathscr{F}\) 的具有有限交性的闭子集族, 其中偏序关系是 \(\subseteq\), 对于 \(\mathscr{P}\) 的任意全序子集 \(\mathscr{C}\), 都存在一个上界 \(\bigcup\mathscr{C}\). 从而存在一个包含 \(\mathscr{F}\) 的最大的满足有限交性的闭集族 \(\mathscr{E}\).\\
+            令 \(p_\alpha\) 是 积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 上的第 \(\alpha\) 个坐标投影. 对任意 \(E\in\mathscr{E}\), 记 \(E_\alpha = p_\alpha(E)\). 则 \(\{E_\alpha:E\in\mathscr{E}\}\) 也满足有限交性, 也就是
+            \[\bigcap_{i=1}^n E_{\alpha_i} = \bigcap_{i=1}^n p_{\alpha_i}(E) = p_{\alpha_1}\qty(\bigcap_{i=1}^n E_i)\neq\varnothing.\]
+            \bysorry
+        \end{prf}
+
+    \subsection{弱拓扑与弱*拓扑}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节介绍弱拓扑和弱*拓扑. 这是两种在线性空间上定义的比范数拓扑更弱的拓扑. 这两种拓扑在泛函分析中非常重要, 因为它们允许我们在 Banach 空间中讨论收敛性和连续性时使用更宽松的条件.
+        \end{intrormk}
+
+        \begin{dfn}
+            {弱邻域}
+            [Weak Neighborhood]
+            设 \(X\) 是一个赋范线性空间, \(x\in X\). 定义 \(X\) 中的一个集合 \(V\) 是 \(x\) 的一个\textbf{弱邻域}, 当且仅当存在 \(f_1,\dots,f_n\in X^*\), \(\epsilon>0\) 使得
+            \[V\supseteq\bigcap_{i=1}^n \{y\in X: |f_i(y-x)|<\epsilon\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            {弱拓扑}
+            [Weak Topology]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 上的\textbf{弱拓扑}是由 \(X\) 中的所有弱邻域构成的拓扑. 记作 $(X,w_X)$.
+        \end{dfn}
+
+        \begin{thm}
+            {弱拓扑的等价定义}
+            设 \(X\) 是赋范线性空间, \(X\) 上的弱拓扑可以定义为:
+            \begin{enumerate}[label=(\alph*)]
+                \item \(f_i\) 是一族能分离点的线性泛函, 弱拓扑是使得所有 \(f_i\) 都连续的最弱的拓扑;
+                \item 由半范数族 \[\{p_f\}_{f\in X^*}, p_f (x) = |f(x)|\] 生成的拓扑: 弱邻域为 \[\{x\in X: p_{f_i}(x-x_0) < \epsilon,\forall i = 1,\cdots,n\}\]
+            \end{enumerate}
+        \end{thm}
+
+        \begin{prf}
+            这里我们只介绍思路: \\
+            弱拓扑是使得所有线性泛函都连续的最弱的拓扑, 根据拓扑空间连续映射的定义, 泛函映入的标量域的开集的原像必须也是开的. 而根据拓扑空间的定义, 有限多个开集的交是开集, 所以弱邻域的定义就自然地是\textbf{有限多个连续线性泛函的原像的交集}:
+            \[\bigcap_{i=1}^n \{y\in X: |f_i(y-x)|<\epsilon\}\]
+            接下来只需验证这是一族半范数:\begin{enumerate}[label=(\roman*)]
+                \item 非负性: \(p_f(x)=|f(x)|\geq 0\);
+                \item 绝对齐次性: \(p_f(\lambda x)=|\lambda||f(x)|=|\lambda|p_f(x)\);
+                \item 次可加性: \(p_f(x+y)=|f(x+y)|\leq |f(x)|+|f(y)|=p_f(x)+p_f(y)\).
+            \end{enumerate}
+            所以这不过是等价转述了弱邻域的定义而已.
+        \end{prf}
+
+        \begin{ppt}
+            {弱拓扑空间是 Hausdorff 空间}
+        \end{ppt}
+
+        \begin{prf}
+            设 \(x,y\in X, x\neq y\). 根据 Hahn-Banach 定理, \(\exists\,f \in X^*, \forall\,\alpha\in\R, f(x)>\alpha>f(y)\). 从而 \(f\) 是一个连续线性泛函, \(f^{-1}((\alpha,+\infty))\) 和 \(f^{-1}((-\infty,\alpha))\) 是 \(X\) 中的两个弱开集, 分别包含 \(x\) 和 \(y\), 从而 \(X\) 是 Hausdorff 空间.
+        \end{prf}
+
+        \begin{dfn}
+            {弱*邻域}
+            [Weak-star Neighborhood]
+            设 \(X\) 是一个赋范线性空间, \(f\in X^*\). 定义 \(X^*\) 中的一个集合 \(V\) 是 \(f\) 的一个\textbf{弱*邻域}, 当且仅当存在 \(x_1,\dots,x_n\in X\), \(\epsilon>0\) 使得
+            \[V\supseteq\bigcap_{i=1}^n \{g\in X^*: |g(x_i)-f(x_i)|<\epsilon\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            {弱*拓扑}
+            [Weak-star Topology]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X^*\) 上的\textbf{弱*拓扑}是由 \(X^*\) 中的所有弱*邻域构成的拓扑. 记作 \((X^*, w^*)\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            \(X^{**}\) 上的弱*拓扑不一定同胚于 \(X\) 上的弱拓扑. 只有当 \(X\) 是一个自反空间时, \(X^{**}\) 上的弱*拓扑才同胚于 \(X\) 上的弱拓扑.
+        \end{rmk}
+
+        \begin{thm}
+            {有限维空间的弱拓扑、弱*拓扑与范数拓扑一致}
+            设 \(X\) 是赋范线性空间, \(\dim X<+\infty\). 则 \((X, \tau_{\norm{\cdot}})\cong (X, w_X) \cong (X^*,w^*)\)
+        \end{thm}
+
+        \begin{prf}
+            我们仅证明对弱*拓扑的情况. 设 \(O\subseteq X^*\) 是弱*开集, \(f_0\in O\). 设 \(\{e_i\}_{i=1}^n\) 是 \(X\) 的一组基. 定义
+            \[p(f) = \max_{1\leq i\leq n} |f(e_i)|\]
+            则 \(p\) 是 \(X^*\) 上的范数, 且与原先任意一个范数等价. 它诱导的开集
+            \[O'=\{f\in X^*: p(f-f_0)<\epsilon\} = \bigcap_{i=1}^n \{f\in X^*: |f(e_i)-f_0(e_i)|<\epsilon\}\]
+            是一个弱*开集. 这就说明了 \(O'\subseteq O\). 另一方面, 设 \(O''\) 是 \(X^*\) 上的一个弱*开集, \(f_0\in O''\). 则存在 \(x_1,\dots,x_m\in X\), \(\epsilon>0\) 使得
+            \[O''\supseteq\bigcap_{j=1}^m \{f\in X^*: |f(x_j)-f_0(x_j)|<\epsilon\}\]
+            设 \(x_j=\sum_{i=1}^n a_{ij} e_i\). 则
+            \[|f(x_j)-f_0(x_j)| = \left|\sum_{i=1}^n a_{ij} (f(e_i)-f_0(e_i))\right| \leq \sum_{i=1}^n |a_{ij}| |f(e_i)-f_0(e_i)|\]
+            从而
+            \[\bigcap_{j=1}^m \{f\in X^*: |f(x_j)-f_0(x_j)|<\epsilon\} \supseteq \bigcap_{i=1}^n \qty{f\in X^*: |f(e_i)-f_0(e_i)|<\frac{\epsilon}{\sum_{j=1}^m |a_{ij}|}} = O'''\]
+            这就说明了 \(O'''\subseteq O''\). 综上, \(O'''\subseteq O''\subseteq O\). 这就说明了 \(X^*\) 上的任意一个弱*开集都包含了一个范数开集. 从而 \(X^*\) 上的弱*拓扑与范数拓扑一致.
+        \end{prf}
+
+        \begin{thm}
+            {弱*拓扑空间是 Hausdorff 空间}
+            设 \(X\) 是一个赋范线性空间, 则 \((X^*, w^*)\) 是一个 Hausdorff 空间.
+        \end{thm}
+
+        \begin{ppt}
+            {双对偶空间中的弱*连续性}
+            设 \(X\) 是 Banach 空间, \(F\in X^{**}\). 如果 \(F\) 是弱*连续的, 则 \(\exists\,x\in X, \st F=J_X(x)\).
+        \end{ppt}
+
+        \begin{prf}
+            \(F\) 是弱*连续的, 也就是它映入的标量域的开集的原像是弱*开集. 设为 \(O\):
+            \[O_\epsilon=\bigcap_{i=1}^{n}\{f\in X^*, |f(x_i)|<\epsilon \}\]
+            换句话说, \(\forall\,f\in O_\epsilon\), \(|F(f)|<M\), 不妨取 \(M=1\). 考虑
+            \[\mathcal{N}:=\bigcap_{i=1}^n \qty{f\in X^*, f(x_i)=0}=\bigcap_{i=1}^n\ker J_X(x_i) \]
+            则 \(\mathcal{N}\) 是 \(X^*\) 中的一个线性子空间且使得: \(\forall \lambda\in\R, |F(\lambda f)|\leq 1\), 所以 \(F(f)=0\) 对任意 \(f\in\mathcal{N}\) 都成立. 所以
+            \[F = \sum_{i=1}^n \alpha_i J_X(x_i).\]
+        \end{prf}
 
 \end{document}
