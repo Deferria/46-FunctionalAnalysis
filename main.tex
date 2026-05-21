@@ -644,6 +644,7 @@
                 \item \((X, \cdot)\) 是代数, 满足代数运算公理;
                 \item 有界性: \(\exists M\geq 0\) 使得 \(\forall x,y\in X, \norm{x\cdot y}\leq M\norm{x}\norm{y}\).
             \end{enumerate}
+            则 \(X\) 是一个\textbf{Banach 代数}.
         \end{vardfn}
 
     \subsection{有限维 Banach 空间}
@@ -788,7 +789,7 @@
             [CanonicalEmbedding]
             {典范嵌入}
             [Canonical Embedding]
-            定义 \(X\) 的\textbf{典范嵌入} \(J:X\to X^{**}\) 是一个线性映射:
+            定义 \(X\) 的\textbf{典范嵌入} \(J_X:X\to X^{**}\) 是一个线性映射:
             \[J_X(f)(x) = f(x).\]
             根据定义, 这是一个单射, 记作 \(J_X:X\hookrightarrow X^{**}\).
         \end{dfn}
@@ -810,6 +811,29 @@
         \begin{ppt}
             {有限维赋范线性空间是自反空间}
         \end{ppt}
+
+        \begin{prf}
+            根据维数相同, 显然.
+        \end{prf}
+
+        \begin{dfn}
+            {可分 / 可析}
+            [Separable]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{可分的}, 当且仅当 \(X\) 中存在一个可数的稠密子集.
+        \end{dfn}
+
+        \begin{thm}
+            {可分的赋范线性空间的原对偶空间也是可分的}
+            设 \(X\) 是赋范线性空间, 则如果 \(X^*\) 是可分的, 则 \(X\) 也是可分的.
+        \end{thm}
+
+        \begin{prf}
+            由于 \(X^*\) 是可分的, 存在一列 \(\{f_n\}\) 在单位球中稠密. 对每个 \(f_n\), 由于 \(\sup_{\norm{x}=1}|f_n(x)|=\norm{f_n}>\frac{1}{2}\), 则必然存在 \(x_n\) 使得 
+            \[|f_n(x_n)|>\frac{1}{2}\]
+            这一列 \(\{x_n\}\) 张成线性闭子空间 \(X_0\). 如果 \(X\) 不是可分的, 那么 \(X_0\neq X\), 从而在 \(X^*\) 中存在一个元素 \(f\) 使得 \(f(x)\to 0\) 但 
+            \[\norm{f_n-f}\geq|f_n(x_n)-f(x_n)|=|f_n(x_n)|>\frac{1}{2}\]
+            这与 \(\{f_n\}\) 在单位球中稠密矛盾. 因此 \(X\) 是可分的.
+        \end{prf}
 
     \subsection{Hilbert 空间}
 
@@ -1029,7 +1053,7 @@
                 \item \(X\) 有可数的标准正交基;
                 \item \(X\) 与 \(\ell^2\) 等距同构;
                 \item \(X\) 上存在 Fourier 级数;
-                \item \(X\) 是可分的, 即 \(X\) 中存在一个可数的稠密子集.
+                \item \(X\) 是可分的.
             \end{enumerate}
         \end{thm}
 
@@ -1999,6 +2023,44 @@
             弱收敛/弱*收敛就是在弱拓扑/弱*拓扑下的收敛方式.
         \end{rmk}
 
+        \begin{thm}
+            {任意可分的 Hilbert 空间的标准正交基弱收敛到 0}
+            设 \(H\) 是一个可分的 Hilbert 空间, \(\{e_n\}_{n=1}^{\infty}\) 是 \(H\) 的一个标准正交基. 则 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
+        \end{thm}
+
+        \begin{prf}
+            我们仅对 \(\ell^2\) 空间证明. 根据 \hyperref[thm:Riesz.Hilbert]{Riesz 表示定理}, 存在唯一 \(a\in\ell^2\) 使得
+            \[T e_n = \langle a, e_n \rangle\]
+            当 \(n\to\infty\), \(Te_n\to 0\), 从而 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
+        \end{prf}
+
+        \begin{cxmp}
+            {弱收敛不蕴含范数收敛}
+            考虑 \(\Lp[2]([0,1])\) 中的函数列 \(\{\sin 2n\pi x\}\), 则根据 Riemann-Lebesgue 引理我们有
+            \[\int_0^1 \sin 2n\pi x \cdot g(x) \dd{x} \to 0, \forall\,g\in\Lp[2]([0,1]).\]
+            从而 \(\{\sin 2n\pi x\}\wlim 0\). 但是 \(\norm{\sin 2n\pi x}_2 = \frac{1}{\sqrt{2}}\) 不趋于零, 从而 \(\{\sin 2n\pi x\}\) 弱收敛但不范数收敛.
+        \end{cxmp}
+
+        \begin{thm}
+            [BanachAlaoglu]
+            {Banach-Alaoglu 定理}
+            [Banach-Alaoglu Theorem]
+            设 \(X\) 是 Banach 空间, 则 \(X^*\) 的单位闭球 \(B=\overline{B}(0,1):=\{f\in X^*: \norm{f}\leq 1\}\) 在弱*拓扑下是紧的.
+        \end{thm}
+
+        \begin{prf}
+            定义
+            \[\{f: B\to [-1,1]\}\]
+            则它可以写作
+            \[\prod_{\card (B)} [-1,1]\]
+            根据 Tychonoff 定理, 这是一个紧拓扑空间. 将 \(X\) 上的泛函限制在 \(B\) 上, 我们只需要证明它是紧的. 根据紧拓扑空间的闭子集是紧的, 我们只需证明它是闭的. 将 \(f\) 延拓到整个空间上, 利用齐次性: \(\forall\,x\in X, F(x) = \norm{x} f\qty(\frac{x}{\norm{x}})\). 则 \(F\) 是有界线性泛函且 \(\norm{F}\leq\norm{f}\leq 1\). 从而 \(F\in X^*\). 这就说明了 \(X^*\) 的单位闭球在弱*拓扑下是紧的.
+        \end{prf}
+
+        \begin{crl}
+            {Hilbert 空间的单位闭球是弱紧的}
+            这是因为可以建立从 Hilbert 空间到其对偶空间的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是紧的.
+        \end{crl}
+
     \subsection{【实分析】Lp 空间}
 
         \begin{intrormk}
@@ -2135,7 +2197,27 @@
 
         \begin{cxmp}
             {L1 空间的非自反性}
-            \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). 
+            \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). \\
+            这是因为 \(\Lp[1](X)\) 是可分的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\chi_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
         \end{cxmp}
+
+        \begin{rmk}
+            [Dedicatia]
+            总结下来, 我们有如下的表格:
+            \begin{center}
+                \begin{tabular}{c|cccc}
+                    \toprule
+                    空间 & \(\Lp[1]\) & \(\Lp[2]\) & 其余的 \(\Lp[p], 1<p<\infty\) & \(\Lp[\infty]\)\\
+                    \midrule
+                    Banach 空间 (完备的范数) & \checkmark & \checkmark & \checkmark & \checkmark\\
+                    Hilbert 空间 (完备的内积) & \texttimes & \checkmark & \texttimes & \texttimes\\
+                    可分性 & \checkmark & \checkmark & \checkmark & \texttimes\\
+                    自反性 & \texttimes & \checkmark & \checkmark & \texttimes\\
+                    单位球的一致凸性 & \texttimes & \checkmark & \checkmark & \texttimes\\
+                    \bottomrule
+                \end{tabular}
+            \end{center}
+            这也就解释了为什么同样是Lp空间, L2 空间非常优美, 但 L1 空间却臭名昭著.
+        \end{rmk}
 
 \end{document}
