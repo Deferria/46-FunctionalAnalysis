@@ -1,0 +1,1921 @@
+\section{基本定义}
+
+    \subsection{Banach 空间}
+
+        \begin{dfn}
+            [Norm]
+            {范数}
+            [Norm]
+            数域 \(\F\) 上的线性空间 $X$ 上的一个函数 $\norm{\cdot}:X\to\R$ 是 $X$ 上的一个\textbf{范数}, 当且仅当:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{非退化性 / 正定性}: $\norm{x}=0\iff x=0$;
+                \item \textbf{绝对齐次性}: $\norm{\alpha x}=\abs{\alpha}\norm{x}$, $\forall \alpha\in\F, x\in X$;
+                \item \textbf{次可加性 / 三角不等式}: $\norm{x+y}\leq\norm{x}+\norm{y}$, $\forall x,y\in X$.
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{dfn}
+            [NVS]
+            {赋范线性空间}
+            [Normed Vector Space]
+            线性空间 \(X\) 是赋范线性空间当且仅当 \(X\) 上存在范数函数.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            一般称 \((X, \norm{\cdot})\) 是一个赋范线性空间, 其中 \(X\) 是线性空间, \(\norm{\cdot}\) 是 \(X\) 上的范数函数. 也称 \(X\) 是配备了范数 \(\norm{\cdot}\) 的赋范线性空间.
+        \end{rmk}
+
+        \begin{dfn}
+            {Cauchy 列}
+            [Cauchy Sequence]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 中的一个序列 \(\{x_n\}\) 是一个\textbf{Cauchy 列}, 当且仅当对于任意 \(\varepsilon>0\), 存在 \(N\in\N\) 使得当 \(m,n>N\) 时, \(\norm{x_n-x_m}<\varepsilon\).
+        \end{dfn}
+        
+        \begin{dfn}
+            [Complete]
+            {完备}
+            [Completeness]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{完备的}, 当且仅当 \(X\) 中的每个 Cauchy 列都收敛于 \(X\) 中的某个元素.
+        \end{dfn}
+
+        \begin{dfn}
+            [BS]
+            {Banach 空间}
+            [Banach Space]
+            赋范线性空间 \((X, \norm{\cdot})\) 是 Banach 空间当且仅当 \(X\) 关于由范数诱导的度量 \(d(x,y)=\norm{x-y}\) 是完备的.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            所谓\textbf{完备}, 就是 \(X\) 中的每个 Cauchy 列都收敛于 \(X\) 中的某个元素.
+        \end{rmk}
+
+        \begin{ins}
+            [Euclid]
+            {配备 \(p\) 范数的有限维 Euclid 空间是 Banach 空间}
+            设 \(n\in\N\), \(1<p<\infty\), 定义 \(\R^n\) 上的范数 \(\norm{\cdot}_p\) 为
+            \[\norm{x}_p=\left(\sum_{i=1}^n\abs{x_i}^p\right)^{\frac{1}{p}}, \forall x=(x_1,\cdots,x_n)\in\R^n\]
+            则 \((\R^n, \norm{\cdot}_p)\) 是 Banach 空间.\\
+            当 \(p=\infty\) 时, 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{x}_\infty=\max_{1\leq i\leq n}\abs{x_i}, \forall x=(x_1,\cdots,x_n)\in\R^n\]
+            则 \((\R^n, \norm{\cdot}_\infty)\) 也是 Banach 空间.
+            \tcbline
+            可以验证范数的三个条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item 正定性: \(\norm{x}_p=0\) 当且仅当 \(x=0\). 
+                \item 绝对齐次性: \(\norm{\alpha x}_p=\abs{\alpha}\norm{x}_p\), \(\forall \alpha\in\R, x\in\R^n\). 
+                \item 次可加性: 使用 Holder 不等式证明.
+            \end{enumerate}
+            然后证明完备性即可.
+        \end{ins}
+
+        \begin{ins}
+            {配备 \(p\) 范数的可和序列空间是 Banach 空间}
+            设 \(1\leq p<\infty\), 定义 \(\ell^p\) 为所有满足 \(\sum_{i=1}^\infty\abs{x_i}^p<\infty\) 的序列 \(x=(x_1,x_2,\cdots)\) 的集合. 定义 \(\norm{\cdot}_p\) 为
+            \[\norm{x}_p=\left(\sum_{i=1}^\infty\abs{x_i}^p\right)^{\frac{1}{p}}, \forall x=(x_1,x_2,\cdots)\in\ell^p\]
+            则 \((\ell^p, \norm{\cdot}_p)\) 是 Banach 空间.\\
+            当 \(p=\infty\) 时, 定义 \(\ell^\infty\) 为所有有界序列, 即满足 \(\sup_{i\in\N}\abs{x_i}<\infty\) 的序列 \(x=(x_1,x_2,\cdots)\) 的集合. 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{x}_\infty=\sup_{i\in\N}\abs{x_i}, \forall x=(x_1,x_2,\cdots)\in\ell^\infty\]
+        \end{ins}
+
+        \begin{ins}
+            {配备上确界范数的连续函数空间是 Banach 空间}
+            设 \(X\) 是紧度量空间, 定义 \(\Cont(X)\) 为 \(X\) 上的连续函数空间. 定义 \(\norm{\cdot}_\infty\) 为
+            \[\norm{f}_\infty=\sup_{x\in X}\abs{f(x)}, \forall f\in\Cont(X)\]
+            则 \((\Cont(X), \norm{\cdot}_\infty)\) 是 Banach 空间.
+            \tcbline
+            证明的思路如下: 首先 \(\norm{\cdot}_\infty\) 确实是一个范数. 接下来我们只需考虑它是完备的, 也就是证明一致收敛保持连续性.\\
+            对于 \(\Cont(X)\) 中的函数列 \(\{f_n\}_{n=1}^\infty\), 考虑极限函数 \(f(x)=\lim_{n\to\infty}f_n(x)\). 因为 \(\{f_n\}\) 是 Cauchy 列, 所以对于任意 \(\varepsilon>0\), 存在 \(N\in\N\) 使得当 \(m,n>N\) 时, \(\norm{f_n-f_m}_\infty<\varepsilon\). 从而对于任意 \(x\in X\), \(\abs{f_n(x)-f_m(x)}<\varepsilon\). 这说明 \(\{f_n(x)\}\) 是一个 Cauchy 列. \\
+            因为 \(\R\) 是完备的, 所以 \(\{f_n(x)\}\) 收敛于某个实数 \(f(x)\). 接下来证明 \(f\) 是连续的. 设 \(x_0\in X\), 设 \(\varepsilon>0\). 因为 \(\{f_n\}\) 是 Cauchy 列, 所以存在 \(N\in\N\) 使得当 \(n>N\) 时, \(\norm{f_n-f}_\infty<\varepsilon/3\). 从而对于任意 \(x\in X\), \(\abs{f_n(x)-f(x)}<\varepsilon/3\). 因为 \(f_{N+1}\) 是连续的, 所以存在 \(\delta>0\) 使得当 \(d(x,x_0)<\delta\) 时, \(\abs{f_{N+1}(x)-f_{N+1}(x_0)}<\varepsilon/3\). 从而当 \(d(x,x_0)<\delta\) 时,
+            \begin{align*}
+            \abs{f(x)-f(x_0)} &\leq \abs{f(x)-f_{N+1}(x)} + \abs{f_{N+1}(x)-f_{N+1}(x_0)} + \abs{f_{N+1}(x_0)-f(x_0)} \\
+            &< \varepsilon/3 + \varepsilon/3 + \varepsilon/3 = \varepsilon
+            \end{align*}
+            从而 \(f\) 是连续的. 
+        \end{ins}
+
+        \begin{thm}
+            {Banach 空间的子空间是 Banach 空间的充要条件}
+            \(X\) 是 Banach 空间, \(Y\) 是 \(X\) 的一个线性子空间. 则 \(Y\) 是 Banach 空间当且仅当 \(Y\) 是 \(X\) 的闭子空间.
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            1. 这里的子空间既是线性子空间, 也是拓扑子空间, 二者是相容的. \\
+            2. 线性子空间不一定是闭的. 只有在有限维空间中, 线性子空间才是闭的.
+        \end{rmk}
+
+        \begin{prf}
+            "(\(\implies\))": 设 \(Y\) 是 Banach 空间, 设 \(y_n\in Y\) 是 \(Y\) 中收敛到 \(y\) 的序列. 则 \(y_n\) 也是 \(X\) 中收敛到 \(y\) 的序列. 因为 \(Y\) 是 Banach 空间, 所以 \(y\in Y\). 从而 \(Y\) 是 \(X\) 的闭子空间. \\
+            "(\(\impliedby\))": 设 \(Y\) 是 \(X\) 的闭子空间, 设 \(y_n\in Y\) 是 \(Y\) 中的 Cauchy 列. 因为 \(Y\) 是 \(X\) 的子空间, 所以 \(y_n\) 也是 \(X\) 中的 Cauchy 列. 因为 \(X\) 是 Banach 空间, 所以 \(y_n\) 在 \(X\) 中收敛于某个元素 \(y\). 因为 \(Y\) 是 \(X\) 的闭子空间, 所以 \(y\in Y\). 从而 \(Y\) 是 Banach 空间.
+        \end{prf}
+
+        \begin{cxmp}
+            {多项式空间在连续函数空间中不是闭的}
+            多项式显然都是连续函数, 且多项式是 \(C_0\) 中的子空间, 但一列多项式的极限可能不是多项式, 如:
+            \[p_n(x)=\sum_{k=0}^n\frac{x^k}{k!}\]
+            其一致收敛到 \(\exp x\), 但 \(\exp x\) 不是多项式. 从而多项式空间在 \(C_0\) 中不是闭的.
+        \end{cxmp}
+
+        \continued
+
+    \subsection{线性算子}
+    
+        \begin{dfn}
+            [BLO]
+            {有界线性算子}
+            [Bounded Linear Operator]
+            设 \((X, \norm{\cdot}_X)\) 和 \((Y, \norm{\cdot}_Y)\) 是两个赋范线性空间. 定义线性映射 \(T:X\to Y\) 是一个\textbf{有界线性算子}, 当且仅当存在 \(M\geq 0\) 使得
+            \[\forall x\in X, \norm{Tx}_Y\leq M\norm{x}_X\]
+        \end{dfn}
+
+        \begin{dfn}
+            [BLF]
+            {有界线性泛函}
+            [Bounded Linear Functional]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义线性映射 \(f:X\to\R\) 是一个\textbf{有界线性泛函}, 当且 \(f\) 是一个有界线性算子.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            直观地理解, 有界线性算子将 \(Y\) 的单位闭球拉回 \(X\) 中半径不超过 \(M\) 的单位闭球中.
+        \end{rmk}
+
+        \begin{dfn}
+            {有界线性算子的范数}
+            [Norm of Bounded Linear Operator]
+            设 \((X, \norm{\cdot}_X)\) 和 \((Y, \norm{\cdot}_Y)\) 是两个赋范线性空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 的范数为
+            \[\norm{T}:=\inf\{M\geq 0 : \forall x\in X, \norm{Tx}_Y\leq M\norm{x}_X\}\]
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            \(T\) 的范数 \(\norm{T}\) 是满足 \(\forall x\in X, \norm{Tx}_Y\leq M\norm{x}_X\) 的最小的 \(M\).
+        \end{rmk}
+
+        \begin{ppt}
+            {有界线性算子范数的等价定义}
+            [Equivalent Definition of Norm of Bounded Linear Operator]
+            设 \((X, \norm{\cdot}_X)\) 和 \((Y, \norm{\cdot}_Y)\) 是两个赋范线性空间, \(T:X\to Y\) 是一个有界线性算子. 则 \(T\) 的范数为
+            \[\norm{T}=\sup_{x\neq 0}\frac{\norm{Tx}_Y}{\norm{x}_X}=\sup_{\norm{x}_X=1}\norm{Tx}_Y\]
+        \end{ppt}
+
+        \begin{rmk}
+            [Dedicatia]
+            为什么可以这样等价, 是因为 \(X,Y\) 都是线性空间, 可以进行标量乘法. \\
+            所以对于任意 \(x\in X\), 当 \(x\neq 0\) 时, 可以将 \(x\) 写成 \(\norm{x}_X\cdot\frac{x}{\norm{x}_X}\). 从而 \(\norm{Tx}_Y=\norm{T(\norm{x}_X\cdot\frac{x}{\norm{x}_X})}_Y=\norm{x}_X\norm{T(\frac{x}{\norm{x}_X})}_Y\). 因此 \(\frac{\norm{Tx}_Y}{\norm{x}_X}=\norm{T(\frac{x}{\norm{x}_X})}_Y\). 当 \(\norm{x}_X=1\) 时, \(\frac{\norm{Tx}_Y}{\norm{x}_X}=\norm{Tx}_Y\).
+        \end{rmk}
+
+        \begin{ppt}
+            {有界线性算子范数的性质}
+            [Properties of Norm of Bounded Linear Operator]
+            设 \(T\) 是有界线性算子, 则 \(\norm{Tx}\leq\norm{T}\norm{x}\).
+
+        \end{ppt}
+
+        \begin{ppt}
+            {有界线性算子形成赋范线性空间}
+            [Bounded Linear Operators Form a Normed Vector Space]
+            设 \((X, \norm{\cdot}_X)\) 和 \((Y, \norm{\cdot}_Y)\) 是两个赋范线性空间. 定义 \(\blo(X,Y)\) 是从 \(X\) 到 \(Y\) 的所有有界线性算子组成的集合. 则 \(\blo(X,Y)\) 是赋范线性空间.
+        \end{ppt}
+
+        \begin{thm}
+            {有界线性算子空间形成 Banach 空间的充要条件}
+            设 \(X,Y\) 是两个赋范线性空间. 则 \(\blo(X,Y)\) 是 Banach 空间当且仅当 \(Y\) 是 Banach 空间.
+        \end{thm}
+
+        \begin{prf}
+            设 \(\{T_n\}\) 是一列 \(X\) 到 \(Y\) 的有界线性算子, 使得 \(\{T_n\}\) 是 \(\blo(X,Y)\) 中的 Cauchy 列. 则对于任意 \(x\in X\), \(\{T_n x\}\) 是 \(Y\) 中的 Cauchy 列. 因为 \(Y\) 是完备的（Banach 空间）, 所以存在 \(y\in Y\) 使得 \(T_n x\to y\). 定义 \(T:X\to Y\) 使得 \(Tx=y\). \\\
+            验证: (1) \(T\) 是有界线性算子: 线性性是显然的; 有界性是由于
+            \[\norm{Tx}\leq\norm{T_N x}+\lim_{n\to\infty}\norm{T_n x-T_N x}\leq\norm{T_N x}+\epsilon\norm{x}\leq(\norm{T_N}+\epsilon)\norm{x}\]
+            (2) \(T_n\) 依范数收敛到 \(T\): 
+            \[\norm{T_n-T}=\sup_{\norm{x}=1}\norm{T_n x-Tx}=\sup_{\norm{x}=1}\lim_{k\to\infty}\norm{T_n x-T_k x}=0.\]
+        \end{prf}
+
+        \begin{crl}
+            {依范数收敛蕴含范数收敛}
+            若 \(T_n\to T\), 则 \(\norm{T_n}\to\norm{T}\) 作为实数序列收敛.
+        \end{crl}
+
+        \begin{crl}
+            {依范数收敛蕴含逐点收敛}
+            若 \(T_n\to T\), 则 \(\forall\,x\in X, T_n x\to Tx\).
+        \end{crl}
+
+        \begin{thm}
+            [BoundedIffContinuous]
+            {有界等价于连续}
+            [Bounded iff Continuous]
+            设 \(X,Y\) 是两个赋范线性空间, \(T:X\to Y\) 是一个线性映射. 则 \(T\) 是有界的当且仅当 \(T\) 是连续的.
+        \end{thm}
+
+        \begin{prf}
+            在【数学分析III】中证明过该命题. 这里仅作提示.\\
+            "(\(\implies\))": 设 \(T\) 是有界的, 则存在 \(M\geq 0\) 使得 \(\forall x\in X, \norm{Tx}_Y\leq M\norm{x}_X\). 则对于任意 \(\epsilon>0\), 当 \(\norm{x-x_0}_X<\frac{\epsilon}{M}\) 时, \(\norm{Tx-Tx_0}_Y=\norm{T(x-x_0)}_Y\leq M\norm{x-x_0}_X<\epsilon\). 从而 \(T\) 在 \(x_0\) 处连续. 因为 \(x_0\) 是任意的, 所以 \(T\) 是连续的.\\
+            "(\(\impliedby\))": 设 \(T\) 是连续的, 则 \(T\) 在 \(0\) 处连续. 则存在 \(\delta>0\) 使得当 \(\norm{x}_X<\delta\) 时, \(\norm{Tx}_Y<1\). 根据赋范线性空间的平移不变性, 对于任意 \(x\in X\), 当 \(\norm{x}_X<\delta\) 时, \(\norm{Tx}_Y<1\). 从而对于任意 \(x\in X\), \(\norm{Tx}_Y<\frac{1}{\delta}\norm{x}_X\). 因此 \(T\) 是有界的.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            在 Banach 空间中, 算子的有界性与连续性等价, 这是因为线性空间有数乘结构, 可以将单位球缩放到任意小.\\
+            事实上有界线性算子不仅是连续的, 而且是 Lipschitz 连续的. 也就是说
+            \[\norm{Tx-Ty}_Y\leq\norm{T}\norm{x-y}_X\]
+        \end{rmk}
+
+        \begin{thm}
+            {有界线性算子的复合是有界线性算子}
+            [Composition of Bounded Linear Operators is Bounded]
+            设 \(X,Y,Z\) 是三个赋范线性空间, \(T:X\to Y\) 和 \(S:Y\to Z\) 是有界线性算子. 则 \(S\circ T: X\to Z\) 也是有界线性算子. 且满足:
+            \[\norm{S\circ T}\leq\norm{S}\norm{T}\]
+        \end{thm}
+
+        \begin{prf}
+            令 \(\norm{x}=1\), 则
+            \[\norm{S\circ T}=\sup\norm{S(T x)}=\sup\norm{S(y)}\leq\norm{S}\sup\norm{T x}=\norm{S}\norm{T}.\]
+        \end{prf}
+
+        \begin{thm}
+            {有界线性算子的逆}
+            设 $X$ 是 Banach 空间, $T \in \blo(X,X)$ 是双射, 则 $T^{-1} \in \blo (X,X)$.
+        \end{thm}
+
+        \begin{ins}
+            {全矩阵空间是 Banach 空间}
+            全体矩阵 \(M_{m\times n}(\R)\cong\blo(\R^n, \R^m)\) 是 Banach 空间, 其范数定义为
+            \[\norm{A}=\sup_{\norm{x}=1}\norm{Ax}\]
+            且满足 \(\dim M_{m\times n}(\R)=mn\).
+        \end{ins}
+
+        \begin{ins}
+            {积分算子是有界线性算子}
+            定义算子 \(T:\Cont([0,1])\to\Cont([0,1])\) 使得
+            \[Tf(x)=\int_0^x f(t)dt\]
+            则 \(T\) 是一个有界线性算子, 且 \(\norm{T}=1\).
+        \end{ins}
+
+        \begin{cxmp}
+            {微分算子不是有界线性算子}
+            定义算子 \(D:\Cont^1([0,1])\to\Cont([0,1])\) 使得
+            \[Df(x)=f'(x)\]
+            则 \(D\) 不是一个有界线性算子. 这是因为考虑函数列 \(f_n=x^n\), 则 \(\norm{f_n}_\infty=1\), 但 \(\norm{Df_n}_\infty=n\to\infty\).
+            \tcbline
+            这好像很违背直觉. 但是从另一个角度看, 微分算子也不是连续的.
+        \end{cxmp}
+
+        \begin{vardfn}
+            {Banach 代数}
+            [Banach Algebra]
+            设 \(X\) 是一个 Banach 空间, 且 \(X\) 上定义了一个二元运算 \(\cdot\), 满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \((X, \cdot)\) 是代数, 满足代数运算公理;
+                \item 有界性: \(\exists M\geq 0\) 使得 \(\forall x,y\in X, \norm{x\cdot y}\leq M\norm{x}\norm{y}\).
+            \end{enumerate}
+            则 \(X\) 是一个\textbf{Banach 代数}.
+        \end{vardfn}
+
+    \subsection{有限维 Banach 空间}
+
+        \begin{intrormk}
+            [Dedicatia]
+            在有限维的情形下 Banach 空间的结构非常规整, 也有很多漂亮的性质.
+        \end{intrormk}
+
+        \begin{dfn}
+            [DualSpace]
+            {对偶空间}
+            [Dual Space]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 的\textbf{对偶空间} \(X^*\) 是 \(\blo(X, \R)\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            \(X^*\) 是 \(X\) 上的所有有界线性泛函组成的集合. 对偶空间中的元素都是线性泛函. \\
+            需要注意的是, 这和作为线性空间的对偶空间的定义是不同的. 作为线性空间的对偶空间是所有线性泛函组成的集合, 而作为赋范线性空间的对偶空间是所有\textbf{有界线性泛函}组成的集合.\\
+            只有在有限维线性空间中这两种定义才是相同的. 因为有限维的线性泛函一定是有界的.
+        \end{rmk}
+
+        \begin{thm}
+            {有限维赋范线性空间的对偶空间同构于原空间}
+            设 \(V\) 是赋范线性空间, \(\dim V<\infty\). 则 \(V^*\cong V\).
+        \end{thm}
+
+        \begin{prf}
+            提示: 注意到二者的维数相同, 取定一组 \(V\) 的基 \(\{v_i\}_i^n\). 定义映射
+            \[T:\qquad\begin{matrix}
+                V & \to & V^* \\
+                v_i & \mapsto & f_i
+            \end{matrix}\]
+            其中 \(f_i\) 是 \(V\) 上的线性泛函, 满足 \(f_i(v_j)=\delta_{ij}\). \\
+            或者直接使用下面的同构定理.
+        \end{prf}
+
+        \begin{thm}
+            {Riesz 引理}
+            [Riesz's Lemma]
+            设 \(X\) 是一个赋范线性空间, \(Y\) 是 \(X\) 的一个闭子空间, 且 \(Y\neq X\). 则对于任意 \(0<\epsilon<1\), 存在 \(x_0\in X\) 使得 \(\norm{x_0}=1\) 且 
+            \[\inf_{x\in Y}\norm{x_0-x}\geq \epsilon\]
+        \end{thm}
+
+        \begin{prf}
+            任取 \(a\in X\setminus Y\), 则根据 \(Y\) 的闭性, \(d:=\inf_{y\in Y}\norm{a-y}>0\). 从 \(Y\) 中取 \(y\) s.t. \(\norm{a-y}<\frac{d}{\epsilon}\), 规范化:
+            \[x_0=\frac{a-y}{\norm{a-y}}\]
+            那么 \(\norm{x_0}=1\), 且对于任意 \(x\in Y\),
+            \[\norm{x_0-x}=\norm{\frac{a-y}{\norm{a-y}}-x}=\frac{1}{\norm{a-y}}\norm{a-(y+\norm{a-y}x)}\geq\frac{d}{\norm{a-y}}>\epsilon.\]
+        \end{prf}
+
+        \begin{dfn}
+            {Heine-Borel 性质}
+            [Heine-Borel Property]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 满足\textbf{Heine-Borel 性质}, 当且仅当 \(X\) 中的每个有界闭集都是紧致集.
+        \end{dfn}
+
+        \begin{thm}
+            {无限维赋范线性空间的单位闭球不是紧的}
+            设 \(X\) 是一个赋范线性空间, \(\dim X=\infty\). 则 \(X\) 中的单位闭球 \(B=\{x\in X:\norm{x}\leq 1\}\) 不是紧致集.
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            由于赋范线性空间一定是度量空间, 而在度量空间中, 紧致性与列紧性是等价的, 我们将不再区分这二者, 统称为紧性.
+        \end{rmk}
+
+        \begin{prf}
+            任取 \(x_1\in X\), \(\norm{x_1}=1\), \(x_1\) 张成了子空间 \(X_1:=\{\alpha x_1: \alpha \in \R\}\), 根据 Riesz 引理, 存在 \(x_2\in X\) 使得 \(\norm{x_2}=1\) 且 \(\inf_{x\in X_1}\norm{x_2-x}\geq\frac{1}{2}\). \\
+            继续: \(x_1, x_2\) 张成了子空间 \(X_2:=\{\alpha x_1+\beta x_2: \alpha, \beta \in \R\}\), 根据 Riesz 引理, 存在 \(x_3\in X\) 使得 \(\norm{x_3}=1\) 且 \(\inf_{x\in X_2}\norm{x_3-x}\geq\frac{1}{2}\). \\
+            以此类推, 可以得到一列 \(\{x_n\}\) 使得 \(\norm{x_n}=1\) 且 \(\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\), 其中 \(X_{n-1}=\{\sum_{i=1}^{n-1}\alpha_i x_i: \alpha_i \in \R\}\). 则对于任意 \(m<n\), \(\norm{x_n-x_m}=\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\). 从而 \(\{x_n\}\) 中不存在收敛子列. 因此单位闭球不是紧的.
+        \end{prf}
+
+        \begin{cxmp}
+            {连续函数空间的单位闭球不是紧的}
+            定义 \(\Cont([0,1])\) 上的函数列为
+            \[f_n(x) = x^n\]
+            则可以验证 \(\norm{f_n}_\infty=1\), 这是一个有界函数列, 它确实在单位闭球中, 但 \(f_n\) 的极限函数是
+            \[f(x) = \begin{cases}
+                0, & x\in[0,1) \\
+                1, & x=1
+            \end{cases}\]
+            这说明 \(\{f_n\}\) 中不存在收敛子列. 从而 \(\Cont([0,1])\) 的单位闭球不是序列紧的, 从而不是紧的.\\
+            这个函数列不是 Cauchy 列, 也不具有一致收敛极限. 因此它不能用来说明 \(\Cont([0,1])\) 不是 Banach 空间.
+        \end{cxmp}
+
+        \begin{thm}
+            {有限维赋范线性空间同构定理}
+            设 \(V\) 是赋范线性空间, \(n=\dim V<\infty\). 则 \(V\cong\R^n\).
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            这里我们说的同构指的是作为赋范线性空间的同构, 也就是说存在一个双射 \(T:V\to\R^n\) 使得 \(T\) 和 \(T^{-1}\) 都是有界线性算子. 
+        \end{rmk}
+
+        \begin{prf}
+            取定一组 \(V\) 的基 \(\{v_i\}_i^n\). 定义映射
+            \[T:\qquad\begin{matrix}
+                \R^n & \to & V \\
+                (x_1, x_2, \cdots, x_n) & \mapsto & \sum_{i=1}^n x_i v_i
+            \end{matrix}\]
+            验证:\\
+            (1) 线性性显然成立;\\
+            (2) \(T\) 是双射, 根据有限维线性空间的同构, 这也是显然的;\\
+            (3) 考虑 \(T\) 的有界性:
+            \[\norm{T(x_1, x_2, \cdots, x_n)}=\norm{\sum_{i=1}^n x_i v_i}\leq\sum_{i=1}^n|x_i|\norm{v_i}\leq\qty(\sum_{i=1}^n\abs{x_i})\qty(\sum_{i=1}^n\norm{v_i})  \]
+            这说明
+            \[\norm{T}\leq\sum_{i=1}^n\norm{v_i}<\infty\]
+            (4) 考虑 \(T^{-1}\) 的有界性: 反证: 假如不是有界的, 那么不存在这样的 \(M\). 也就是说存在一列 \(\{x_n\}\) 使得
+            \[\norm{T^{-1}(x_n)}>n\norm{x_n}\]
+            根据齐次性, 则可以取定规范的 \(\{x_n\}\) s.t. \(\norm{x_n}=1\). 则 \(\norm{T^{-1}(x_n)}>n\). 令
+            \[a_n = \frac{T^{-1}(x_n)}{\norm{T^{-1}(x_n)}}\]
+            那么 \(\norm{a_n}=1\) 对所有 \(n\) 成立. 由于 \(V\) 是有限维的, 所以 \(V\) 中的单位球是紧的. 从而 \(\{a_n\}\) 中存在一个收敛子列 \(\{a_{n_k}\}\), 设其极限为 \(a\). 那么
+            \[\norm{T^{-1}a} = \lim_{k \to \infty} \norm{T^{-1}a_{n_k}} = \lim_{k \to \infty} \frac{T^{-1}(x_{n_k})}{\norm{T^{-1}x_{n_k}}}\]
+            由于 \(\norm{T^{-1}x_{n_k}}>n_k\), 所以 \(\norm{T^{-1}a}=0\). 从而 \(a=0\). 这与 \(\norm{a}=1\) 矛盾. 因此 \(T^{-1}\) 是有界的.
+        \end{prf}
+
+        \begin{thm}
+            {有限维空间的范数等价}
+            [Norms on Finite-Dimensional Spaces are Equivalent]
+            设 \(V\) 是一个有限维的线性空间, \(\norm{\cdot}_1\) 和 \(\norm{\cdot}_2\) 是 \(V\) 上的两个范数. 则存在常数 \(C_1, C_2>0\) 使得
+            \[\forall x\in V, C_1\norm{x}_1\leq\norm{x}_2\leq C_2\norm{x}_1\]
+            或者等价地写作: 存在常数 \(C>0\) 使得
+            \[\forall x\in V, \frac{1}{C}\norm{x}_1\leq\norm{x}_2\leq C\norm{x}_1.\]
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            我们已经证明了决定有限维赋范线性空间的结构的唯一因素就是维数. 因此只要维度一样, 不论是什么范数一定可以建立同构. 自然也就是等价的.
+        \end{rmk}
+
+        \begin{dfn}
+            [BidualSpace]
+            {双对偶空间}
+            [Bidual Space]
+            定义 \(X\) 的\textbf{双对偶 / 二次对偶空间} \(X^{**}\) 是 \(X^*\) 的对偶空间, 即 \(X^{**}=(X^*)^*=\blo(X^*, \R)\).
+        \end{dfn}
+
+        \begin{dfn}
+            [CanonicalEmbedding]
+            {典范嵌入}
+            [Canonical Embedding]
+            定义 \(X\) 的\textbf{典范嵌入} \(J_X:X\to X^{**}\) 是一个线性映射:
+            \[J_X(f)(x) = f(x).\]
+            根据定义, 这是一个单射, 记作 \(J_X:X\hookrightarrow X^{**}\).
+        \end{dfn}
+
+        \begin{dfn}
+            [Reflexive]
+            {自反空间}
+            [Reflexive Space]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{自反的}, 当且仅当 \(X\) 的\hyperref[dfn:CanonicalEmbedding]{典范嵌入}是双射.
+        \end{dfn}
+
+        \begin{rmk}
+            注意: 这里的\hyperref[dfn:Reflexive]{自反空间}是利用\hyperref[dfn:CanonicalEmbedding]{典范嵌入}定义的. 有可能出现如下的情况:
+            \begin{itemize}
+                \item \(X\cong X^{**}\), 但 \(J_X\) 不是双射; 这时按定义 \(X\) 不是自反空间;
+            \end{itemize}
+            即使 \(X\) 同构于 \(X^{**}\) 也不能说明它们是通过 \(J_X\) 建立的同构.
+        \end{rmk}
+
+        \begin{ppt}
+            {有限维赋范线性空间是自反空间}
+        \end{ppt}
+
+        \begin{prf}
+            根据维数相同, 显然.
+        \end{prf}
+
+        \begin{dfn}
+            [Separable]
+            {可分 / 可析}
+            [Separable]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{可分的}, 当且仅当 \(X\) 中存在一个可数的稠密子集.
+        \end{dfn}
+
+        \begin{thm}
+            {可分的赋范线性空间的原对偶空间也是可分的}
+            设 \(X\) 是赋范线性空间, 则如果 \(X^*\) 是\hyperref[dfn:Separable]{可分}的, 则 \(X\) 也是可分的.
+        \end{thm}
+
+        \begin{prf}
+            由于 \(X^*\) 是可分的, 存在一列 \(\{f_n\}\) 在单位球中稠密. 对每个 \(f_n\), 由于 \(\sup_{\norm{x}=1}|f_n(x)|=\norm{f_n}>\frac{1}{2}\), 则必然存在 \(x_n\) 使得 
+            \[|f_n(x_n)|>\frac{1}{2}\]
+            这一列 \(\{x_n\}\) 张成线性闭子空间 \(X_0\). 如果 \(X\) 不是可分的, 那么 \(X_0\neq X\), 从而在 \(X^*\) 中存在一个元素 \(f\) 使得 \(f(x)\to 0\) 但 
+            \[\norm{f_n-f}\geq|f_n(x_n)-f(x_n)|=|f_n(x_n)|>\frac{1}{2}\]
+            这与 \(\{f_n\}\) 在单位球中稠密矛盾. 因此 \(X\) 是可分的.
+        \end{prf}
+
+    \subsection{Hilbert 空间}
+
+        \begin{intrormk}
+            [Dedicatia]
+            Hilbert 空间被称为``最像 Euclid 空间的 Banach 空间'', 因为它具有内积结构, 可以定义角度和正交, 基本符合了我们生活经验中的直觉. 这使得 Hilbert 空间在数学和物理中都有广泛的应用.\\
+            本节我们就来介绍一下 Hilbert 空间的基本概念和性质.
+        \end{intrormk}
+
+        \begin{dfn}
+            [InnerProduct]
+            {内积}
+            [Inner Product]
+            设 \(X\) 是 \(\F\) 上的线性空间, 定义二元运算 \(\langle\cdot,\cdot\rangle:X\times X\to\F\) 是 \(X\) 上的一个\textbf{内积 (Inner Product)}, 当且仅当满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{正定性}: \(\langle x,x\rangle\geq 0\), \(\forall x\in X\),  \(x=0\iff \langle x,x\rangle=0\);
+                \item \textbf{共轭对称性}: \(\langle x,y\rangle=\overline{\langle y,x\rangle}\), \(\forall x,y\in X\);
+                \item \textbf{线性性}: \(\langle \alpha x+y,z\rangle=\alpha\langle x,z\rangle+\langle y,z\rangle\), \(\forall \alpha\in\F, x,y,z\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{dfn}
+            [IPS]
+            {内积空间}
+            [Inner Product Space]
+            设 \(X\) 是 \(\F\) 上的线性空间, \(\langle\cdot,\cdot\rangle\) 是 \(X\) 上的一个内积. 则 \((X, \langle\cdot,\cdot\rangle)\) 是一个\textbf{内积空间}.
+        \end{dfn}
+
+        \begin{ppt}
+            {内积可以诱导范数}
+            [Inner Product Induces Norm]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间. 定义
+            \[\norm{x}=\sqrt{\langle x,x\rangle}\]
+            则 \(\norm{\cdot}\) 是 \(X\) 上的一个范数.
+        \end{ppt}
+
+        \begin{dfn}
+            {Hilbert 空间}
+            [Hilbert Space]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(\norm{\cdot}\) 是由内积诱导的范数. 则如果 \((X, \norm{\cdot})\) 是一个 Banach 空间, 则称 \(X\) 是一个\textbf{Hilbert 空间}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            完备的内积空间就是 Hilbert 空间.
+        \end{rmk}
+
+        \begin{thm}
+            {Cauchy-Schwarz 不等式}
+            [Cauchy-Schwarz Inequality]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(\norm{\cdot}\) 是由内积诱导的范数. 则对于任意 \(x,y\in X\), 都有
+            \[\abs{\langle x,y\rangle}\leq\norm{x}\norm{y}.\]
+        \end{thm}
+
+        \begin{prf}
+            构造二次函数 
+            \[f(\alpha)=\norm{\alpha x+y}^2=\langle \alpha x+y, \alpha x+y\rangle=\abs{\alpha}^2\norm{x}^2+2\Re(\alpha\langle x,y\rangle)+\norm{y}^2.\]
+            考虑其最小值.
+        \end{prf}
+
+        \begin{thm}
+            {范数可以诱导内积的条件 / 平行四边形法则}
+            [Condition for Norm to Induce Inner Product / Parallelogram Law]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 则存在一个内积使得 \(\norm{\cdot}\) 是由该内积诱导的范数当且仅当
+            \[\forall x,y\in X, \quad \norm{x+y}^2+\norm{x-y}^2=2\norm{x}^2+2\norm{y}^2.\]
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            平行四边形法则是很强的限制. 这说明了多数范数都不来源于内积.
+        \end{rmk}
+
+        \begin{thm}
+            {赋范线性空间的内积的显式表示 / 极化恒等式}
+            [Explicit Representation of Inner Product / Polarization Identity]
+            设 \((X, \norm{\cdot})\) 是一个赋范线性空间, \(\norm{\cdot}\) 满足平行四边形法则. 则对于任意 \(x,y\in X\), 内积可以通过范数来表示:
+            \[\langle x,y\rangle=\frac{1}{4}\qty(\norm{x+y}^2-\norm{x-y}^2+ \ii\norm{x+\ii y}^2 - \ii\norm{x-\ii y}^2).\]
+            如果 \(X\) 是实数域上的内积空间, 则内积的表示式可以简化为
+            \[\langle x,y\rangle=\frac{1}{4}\qty(\norm{x+y}^2-\norm{x-y}^2).\]
+        \end{thm}
+
+        \begin{dfn}
+            [Orthogonality]
+            {正交}
+            [Orthogonality]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间. 定义 \(x,y\in X\) 是\textbf{正交的}, 当且仅当 \(\langle x,y\rangle=0\). 记作 \(x\perp y\).
+        \end{dfn}
+
+        \begin{dfn}
+            [OrthogonalComplement]
+            {正交补}
+            [Orthogonal Complement]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(Y\) 是 \(X\) 的一个子集. 定义 \(Y\) 的\textbf{正交补} \(Y^\perp\) 是
+            \[Y^\perp=\{x\in X: \langle x,y\rangle=0, \forall y\in Y\}.\]
+        \end{dfn}
+
+        \begin{ppt}
+            {正交补是闭子空间}
+            [Orthogonal Complement is a Closed Subspace]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(Y\) 是 \(X\) 的一个子集. 则 \(Y^\perp\) 是 \(X\) 的一个闭子空间.
+        \end{ppt}
+
+        \begin{dfn}
+            [OrthogonalProjection]
+            {正交投影}
+            [Orthogonal Projection]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(Y\) 是 \(X\) 的一个子空间. 定义 \(P_Y:X\to Y\) 是 \(X\) 到 \(Y\) 的一个映射, 满足: 
+            \[\forall x\in X, P_Y x=\inf_{y\in Y} \norm{x-y}.\]
+            且满足
+            \[\forall x\in X, x-P_Y x\in Y^\perp.\]
+            则称 \(P_Y\) 是从 \(X\) 到 \(Y\) 的一个\textbf{正交投影}.
+        \end{dfn}
+
+        \begin{thm}
+            {正交投影的存在唯一性}
+            [Existence and Uniqueness of Orthogonal Projection]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(Y\) 是 \(X\) 的一个完备的线性子空间. 则 \(\forall\,x\in X\), \(x\) 在 \(Y\) 中有唯一的正交投影.
+        \end{thm}
+
+        \begin{prf}
+            取一列 \(x_n\in Y\) 使得
+            \[\lim_{n\to\infty}\norm{x-x_n}=\inf_{y\in Y} \norm{x-y}=:d.\]
+            根据内积与范数的关系, 我们有
+            \[\norm{x_m-x_n}^2=2(\norm{x-x_m}^2+\norm{x-x_n}^2)-4\norm{\frac{x_m+x_n}{2}-x}^2\leq 2(\norm{x-x_m}^2+\norm{x-x_n}^2)-4d^2 \]
+            当 \(m,n\to 0\) 时, \(\norm{x_m-x_n}\to 0\). 从而 \(\{x_n\}\) 是 \(Y\) 中的一个 Cauchy 列. 根据 \(Y\) 的完备性, \(\{x_n\}\) 收敛于 \(Y\) 中的唯一的元素 \(y_0\). 那么
+            \[\norm{x-y_0}=\inf_{y\in Y} \norm{x-y}=d.\]
+            接下来证明正交性: 任意取 \(z\in Y\), 有
+            \[d^2\leq\norm{x-y_0-\lambda z}^2=\norm{x-y_0}^2-2\lambda\Re\langle x-y_0, z\rangle+|\lambda|^2\norm{z}^2.\]
+            取
+            \[\lambda=\frac{\langle x-y_0, z\rangle}{\norm{z}^2}\]
+            则
+            \[d^2\leq d^2-\frac{|\langle x-y_0, z\rangle|^2}{\norm{z}^2}\]
+            因此只能有 \(\langle x-y_0, z\rangle=0\). 从而 \(x-y_0\in Y^\perp\).
+        \end{prf}
+
+        \begin{ppt}
+            {子集的正交补可以扩展到子空间上}
+            \(X\) 是内积空间, \(S\subseteq X\). $S^\perp=\overline{\spn(S)}^\perp$.
+        \end{ppt}
+
+        \begin{ppt}
+            {正交直和}
+            [Orthogonal Direct Sum]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(Y\) 是 \(X\) 的一个子空间. 则 \(X=Y\oplus Y^\perp\).
+        \end{ppt}
+
+        \begin{ppt}
+            {勾股定理}
+            [Pythagorean Equality]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(x,y\in X\) 满足 \(x\perp y\). 则
+            \[\norm{x+y}^2=\norm{x}^2+\norm{y}^2.\]
+        \end{ppt}
+
+        \begin{dfn}
+            {标准正交组}
+            [Orthonormal Set]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间. 定义 \(S\subseteq X\) 是一个\textbf{标准正交组}, 当且仅当对于任意 \(x,y\in S\), 都有
+            \[\langle x,y\rangle=\delta_{xy}=\begin{cases}
+                1, & x=y; \\
+                0, & x\neq y.
+            \end{cases}\]
+        \end{dfn}
+
+        \begin{dfn}
+            {标准正交基}
+            [Orthonormal Basis]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间. 定义 \(S\subseteq X\) 是一个\textbf{标准正交基}, 当且仅当 \(S\) 是 \(X\) 的一个标准正交组, 且 \(\overline{\spn(S)}=X\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            也就是说标准正交基张成的线性空间在 \(X\) 中稠密, 也就是说可以用标准正交基的线性组合来逼近 \(X\) 中的任意元素.\\
+            按照我们这里的定义, 标准正交基满足完备性. 有些参考材料将其定义为满足 \(\spn(S)=X\) 的标准正交组. 需要注意细致区分. 
+        \end{rmk}
+
+        \begin{rmk}
+            [Dedicatia]
+            如果 \(\dim X=\infty\), 那么 \(X\) 的 Hamel 基一定是不可数的, 但是 \(X\) 的标准正交基可以是可数的. 这说明了 Hamel 基与 Hilbert 空间的标准正交基的区别.\\
+            事实上, 标准正交基是一种 Schauder 基, 与 Hamel 基完全不同. 
+        \end{rmk}
+
+        \begin{thm}
+            {Bessel 不等式}
+            [Bessel's Inequality]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(S\subseteq X\) 是一个标准正交组. 则对于任意 \(x\in X\), 都有
+            \[\sum_{s\in S} \abs{\langle x,s\rangle}^2\leq\norm{x}^2.\]
+        \end{thm}
+
+        \begin{thm}
+            {Parseval 等式}
+            [Parseval's Identity]
+            设 \((X, \langle\cdot,\cdot\rangle)\) 是一个内积空间, \(S\subseteq X\) 是一个（完备的）标准正交基. 则对于任意 \(x\in X\), 都有
+            \[\sum_{s\in S} \abs{\langle x,s\rangle}^2=\norm{x}^2.\]
+        \end{thm}
+
+        \begin{ins}
+            {Fourier 级数}
+            [Fourier Series]
+            设 \(L^2(\mathbb{T}[0,2\pi])\) 是定义在 \([0,2\pi]\) 上的满足 \(f(0)=f(2\pi)\) 平方可积函数空间. 取标准正交基
+            \[\qty{e_n:=\frac{1}{\sqrt{2\pi}}\exp(\ii nx)}_{n\in\mathbb{Z}}\]
+            那么对于任意 \(f\in L^2(\mathbb{T}[0,2\pi])\), 都有
+            \[f=\sum_{n=-\infty}^{+\infty} \langle f, e_n\rangle e_n= \sum_{n=-\infty}^{+\infty} a_n \exp(\ii nx).\]
+            其中 \(a_n\) 是 Fourier 系数, 满足
+            \[a_n=\frac{1}{\sqrt{2\pi}}\int_0^{2\pi} f(x)\exp(-\ii nx) \dd x.\]
+            用 Fourier 变换来表示, 就是
+            \[\mathscr{F}:\qquad\begin{matrix}
+                L^2(\mathbb{T}[0,2\pi]) & \to & \ell^2(\mathbb{Z}) \\
+                f & \mapsto & (a_n)_{n\in\mathbb{Z}}:=\langle f, e_n\rangle_{n\in\mathbb{Z}}
+            \end{matrix}\]
+            则 \(\mathscr{F}\) 是 Hilbert 空间之间的\textbf{等距}(保持内积)\textbf{同构}(保持线性运算).
+        \end{ins}
+
+        \begin{thm}
+            {具有可数标准正交基的 Hilbert 空间的充要条件}
+            设 \(X\) 是 Hilbert 空间, 以下条件等价:
+            \begin{enumerate}
+                \item \(X\) 有可数的标准正交基;
+                \item \(X\) 与 \(\ell^2\) 等距同构;
+                \item \(X\) 上存在 Fourier 级数;
+                \item \(X\) 是\hyperref[dfn:Separable]{可分的}.
+            \end{enumerate}
+        \end{thm}
+
+        \begin{prf}
+            这是很直观的性质, 我们这里只介绍思路:\\
+            取 \(X\) 的一个可数的标准正交基 \(\{e_n\}\), 定义映射
+            \[T:\qquad\begin{matrix}
+                X & \to & \ell^2 \\
+                x & \mapsto & \qty{\langle x, e_n\rangle}_{n\in\mathbb{N}}
+            \end{matrix}\]
+            是一个等距同构; 这也正是 Fourier 级数的定义; Fourier 级数张成的线性空间在 \(X\) 中稠密, 也就是说可以用标准正交基的线性组合来逼近 \(X\) 中的任意元素.\\
+            若存在可数的稠密子集, 则可以利用正交化过程得到可数的标准正交基.
+        \end{prf}
+
+        \begin{thm}
+            [Riesz.Hilbert]
+            {Hilbert 空间的 Riesz 表示定理}
+            [Riesz Representation Theorem for Hilbert Spaces]
+            \(X\) 是 Hilbert 空间, 则 \(X\cong X^*\). 其中的等距同构为:\\
+            给定 \(f\in X^*\), 存在唯一的 \(x\in X\) 使得
+            \[\forall y\in X, f(y)=\langle y,x\rangle\]
+            且
+            \[\norm{f}_{X^*}=\norm{x}_X.\]
+        \end{thm}
+
+        \begin{prf}
+            我们仅考虑实的情况, 复数域上的情况类似.
+            若 \(f=0\), 则取 \(x=0\) 即可. \\
+            否则, \(Z:=\{y\in X: f(y)=0\}\), 则 \(Z=\ker f\) 是一个闭子空间. Hilbert 空间 \(X=Z\oplus Z^\perp\). 取 \(x_0\in Z^\perp\), 则 \(\forall\,y\in X\):
+            \[y-\frac{f(y)}{f(x_0)x_0}\in Z\implies\left\langle y-\frac{f(y)}{f(x_0)}, x_0\right\rangle =0\implies f(y)=\frac{f(x_0)}{\norm{x_0}^2}\left\langle y,x_0\right\rangle  \]
+            设 \(x=\frac{f(x_0)}{\norm{x_0}^2}x_0\), 则
+            \[\forall y\in X, f(y)=\langle y,x\rangle.\]
+            下面考虑等距性
+            \[|f(y)|=|\left\langle y,x\right\rangle|\leq\norm{y}\norm{x} \implies \norm{f}_{X^*}\leq\norm{x}_X.\]
+            等号取到的原因是范数的定义
+            \[\norm{f}_{X^*}\geq\frac{|f(x)|}{\norm{x}}=\frac{|\langle x,x\rangle|}{\norm{x}}=\norm{x}.\]
+        \end{prf}
+
+\section{线性泛函分析基础}
+
+    \subsection{Hahn-Banach 定理}
+
+        \begin{dfn}
+            [Seminorm]
+            {半范数}
+            [Seminorm]
+            数域 \(\F\) 上的线性空间 \(X\) 上的一个函数 \(p:X\to\R\) 是 \(X\) 上的一个\textbf{半范数}, 当且仅当:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{非负性}: \(p(x)\geq 0\), \(\forall x\in X\);
+                \item \textbf{绝对齐次性}: \(p(\alpha x)=\abs{\alpha}p(x)\), \(\forall \alpha\in\F, x\in X\);
+                \item \textbf{次可加性 / 三角不等式}: \(p(x+y)\leq p(x)+p(y)\), \(\forall x,y\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            半范数与范数的区别在于, 半范数允许 \(p(x)=0\) 对某些非零的 \(x\) 成立. 也就是说, 半范数不要求满足正定性.
+        \end{rmk}
+
+        \begin{ppt}
+            {半范数的零空间是线性子空间}
+            [Kernel of Seminorm is a Linear Subspace]
+            设 \(p\) 是 \(X\) 上的一个半范数. 定义 \(\ker p=\{x\in X: p(x)=0\}\). 则 \(\ker p\) 是 \(X\) 的一个线性子空间.
+        \end{ppt}
+
+        \begin{ppt}
+            {半范数可以诱导范数}
+            [Seminorms Induce Norms]
+            设 \(p\) 是 \(X\) 上的一个半范数. 定义
+            \(\norm{x + \ker p} = p(x)\)
+            则 \(\norm{\cdot + \ker p}\) 是商空间 \(X/\ker p\) 上的一个范数.
+        \end{ppt}
+
+        \begin{ins}
+            {\(\Lp\) 空间上的 \(\Lp\) 半范数诱导的范数}
+            取等价类为几乎处处相等的函数, 则 $\Lp$ 半范数在 $\Lp$ 空间上成为范数. 这也是我们一般认为的 $\Lp$ 空间的定义. 严格上认为 \(\Lp\) 空间中的元素是函数的等价类而不是函数本身.
+        \end{ins}
+
+        \begin{dfn}
+            {次线性泛函}
+            [Sublinear Functional]
+            设 \(X\) 是一个线性空间. 定义 \(p:X\to\R\) 是一个\textbf{次线性泛函}, 当且仅当:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{正齐次性}: \(p(\alpha x)=\alpha p(x)\), \(\forall \alpha\geq 0, x\in X\);
+                \item \textbf{次可加性 / 三角不等式}: \(p(x+y)\leq p(x)+p(y)\), \(\forall x,y\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{thm}
+            [HahnBanach]
+            {Hahn-Banach 定理}
+            [Hahn-Banach Theorem]
+            设 \(X\) 是一个线性赋范空间, \(p\) 是 \(X\) 上的一个次线性泛函, \(Y\) 是 \(X\) 的一个线性子空间, \(f:Y\to\R\) 是一个线性泛函且满足
+            \[f(y)\leq p(y), \quad \forall y\in Y.\]
+            则存在一个线性泛函 \(F:X\to\R\) 使得
+            \[F(y)=f(y), \quad \forall y\in Y,\]
+            且
+            \[F(x)\leq p(x), \quad \forall x\in X.\]
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个定理的意义在于, 在满足某些条件的情况下, 可以将一个定义在子空间上的线性函数(i)扩展到整个空间上, (ii)同时保持被某个次线性函数的控制.
+        \end{rmk}
+
+        \begin{prf}
+            先考虑一步延拓, 设 \(x_0\in X\setminus Y\). 我们要把 \(f\) 从 \(Y\) 延拓到 \(Y\oplus\spn(x_0)\) 上. 为此考虑
+            \[\tilde{f} (y+\alpha x_0)=f(y)+\alpha\cdot \tilde{f}(x_0)\]
+            我们只需要确定 \(\tilde{f}(x_0)\) 的值. 由于 \(\tilde{f}\) 需要满足 \(\tilde{f}(y+\alpha x_0)\leq p(y+\alpha x_0)\), 则对于任意 \(y\in Y\) 和 \(\alpha\in\R\), 都有:\\
+            (1) 如果 \(\alpha=0\), 显然成立;\\
+            (2) 如果 \(\alpha>0\), 则
+            \[f(x_0)\leq\frac{p(y+\alpha x_0)-f(y)}{\alpha}=\frac{p(y+\alpha x_0)}{\alpha}-\frac{f(y)}{\alpha} \]
+            等价于
+            \[\tilde{f}(x_0)\leq p(z+x_0)-f(z)\]
+            其中 \(z=\frac{y}{\alpha}\);\\
+            (3) 如果 \(\alpha<0\), 则同理可得
+            \[\tilde{f}(x_0)\geq p(z+x_0)-f(z)\]
+            这就说明了
+            \[\sup_{z\in Y}\{-f(z)+p(z+x_0)\}\leq \tilde{f}(x_0)\leq\inf_{z\in Y}\{p(z+x_0)-f(z)\}\]
+            这等价于
+            \[\forall y_1,y_2\in Y, \quad -f(y_2)+p(y_2+x_0)\leq p(y_1+x_0)-f(y_1)\]
+            只要证明
+            \[\sup_{z\in Y}\{-f(z)+p(z+x_0)\}\leq\inf_{z\in Y}\{p(z+x_0)-f(z)\}\]
+            就说明了 \(\tilde{f}(x_0)\) 的取值可以被夹出来. 由于
+            \[p(y_1+x_0)+p(y_2+x_0)-f(y_1)-f(y_2)\geq p(y_1+y_2)-f(y_1+y_2)\geq 0\]
+            从而该延拓是一定存在的. \\
+            构造集合 \(\mathcal{S}:=\{(Y_i, g_i)\}\). 其中 \(Y_i\) 是 \(X\) 的某个子空间, \(g_i\) 是 \(Y_i\) 上的一个线性泛函, 满足 \(Y\subseteq Y_i\), \(g_i|_Y=f\), 且 \(g_i(x)\leq p(x)\) 对所有 \(x\in Y_i\) 成立. \\
+            这是一个偏序集, 其中的偏序定义为: \((Y_i, g_i)\leq (Y_j, g_j)\) 当且仅当 \(Y_i\subseteq Y_j\) 且 \(g_j|_{Y_i}=g_i\). 设 \(\mathcal{C}\) 是 \(\mathcal{S}\) 中的一个全序子集. 则 \(\mathcal{C}\) 中的元素可以被包含在一个更大的元素中. 也就是说, 定义
+            \[Y_0=\bigcup_{(Y_i, g_i)\in\mathcal{C}} Y_i, \quad g_0:Y_0\to\R, g_0(x)=g_i(x) \text{ if } x\in Y_i\]
+            则 \((Y_0, g_0)\) 是 \(\mathcal{S}\) 中的一个元素, 且包含了 \(\mathcal{C}\) 中的所有元素. 根据 Zorn 引理, \(\mathcal{S}\) 中存在一个极大元 \((Y_0, g_0)\). 如果 \(Y_0\neq X\), 则可以通过上面的一步延拓来得到一个更大的元素, 矛盾. 因此 \(Y_0=X\), \(g_0\) 就是我们要找的 \(F\). 
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            Hahn-Banach 定理只适用于对泛函的延拓, 不适用于对任意先行算子的延拓.
+        \end{rmk}
+
+        \begin{thm}
+            {赋范延拓}
+            [Norming Extension]
+            设 $X$ 是赋范线性空间, $Y$ 是 $X$ 的子空间, $f$ 是定义在 $Y$ 上的线性泛函, $\exists F \in \blo (X, \R)$ 使得 $F$ 是 $f$ 的延拓, 且 $\norm{F}=\norm{f}$.
+        \end{thm}
+
+        \begin{prf}
+            定义
+            \[p(x)=\norm{f}\norm{x}, \quad \forall x\in X.\]
+            则 \(p\) 是 \(X\) 上的一个次线性泛函, 且对于任意 \(y\in Y\), \(f(y)\leq\norm{f}\norm{y}=p(y)\). 根据 Hahn-Banach 定理, 存在一个线性泛函 \(F:X\to\R\) 使得 \(F|_Y=f\) 且 \(F(x)\leq p(x)\) 对所有 \(x\in X\) 成立. 从而 \(\norm{F}\leq\norm{f}\). \\
+            另一方面, 因为 \(F|_Y=f\), 所以 \(\norm{f}\leq\norm{F}\). 因此 \(\norm{F}=\norm{f}\).
+        \end{prf}
+
+        \begin{thm}
+            {赋范泛函}
+            [Norming Functional]
+            设 \(X\) 是赋范线性空间, \(\forall x\neq 0\), \(\exists\,f\in X^*\st f(x)=\norm{x}\) 且 \(\norm{f}=1\).
+        \end{thm}
+
+        \begin{prf}
+            设 \(f\) 定义在 \(\spn(x)\) 上且满足 \(f(\alpha x)=\alpha\norm{x}\). 则根据 Hahn-Banach 定理, 可以将其延拓到整个空间上且保持范数不变. 从而存在 \(F\in X^*\) 使得 \(F(x)=\norm{x}\) 且 \(\norm{F}=\norm{f}=1\).
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个定理保证了 $X$ 的对偶空间足够丰富, 以至于每个非零向量都可以通过某个对偶空间中的元素来“测量”其范数. 
+        \end{rmk}
+
+        \begin{crl}
+            {范数的等价定义}
+            [Equivalent Definition of Norm]
+            设 \(X\) 是一个线性空间, \(\norm{\cdot}\) 是 \(X\) 上的一个函数. 则 \(\norm{\cdot}\) 是 \(X\) 上的一个范数, 当且仅当
+            \[\forall x\in X, \norm{x}=\sup_{f\in X^*, \norm{f}=1} |f(x)|.\]
+        \end{crl}
+
+        \begin{prf}
+            \(|f(x)|\leq\norm{f}\norm{x}\) 成立, 所以 \(\sup_{f\in X^*, \norm{f}=1} |f(x)|\leq\norm{x}\). 另一方面, 根据上一个定理, 存在 \(f\in X^*\) 使得 \(f(x)=\norm{x}\) 且 \(\norm{f}=1\). 从而等号取到, \(\sup_{f\in X^*, \norm{f}=1} |f(x)|=\norm{x}\).
+        \end{prf}
+
+    \subsection{【集合论】序结构与 Zorn 引理}
+
+        \begin{dfn}
+            {偏序结构 / 预序结构}
+            [Partial Order / Preorder]
+            设 \(X\) 是一个集合. 定义 \(X\) 上的一个\textbf{偏序结构 / 预序结构} 是一个二元关系 \(\leq\), 满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{自反性}: \(x\leq x\), \(\forall x\in X\);
+                \item \textbf{反对称性}: \(x\leq y\land y\leq x\implies x=y\), \(\forall x,y\in X\);
+                \item \textbf{传递性}: \(x\leq y\land y\leq z\implies x\leq z\), \(\forall x,y,z\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{dfn}
+            {偏序集}
+            [Partially Ordered Set]
+            设 \(X\) 是一个集合, \(\leq\) 是 \(X\) 上的一个偏序结构. 则 \((X, \leq)\) 是一个\textbf{偏序集}.
+        \end{dfn}
+
+        \begin{dfn}
+            {全序结构 / 线性序结构}
+            [Total Order / Linear Order]
+            设 \(X\) 是一个集合. 定义 \(X\) 上的偏序结构成为\textbf{全序结构 / 线性序结构}, 当且仅当对于任意 \(x,y\in X\), \(x\leq y\) 或 \(y\leq x\) 至少有一个成立. 
+        \end{dfn}
+
+        \begin{dfn}
+            {全序集}
+            [Totally Ordered Set]
+            设 \(X\) 是一个集合, \(\leq\) 是 \(X\) 上的一个全序结构. 则 \((X, \leq)\) 是一个\textbf{全序集}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            直观地理解:
+            \begin{itemize}
+                \item 偏序结构: 只是元素之间的二元关系;
+                \item 全序结构: 任何两个元素之间都有二元关系, 也就是说, 任意两个元素之间可以比较大小.
+            \end{itemize}
+        \end{rmk}
+
+        \begin{dfn}
+            {上界 / 下界}
+            [Upper Bound / Lower Bound]
+            设 \((X, \leq)\) 是一个偏序集, \(A\subseteq X\). 定义 \(x\in X\) 是 \(A\) 的一个\textbf{上界}, 当且仅当 \(\forall a\in A, a\leq x\). \\
+            定义 \(x\in X\) 是 \(A\) 的一个\textbf{下界}, 当且仅当 \(\forall a\in A, x\leq a\).
+        \end{dfn}
+
+        \begin{dfn}
+            {极大元 / 极小元}
+            [Maximal Element / Minimal Element]
+            设 \((X, \leq)\) 是一个偏序集, \(A\subseteq X\). 定义 \(x\in A\) 是 \(A\) 的一个\textbf{极大元}, 当且仅当 \(\forall y\in A, x\leq y\implies x=y\). \\
+            定义 \(x\in A\) 是 \(A\) 的一个\textbf{极小元}, 当且仅当 \(\forall y\in A, y\leq x\implies x=y\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            注意, 这定义并不要求
+            \[\exists\,x\in A\st \forall y\in A, x\leq y\]
+            这是因为偏序并不保证任意元素之间都有二元关系. 所以可能存在多个极大元.
+        \end{rmk}
+
+        \begin{thm}
+            {Zorn 引理}
+            [Zorn's Lemma]
+            设 \((X, \leq)\) 是一个\textit{偏序集}. 如果 \(X\) 中的每个\textit{全序子集}都有\textit{上界}, 则 \(X\) 中存在一个\textit{极大元}.
+        \end{thm}
+
+        \begin{thm}
+            {良序定理}
+            [Well-Ordering Theorem]
+            任意集合都可以被全序化. \\
+            设 \(X\) 是一个集合. 则存在一个全序结构 \(\leq\) 使得 \((X, \leq)\) 是一个全序集.
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            Zorn 引理和良序定理都是等价于选择公理的. 
+        \end{rmk}
+
+        \begin{thm}
+            {所有向量空间都有基}
+            设 \(V\) 是任意向量空间, 则 \(V\) 有一组基.
+        \end{thm}
+
+        \begin{prf}
+            设 \(\mathcal{S}\) 是 \(V\) 中所有线性无关的集合的集合, 则 \(\mathcal{S}\) 是偏序集, 其中的偏序关系是 \(\subseteq\). \\
+            根据 Zorn 引理, \(\mathcal{S}\) 中存在全序子集 \(\{L_i\}_{i\in I}\). 不妨设
+            \[L:=\bigcup_{\alpha\in I}L_\alpha\]
+            则我们要证明 \(L\) 是线性无关的. 从 \(L\) 中取有限个元素 \(\{v_1,v_2, \cdots v_n\}\):
+            \[\forall i\in\{1,\cdots,n\},\exists \alpha_i\in I,\st v_i\in L_{\alpha_i}\]
+            所以
+            \[\exists j \in \{1, 2, \cdots, n\}, \st \alpha_j \geq \alpha_i, \forall i \in \{1, 2, \cdots, n\}. \]
+            所以 $v_1, v_2, \cdots, v_n \in L_{\alpha_j}$. 这说明它们是线性无关的. \(L\) 的任意有限子集都是线性无关的, 从而 \(L\) 是线性无关的. \\
+            因此 \(L\) 是 \(\mathcal{S}\) 中的一个上界. 根据 Zorn 引理, \(\mathcal{S}\) 中存在一个极大元 \(B\). 则 \(B\) 是 \(V\) 的一组基.
+        \end{prf}
+
+        \begin{dfn}
+            [HamelBasis]
+            {Hamel 基}
+            [Hamel Basis]
+            设 \(V\) 是一个向量空间. 定义 \(V\) 的\textbf{Hamel 基} 是 \(V\) 的依赖 Zorn 引理得到的一组基.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            Hamel 基的定义不能给出构造性的、具体的形式, 因为 Zorn 引理是非构造性的. 这也是为什么我们很少使用 Hamel 基去研究分析学.
+        \end{rmk}
+
+        \begin{ins}
+            {存在满足可加性但不满足齐次性的函数}
+            在 \(\R\) 中, \(1\) 和 \(\sqrt{2}\) 是线性无关的. 我们可以由此得到一组 Hamel 基 \(\{e_i\}_{i\in I}\). 其中 \(e_1=1\), \(e_2=\sqrt{2}\). 定义函数 \(f:\R\to\R\):
+            \[f(1)=\sqrt{2}, f(\sqrt{2})=1, f(e_i)=e_i, \forall i \in I\setminus\{1,\sqrt{2}\}. \]
+            则 \(f\) 满足可加性: 只需按分量定义 \(f\) 的值即可. 但是 \(f\) 不满足齐次性. 
+        \end{ins}
+
+        \begin{thm}
+            {无限维 Banach 空间的 Hamel 基是不可数的}
+            设 \(X\) 是一个无限维的 Banach 空间, 则 \(X\) 的任何 Hamel 基都是不可数的.
+        \end{thm}
+
+        \begin{prf}
+            设 \(X\) 是 Banach 空间, \(\dim X=\infty\), \(X\) 具有可数的 Hamel 基 \(\{e_i\}_{i=1}^{\infty}\). \\
+            那么 \(X=\spn(\{e_i\})\). 
+            \[X=\bigcup_{i=1}^{\infty}V_n\]
+            \(V_n\) 作为 \(X\) 的闭子空间显然不可能是无处稠密的, 设 $V_i \supset B(r,x_0)$. 则 $V_i \supseteq\{x-y: x,y\in B(r,x_0)\} \supset B(0,r)$. 得到
+            \[V_i\supset\bigcup_{a\in\R}\{ax: x\in B(0,r)\} \]
+            这说明 \(V_i=X\). 矛盾.
+        \end{prf}
+
+        \begin{xmp}
+            {序列空间 \(\ell_{00}\) 不是 Banach 空间}
+            只有有限项非零项的序列组成的空间 \(\ell_{00}\) 不是 Banach 空间. 因为 \(\ell_{00}\) 的 Hamel 基是可数的, 但是 \(\ell_{00}\) 是无限维的线性空间.
+        \end{xmp}
+
+        \begin{rmk}
+            这说明在 Hamel 基的意义下 Banach 空间要么是有限维的, 要么是不可数维的. 这是强完备性的体现.
+        \end{rmk}
+
+        \begin{dfn}
+            [Ordinal]
+            {序数}
+            [Ordinals]
+            序数是所有按序同构的良序集的等价类. 记作 \(\ordinal\).
+        \end{dfn}
+        
+        \begin{rmk}
+            [Dedicatia]
+            序数的定义从直观上说就是一个元素的位置的编号. 但是为了描述无限集合的结构, 有一些特殊的编号. 这也正是我们定义序数的动机.
+        \end{rmk}
+
+        \begin{ppt}
+            {序数集合是全序的}
+        \end{ppt}
+
+        \begin{dfn}
+            {前驱序数 / 后继序数}
+            [Predecessor / Successor Ordinal]
+            设 \(\alpha\) 是一个序数. 定义 \(\alpha\) 的\textbf{前驱序数}是 \(\alpha-1\), 定义 \(\alpha\) 的\textbf{后继序数}是 \(\alpha+1\).
+        \end{dfn}
+
+        \begin{dfn}
+            {极限序数}
+            设 \(\alpha\in\ordinal\) 且 \(\alpha\neq 0\), 定义 \(\alpha\) 是一个\textbf{极限序数}, 当且仅当 \(\alpha\) 不是任何序数的后继. \\
+            也就是说, \(\alpha\) 是一个极限序数当且仅当 \(\alpha\) 可以表示为一个小于 \(\alpha\) 的序数的集合的并.
+        \end{dfn}
+
+        \begin{ins}
+            {第一个极限序数 \(\omega\)}
+            设 \(\omega\) 是所有自然数的集合. 则 \(\omega\) 是第一个极限序数.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            事实上, 还有更多的从 \(\omega\) 得到的极限序数, 例如 \(\omega+\omega\), \(\omega^2\) 等等. 这些极限序数的结构非常复杂. \\
+            由于 \(\N\) 是可数的, 我们还可以在不可数集上定义序数, 这就是不可数序数 \(\omega_1, \omega_2, \cdots\).
+        \end{rmk}
+
+        \begin{vardfn}
+            [Cardinal]
+            {基数}
+            [Cardinal]
+            基数是所有按双射同构的集合的等价类.
+        \end{vardfn}
+
+        \begin{ins}
+            {可数无穷基数}
+            设 \(\aleph_0\) 是所有可以与自然数 \(\N\) 建立双射关系的集合. \(\aleph_0\) 是第一个可数无穷基数.
+        \end{ins}
+
+        \begin{ins}
+            {不可数无穷基数 / 连续统基数}
+            设 \(\mathfrak{c}\) 是所有可以与实数 \(\R\) 建立双射关系的集合. \(\mathfrak{c}\) 是\textbf{不可数无穷基数}, 也叫\textbf{连续统基数(Continuum Cardinal)}.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{连续统假设}\; 不存在一个基数 \(\kappa\) 使得 \(\aleph_0 < \kappa < \mathfrak{c}\). \\
+            也就是说, 没有一个集合的基数介于可数无穷和连续统之间. 这个假设是独立于 ZFC 公理系统的, 也就是说, 无论我们接受还是拒绝这个假设, 都不会导致矛盾. Godel 证明了连续统假设在 ZFC 中是无法被否定的, Cohen 证明了连续统假设在 ZFC 中是无法被证明的.
+        \end{rmk}
+
+        \begin{thm}
+            {超限归纳法}
+            [Transfinite Induction]
+            设 \(P(\alpha)\) 是一个关于序数 \(\alpha\) 的命题. 如果满足以下条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item \(P(0)\) 成立;
+                \item 对于任意序数 \(\alpha\), 如果 \(P(\beta)\) 对所有 \(\beta<\alpha\) 都成立, 则 \(P(\alpha)\) 也成立.
+            \end{enumerate}
+            则 \(P(\alpha)\) 对所有序数 \(\alpha\) 都成立.
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{超限归纳法对于序数 \(\ordinal\) 的关系就好比普通数学归纳法对于自然数 \(\N\) 的关系}.\\
+            超限归纳法是对普通数学归纳法的推广. 可以用于任意序数. 这使得我们可以在更广泛的范围内进行归纳证明.
+        \end{rmk}
+
+        \begin{ins}
+            {Bernstein 集合}
+            \(\R\) 上存在集合 \(A\) 使得 \(A\) 和 \(A^c\) 都满足以下条件:
+            \begin{enumerate}[label=(\roman*)]
+                \item 与 \(\R\) 的任意完全集交集非空;
+                \item 不包含任何完全集.
+            \end{enumerate}
+            这是基于以下两条事实:
+            \begin{itemize}
+                \item \(\R\) 中完全集的个数是 \(\mathfrak{c}\);
+                \item 每一个完全集中也有 \(\mathfrak{c}\) 个元素.
+            \end{itemize}
+            证明时, 将 \(\R\) 中的所有完全集赋予序数, 然后使用超限归纳: 在序数为 \(\alpha\) 步的时候, 处理完全集 \(P_\alpha\):\\
+            1. 从第 \(\alpha\) 个完全集中取一个元素加入 \(A\);\\
+            2. 从第 \(\alpha\) 个完全集中取一个元素加入 \(A^c\).\\
+            事实上我们不用担心在某一步的时候完全集中的元素已经被之前的步骤取完了, 因为每个完全集中都有 \(\mathfrak{c}\) 个元素, 而我们在每一步只取一个元素. 因此我们总是可以从第 \(\alpha\) 个完全集中取出一个元素加入 \(A\) 和 \(A^c\). 重复直到所有完全集都被处理完了. 最后得到的集合 \(A\) 和 \(A^c\) 就满足要求了:\\
+            (1) 对任意完全集 \(P_\alpha\), \(A\) 和 \(A^c\) 都与 \(P_\alpha\) 有交集;\\
+            (2) \(A\) 和 \(A^c\) 都不包含任何完全集, 因为每个完全集都必然有元素在 \(A\) 中, 也有元素在 \(A^c\) 中. 如果包含了完整的完全集就会导致矛盾.\\
+            这就得到了 \(A\). \(A\) 被称为 \textbf{Bernstein 集合}.
+            \tcbline
+            无论是分析还是拓扑, Bernstein 集合都是非常奇怪的: 它有如下性质:
+            \begin{itemize}
+                \item \(A\) 和 \(A^c\) 都在 \(\R\) 中稠密, 它的所有元素都是极限点, 但 \(A\) 和 \(A^c\) 都不包含任意区间;
+                \item \(A\) 和 \(A^c\) 都具有零内测度, 这是因为如果 \(A\) 或 \(A^c\) 有正的内测度, 那么它就包含一个完全集, 这与 \(A\) 和 \(A^c\) 都不包含任何完全集的性质矛盾. 因而 \(A\) 与 \(A^c\) 都是不可测集;
+                \item \(A\) 和 \(A^c\) 都既不是第一纲集, 也不是余纲集.
+            \end{itemize}
+        \end{ins}
+
+    \subsection{凸集分离定理}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节讲述的是 Hahn-Banach 定理的几何形式, 也就是凸集分离定理.在这之前我们需要一些概念和定义.
+        \end{intrormk}
+
+        \begin{ppt}
+            {线性泛函可以精准区分向量}
+            [Linear Functionals Separate Points]
+            设 \(X\) 是 Banach 空间, 则
+            \[\forall\,x,y\in X, x\neq y\implies\exists\,f\in X^*\st f(x)\neq f(y).\]
+        \end{ppt}
+
+        \begin{prf}
+            只需证明 \(\forall x\in X, x\neq 0\implies\exists f\in X^*\st f(x)\neq 0\). 存在赋范泛函 \(f\in X^*\) 使得 \(f(x)=\norm{x}\neq 0\).
+        \end{prf}
+
+        \begin{ppt}
+            {线性泛函可以精准区分点和闭子空间}
+            [Linear Functionals Separate Points and Closed Subspaces]
+            设 \(X\) 是 Banach 空间, \(Y\) 是 \(X\) 的一个闭子空间, \(x\in X\setminus Y\), 则
+            \[\exists f\in X^*\st \norm{f}=1, f(x)\neq 0, f(y)=0, \forall y\in Y.\]
+        \end{ppt}
+
+        \begin{prf}
+            设 
+            \[d=\dist(x_0, Y)=\inf_{y\in Y}\norm{x_0-y}.\]
+            设
+            \[g:Y \oplus \spn (x_0)=: Z \to \R, g(y+\alpha x_0) = \alpha d\]
+            则 \(g\) 是 \(Z\) 上的一个线性泛函, 且 \(\forall y\in Y, \alpha\in\R\), 都有
+            \[g(y+\alpha x_0)=\alpha d\leq \alpha\norm{x_0-y}\leq\norm{y+\alpha x_0}.\]
+            根据 Hahn-Banach 定理, 存在 \(f:X\to\R\) 使得 \(\forall y\in Y, \alpha\in\R\), 都有 \(f(y+\alpha x_0)\leq\alpha\norm{y+\alpha x_0} \), \(f(y)=0\), \(f(x_0)=d>0\). 这就是我们要的线性泛函.\\
+            考虑 \(\forall\epsilon>0\), 设 \(y\in Y\) s.t. \(\norm{x-y}\leq\eta+d\), 其中 \(\eta=\frac{d\epsilon}{1-\epsilon}\), 这样的 \(y\) 是可以找到的. 则
+            \[\frac{|f(x_0-y)|}{\norm{x_0-y}}=\frac{d}{\norm{x_0-y}}>\frac{d}{d+\eta}\geq 1-\epsilon\] 
+            由于 \(\epsilon\) 是任意的, 所以 \(\norm{f}\geq 1\). 另一方面因为 \(f(y+\alpha x_0)\leq\alpha\norm{y+\alpha x_0}\), 所以 \(\norm{f}\leq 1\). 因此 \(\norm{f}=1\).
+        \end{prf}
+
+        \begin{dfn}
+            [AbsorbingSet]
+            {吸收集}
+            [Absorbing Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{吸收集}, 当且仅当
+            \[\forall\,x\in X, \exists\,\lambda>0\st x\in\lambda A:=\left\{\lambda a : a\in A\right\}\]
+        \end{dfn}
+
+        \begin{dfn}
+            [MinkowskiFunctional]
+            {Minkowski 泛函}
+            [Minkowski Functional]
+            设 \(X\) 是一个线性空间, \(A\subseteq X\) 是一个吸收集. 定义 \(A\) 的 Minkowski 泛函 \(\mu_A:X\to\R\) 为
+            \[\mu_A(x)=\inf\{\lambda>0 : x\in\lambda A\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [BalacedSet]
+            {平衡集 / 均衡集}
+            [Balanced Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{平衡集}, 当且仅当
+            \[\forall\,x\in A, \forall\,\lambda\in\R, |\lambda|\leq 1\implies \lambda x\in A.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [ConvexSet]
+            {凸集}
+            [Convex Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{凸集}, 当且仅当
+            \[\forall\,x,y\in A, \forall\,t\in[0,1], tx+(1-t)y\in A.\]
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            直观上理解, 这三类集合的定义是这样的:
+            \begin{itemize}
+                \item 吸收集是指对于空间中的任意向量, 都存在一个足够大的标量使得该向量被包含在这个标量倍的集合中. 这意味着吸收集可以通过标量缩放覆盖整个空间.
+                \item 平衡集是指对于集合中的任意元素其乘以一个绝对值不超过1的标量时, 结果仍然在集合中. 这意味着均衡集中的点不会因为缩放而离开集合.
+                \item 凸集是指对于集合中的任意两个元素, 连接它们的线段也完全包含在集合中, 凸集中的点之间的线性组合仍然在集合中.
+            \end{itemize}
+            需要注意的是, 这三类集合都是定义在线性空间上的. 如果没有线性空间结构就无法定义这些集合.
+        \end{rmk}
+
+        \begin{dfn}
+            [AbsoluteConvexSet]
+            {绝对凸集}
+            [Absolute Convex Set]
+            设 \(X\) 是一个线性空间. 定义 \(A\subseteq X\) 是一个\textbf{绝对凸集}, 当且仅当 \(A\) 同时是一个吸收集、平衡集、凸集.
+        \end{dfn}
+
+        \begin{thm}
+            {半范数诱导的单位开球是绝对凸的}
+            [Unit Open Ball Induced by Seminorm is Absolutely Convex]
+            设 $p$ 是赋范线性空间 $X$ 上的半范数. 则单位开球 $B = \{x \in X: p(x) < 1\}$ 是一个绝对凸集. 并且半范数等于 Minkowski 泛函: $p = \mu_B$.
+        \end{thm}
+
+        \begin{prf}
+            1. \(B\) 是平衡的: \(x\in B\implies p(x)<1\), \(\forall t\in\R\) 其中 \(|t|\leq 1\), \(p(tx)=|t|p(x)\leq p(x)<1\), 说明 \(tx\in B\).\\
+            2. \(B\) 是凸的: \(\forall\,x,y\in B, t\in (0,1)\), \(p(tx+(1-t)y)\leq p(tx)+(1-t)p(y)<1\), 说明 \(tx+(1-t)y\in B\).\\
+            3. \(B\) 是吸收的: 取 \(s>p(x)\). \(p(\frac{x}{s})=\frac{1}{s}p(x)<1\), 这说明 \(\frac{x}{s}\in B\), 所以 \(x\in sB\).\\
+            4. \(p=\mu_B\): 之前我们已经证明 \(\mu_B\leq p\). 考虑如果 \(a\leq\mu_B(x)\), 那么 \(p(\frac{x}{a})\geq 1\), 这说明 \(x\notin aB\implies a\leq\mu_B(x)\). 因此 \(p=\mu_B\).
+        \end{prf}
+
+        \begin{thm}
+            {吸收的凸集的 Minkowski 泛函是次线性泛函}
+            [Minkowski Functional of Absorbing Convex Set is Sublinear]
+            设 \(X\) 是一个线性空间, \(A\subseteq X\) 是一个吸收的凸集. 则 \(A\) 的 Minkowski 泛函 \(\mu_A:X\to\R\) 是一个次线性泛函.
+        \end{thm}
+
+        \begin{prf}
+            只证明次可加性: \(\mu_A(x+y)\leq\mu_A(x)+\mu_A(y)\). 设 \(a=\mu_A(x)+\epsilon, b=\mu_A(y)+\epsilon\). 则 \(x\in aA, y\in bA\). 所以
+            \[\frac{x+y}{a+b}=\frac{x}{a}\frac{a}{a+b}+\frac{y}{b}\frac{b}{a+b} \in\frac{a}{a+b}A+\frac{b}{a+b}A\subseteq A.\]
+            这说明 \(x+y\in (a+b)A\). 所以 \(\mu_A(x+y)\leq a+b=\mu_A(x)+\mu_A(y)+2\epsilon\). 由于 \(\epsilon\) 是任意的, 所以 \(\mu_A(x+y)\leq\mu_A(x)+\mu_A(y)\).
+        \end{prf}
+
+        \begin{thm}
+            {凸集分离定理}
+            [Convex Set Separation Theorem]
+            设 \(X\) 是 \(\R\) 上的赋范线性空间. \(A, B\) 是两个非空的凸集, \(A\cap B=\varnothing\). \(A\) 是开集, 那么 
+            \[\exists\,f\in X^*, \alpha\in\R \st f(a)<\alpha\leq f(b), \forall\,a\in A, b\in B.\]
+        \end{thm}
+
+        \begin{prf}
+            固定 \(a_0\in A, b_0\in B\). 那么令 \(x_0=b_0-a_0, x_0\neq 0\). 定义集合 \(O=A-B+x_0\). 那么 \(x_0\notin O\), \(O\) 是一个凸的开集且是原点的邻域.\\
+            则 \(O\) 包含了一个原点的开球, 所以 \(O\) 是吸收的, 于是 \(\mu_O\) 是一个次线性泛函, \(\mu_O(x_0)\geq 1\), 因为 \(x_0\notin O\). \\
+            考虑
+            \[f_0: \spn(\{x_0\})\to\R, f(\lambda x_0)=\lambda  \]
+            则 \(f_0(x_0)=1\leq \mu_O(x_0)\). 使用 Hahn-Banach 定理进行延拓, \(f_0\) 被延拓到整个空间上得到 \(f\). 则 \(\forall a\in A, b\in B\), 
+            \[f(a)-f(b)= f(a-b+x_0)-f(0)= f(a-b+x_0)-1\leq \mu_O(a-b+x_0)-1< 0\]
+            从而 \(f(a)<f(b)\). 这就是我们要的线性泛函.
+        \end{prf}
+
+        \begin{thm}
+            {紧凸集分离定理}
+            [Compact Convex Set Separation Theorem]
+            设 \(X\) 是 \(\R\) 上的赋范线性空间. \(A, B\) 是两个非空的凸集, \(A\cap B=\varnothing\). \(A\) 是紧集, \(B\) 是闭集, 那么
+            \[\exists\,f\in X^*, \alpha\in\R \st f(a)<\alpha< f(b), \forall\,a\in A, b\in B.\] 
+        \end{thm}
+
+        \begin{prf}
+            由于二者都是闭的, 可以定义距离
+            \[\dist(A,B)=\delta\]
+            则 \(\delta>0\). 取
+            \[\tilde{A}:=\{x\in X: \dist(x,A)<\delta/2\}\]
+            使用一般的凸集分离定理证明.
+        \end{prf}
+
+    \subsection{【点集拓扑】Baire 纲定理}
+
+        \begin{dfn}
+            [Metric]
+            {度量}
+            [Metric]
+            设 \(X\) 是一个集合. 定义 \(X\) 上的一个\textbf{度量}是一个函数 \(d:X\times X\to\R\), 满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \textbf{正定性}: \(d(x,y)\geq 0\), \(d(x,y)=0\iff x=y\);
+                \item \textbf{对称性}: \(d(x,y)=d(y,x)\), \(\forall x,y\in X\);
+                \item \textbf{次可加性 / 三角不等式}: \(d(x,z)\leq d(x,y)+d(y,z)\), \(\forall x,y,z\in X\).
+            \end{enumerate}
+        \end{dfn}
+
+        \begin{dfn}
+            [MetricSpace]
+            {度量空间}
+            [Metric Space]
+            设 \(X\) 是一个集合, \(d\) 是 \(X\) 上的一个\hyperref[dfn:Metric]{度量}. 则 \((X, d)\) 是一个\textbf{度量空间(Metric Space)}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            可以证明, 由度量可以定义拓扑, 即度量意义下的开球是度量空间的拓扑基, 二者是相容的. 因此我们将不再重复拓扑空间中的各种概念的定义.
+        \end{rmk}
+
+        \begin{ppt}
+            {赋范线性空间是度量空间}
+            [Normed Vector Space is a Metric Space]
+            范数可以诱导度量: 具体来说, 对于赋范线性空间 \((X, \norm{\cdot})\), \(x,y\in X\), 定义
+            \[d(x,y)=\norm{x-y}\]
+            是 \(X\) 上的一个度量函数, 从而 \(X\) 也是一个度量空间.
+        \end{ppt}
+
+        \begin{rmk}
+            [Dedicatia]
+            一般的度量不一定能诱导范数.
+        \end{rmk}
+
+        \begin{dfn}
+            [DenseSet]
+            {稠密集}
+            [Dense Set]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是 \(X\) 中的一个\textbf{稠密集}, 当且仅当 \(\overline{A}=X\).  \\
+            也就是说, \(A\) 的闭包是整个空间.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            等价地理解, \(A\) 在 \(X\) 中稠密, 即是 \(X\) 中的任意点都可以被 \(A\) 中的点任意接近. 这也是为什么叫稠密集的原因.
+        \end{rmk}
+
+        \begin{dfn}
+            [NowhereDense]
+            {无处稠密}
+            [Nowhere Dense]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是 \(X\) 中的一个\textbf{无处稠密}, 当且仅当 \(\interior(\overline{A})=\varnothing\). 
+        \end{dfn}
+
+        \begin{thm}
+            {完备化定理}
+            对任意度量空间 \(X\), 都存在一个\hyperref[dfn:Complete]{完备}度量空间 \(Y\) 使得 \(X\) 是 \(Y\) 的一个稠密度量子空间.
+        \end{thm}
+
+        \begin{ins}
+            {\(Q\) 在 \(\R\) 中稠密}
+            这是因为对任意实数, 都能找到一列有理数收敛到它. 从而 \(\overline{\Q}=\R\).\\
+            事实上, \(\R\) 就是 \(\Q\) 的完备化度量空间.
+        \end{ins}
+
+        \begin{dfn}
+            [Meager]
+            {Baire 第一纲集}
+            [Baire 1st Category Set / Meager Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第一纲集}, 当且仅当 \(A\) 可以表示为可数个无处稠密集的并集:
+            \[A=\bigcup_{n=1}^\infty A_n, \interior(\overline{A_n})=\varnothing.\]
+        \end{dfn}
+
+        \begin{dfn}
+            [Residual]
+            {余纲集}
+            [Residual Set / Comeager Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{余纲集}, 当且仅当 \(A^c\) 是\hyperref[dfn:Meager]{第一纲集}.
+        \end{dfn}
+
+        \begin{dfn}
+            [SecondCategory]
+            {Baire 第二纲集}
+            [Baire 2nd Category Set]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第二纲集}, 当且仅当 \(A\) 不是\hyperref[dfn:Meager]{第一纲集}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            需要注意的是, \colora{第二纲集和余纲集是不同的概念}. 存在既不是\hyperref[dfn:Meager]{第一纲集}也不是\hyperref[dfn:Residual]{余纲集}的集合. 但一个集合一定要么是第一纲集, 要么是第二纲集.\\
+            由于 Baire 纲集是对任意拓扑空间都可以定义的, 所以在某些性质奇怪的空间中, 也有可能存在不是第二纲集的余纲集. 所以这是两个完全无关的概念, 请务必严格区分. 
+        \end{rmk}
+
+        \begin{ins}
+            {\(\Q\) 是 \(\R\) 中的第一纲集}
+            这是因为有理数是可数的, 而单点集的闭包是自己, 内部是空集.
+        \end{ins}
+
+        \begin{ins}
+            {Cantor 集是 \([0,1]\) 中的第一纲集}
+            因为它本身就是无处稠密的.
+        \end{ins}
+
+        \begin{ppt}
+            {第一纲集的任意子集仍然是第一纲集}
+        \end{ppt}
+
+        \begin{ppt}
+            {第一纲集的可数并仍然是第一纲集}
+            其对偶结论为: \hyperref[dfn:Residual]{余纲集}的可数交仍然是余纲集.
+        \end{ppt}
+
+        \begin{ppt}
+            {可数个稠密开集的交是余纲集}
+            这是第一纲集的定义的对偶结论.
+        \end{ppt}
+
+        \begin{rmk}
+            由于
+            \[X\setminus\interior A=\overline{X\setminus A}\]
+            \[X\setminus\overline{B}=\interior(X\setminus B) \]
+            仅证明第一个:\\
+            设 \(x\in X\setminus\interior A\), 那么 \(x\) 的任意半径为 \(\epsilon\) 的开邻域都与 \(A\) 有交集. 从而 \(x\) 是 \(X\setminus A\) 的一个极限点, 也就是说 \(x\in\overline{X\setminus A}\). \\
+            另一方面, 设 \(x\in \overline{X\setminus A}\), 存在一列 \(x_n\in X\setminus A\) 收敛到 \(x\). 但 \(x\) 的任意半径为 \(\epsilon\) 的开邻域都包含 \(x_n\) 中的某个元素, 从而 \(x\) 不可能是 \(\interior A\) 中的元素. 因此 \(x\in X\setminus\interior A\).
+        \end{rmk}
+
+        \begin{rmk}
+             设 \(\{O_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列稠密开集, 那么
+            \[\bigcap_{n=1}^{\infty} (X\setminus O_n)\]
+            是 \(X\) 中的第一纲集. 考虑 \(X\setminus O_n\) 是闭集, 因为 \(O_n\) 是开集. 由于 \(O_n\) 是稠密的, 所以 \(\overline{O_n}=X\). 从而
+            \[\interior(\overline{X\setminus O_n})=\interior(X\setminus O_n)=X\setminus\overline{O_n}=\varnothing\]
+            这说明 \(X\setminus O_n\) 是 \(X\) 中的一个无处稠密集. 从而 \(\bigcap_{n=1}^{\infty} (X\setminus O_n)\) 是 \(X\) 中的第一纲集.
+        \end{rmk}
+
+        \begin{dfn}
+            [BaireSpace]
+            {Baire 空间}
+            [Baire Space]
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 是一个\textbf{Baire 空间}, 当且仅当 \(X\) 中任意可数个稠密开集的交集也是稠密的.
+        \end{dfn}
+
+        \begin{thm}
+            {完备度量空间一个是 Baire 空间}
+            设 \(X\) 是一个完备度量空间, 则 \(X\) 是一个 Baire 空间.
+        \end{thm}
+
+        \begin{thm}
+            [BCT]
+            {Baire 纲定理}
+            [Baire Category Theorem]
+            Baire 空间本身一定是\hyperref[dfn:SecondCategory]{第二纲的}.
+        \end{thm}
+
+        \begin{prf}
+            设 \(\{O_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列稠密开集, 则我们要证明 \(\bigcap_{n=1}^{\infty} O_n\) 是稠密的, 等价于它与任意非空开集都有交集. 设 \(B:=\{y:|y-x|<r\}\) 是一个非空开球, 则我们要证明 \(B\cap \bigcap_{n=1}^{\infty} O_n\neq \varnothing\). \\
+            从 \(O_1\) 开始, 由于 \(O_1\) 是稠密的, \(B(x,r)\) 与 \(O_1\) 有交集. 从而存在 \(x_1\in O_1\cap B\), \(r_1<\frac{r}{2}\) 使得 \(B(x_1,r_1)\subseteq O_1\cap B\). 从 \(O_2\) 开始, 由于 \(O_2\) 是稠密的, \(B(x_1,r_1)\) 与 \(O_2\) 有交集. 从而存在 \(x_2\in O_2\cap B(x_1,r_1)\), \(r_2<\frac{r}{4}\) 使得 \(B(x_2,r_2)\subseteq O_2\cap B(x_1,r_1)\). 重复这个过程, 可以得到一列点 \(\{x_n\}_{n=1}^{\infty}\) 和一列半径 \(\{r_n\}_{n=1}^{\infty}\), 使得
+            \[|x_n-x_{n+p}|<r_p\]
+            这说明 \(\{x_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一个 Cauchy 列. 由于 \(X\) 是完备的, \(\{x_n\}_{n=1}^{\infty}\) 收敛到 \(X\) 中的一个点 \(x_0\). 
+            \[x_0\in \bigcap_{n=1}^{\infty} O_n\]
+            因此 \(B\cap \bigcap_{n=1}^{\infty} O_n\neq \varnothing\). 证毕.
+            \tcbline
+            该性质的对偶结论为: Baire 空间中可数个无处稠密的闭集的并有空的内部. 如果某个 Baire 空间是第一纲的, 那么它就可以表示为可数个无处稠密的闭集的并, 从而它的内部是空的. 这是不可能发生的.
+        \end{prf}
+
+        \begin{ppt}
+            {余纲集的等价定义}
+            Baire 空间中的 \(X\) 中的集合 \(A\) 是\hyperref[dfn:Residual]{余纲集}当且仅当存在 G-delta 集 \(G\) 使得 \(G\subseteq A\), \(\overline{G}=A\).
+        \end{ppt}
+
+        \begin{rmk}
+            [Dedicatia]
+            \textbf{F-sigma 集是可数闭集的并集, G-delta 集是可数开集的交集}.\\
+            定义一个集合 \(A\) 是一个 F-sigma 集当且仅当 \(A\) 可以表示为可数个闭集的并集. 定义一个集合 \(B\) 是一个 G-delta 集当且仅当 \(B\) 可以表示为可数个开集的交集.\\
+            理解符号的含义有助于记忆:
+            \begin{itemize}
+                \item F-sigma 集中的 F 代表法语单词 ``Fermé'', 意为 ``闭集'', sigma 代表法语单词 ``Somme'', 意为``并'', 因此 F-sigma 集是可数闭集的并集.
+                \item G-delta 集中的 G 代表德语单词 ``Gebiet'', 意为 ``区域(开集)'', delta 代表德语单词 ``Durchschnitt'', 意为``交'', 因此 G-delta 集是可数开集的交集.
+            \end{itemize}
+        \end{rmk}
+
+        \begin{prf}
+            "(\(\impliedby\))": 设 \(E\supseteq G:=\bigcap_{n=1}^{\infty} O_n\). 则 \(O_n\) 必定是一列稠密开集, 否则 \(G\) 就不是稠密的了. 从而根据上面的性质, \(E\) 是余纲集. \\
+            "(\(\implies\))": 设 \(E\) 是余纲集. 则 \(X\setminus E\) 是第一纲集. 即
+            \[X\setminus E=\bigcup_{n=1}^{\infty} A_n, \interior(\overline{A_n})=\varnothing.\]
+            那么
+            \[E=X\setminus\qty(\bigcup_{n=1}^{\infty}A_n)=\bigcap_{i=1}^{\infty}(X\setminus A_n)\supseteq\bigcap_{n=1}^{\infty}(X\setminus\overline{A_n} )=:G \]
+            这就证明了 \(E\) 包含了稠密的 G-delta 集 \(G\).
+        \end{prf}
+
+        \begin{ppt}
+            {Baire 空间中的余纲集是第二纲集}
+            显然它不是第一纲集.
+        \end{ppt}
+
+        \begin{ins}
+            {连续函数空间中处处不可微的函数是一个余纲集}
+            装备了上确界范数的连续函数空间 \(C[0,1], \norm{\cdot}_{\infty}\) 中的处处不可微的函数集合是余纲集.\\
+            我们考虑至少在某一点可微的函数集 \(Y\):
+            \[Y\subset\bigcup_{n=1}^{\infty} \bigcup_{m=1}^{\infty} \qty{f:\exists\,x\in[0,1], 0\leq |x-y|<\frac{1}{n}, |f(x)-f(y)|<m|x-y| }=:\mathcal{D} \]
+            事实上, 只要给 \(f\) 加上高频震荡波, 就可以使得 \(f\) 范数不变但导数变化很剧烈. 从而 \(\mathcal{D}\) 是第一纲集.
+        \end{ins}
+
+        \begin{ins}
+            {存在零测的余纲集}
+            将 \([0,1]\) 的有理数枚举为 \(q_i\) 并定义区间
+            \[I_{i,j}:=\qty(q_i-\frac{1}{i+j},q_i+\frac{1}{i+j})\]
+            定义
+            \[G_j:=\bigcup_{i=1}^{\infty}I_{i,j}\]
+            \[B:=\bigcap_{j=1}^{\infty}G_j\]
+            则 \(G\) 有以下性质:
+            \begin{enumerate}[label=(\arabic*)]
+                \item \(G\) 是 G-delta 集, 因为 \(G\) 是可数个开集的交集;
+                \item \(G\) 是余纲集, 因为它是可数的稠密开集 \(G_j\) 的交集;
+                \item \(G\) 的外测度为零.
+            \end{enumerate}
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            这说明测度意义下的 ``大'' 和 Baire 纲意义下的 ``大'' 是不同的概念. 例如上面的集合 \(G\) 在测度意义下是一个零测集, 但在 Baire 纲意义下却是一个余纲集, 也就是一个 ``大'' 集.\\
+            四类集合都有例子:
+            \begin{center}
+                \begin{tabular}{c|cc}
+                    & 零测集 & 正测度的 Lebesgue 可测集 \\
+                    \hline
+                    第一纲集 & \(\Q\) & \([0,1]\setminus G\) \\
+                    余纲集 & \(G\) & \([0,1]\)
+                \end{tabular}
+            \end{center}
+        \end{rmk}
+
+        \begin{ins}
+            {不存在仅在有理点连续的函数}
+            设 \(f:[0,1]\to\R\). 则我们知道存在仅在无理点连续的函数 \(f\), 例如 Dirichlet 函数. 但是不存在仅在有理点连续的函数. \\
+            更一般地, 设度量空间 $X,Y$, 函数 $f:X \to Y$, 则 $f$ 的连续点集是一个 G-delta 集. \\
+            因此, 仅在有理数点连续的函数不存在, 因为 $\Q$ 不是 G-delta 集. 但仅在无理数点连续的函数存在, 因为 $\R \setminus \Q$ 是 G-delta 集.
+        \end{ins}
+
+        \begin{ins}
+            {无穷可微函数的性质}
+            设 \(f\) 是无穷阶可微的实函数, 并且 \(\forall\,n\in\N, \exists\,x\in\R\) s.t. \(f^{(n)}(x)=0\), 则 \(f\) 是一个多项式函数.
+        \end{ins}
+
+    \subsection{线性算子的性质定理}
+
+        \begin{dfn}
+            [OpenMapping]
+            {开映射}
+            [Open Mapping]
+            设 \(X, Y\) 是两个拓扑空间, \(f:X\to Y\) 是一个映射. 定义 \(f\) 是一个\textbf{开映射 (Open Mapping)}, 当且仅当 \(f\) 将 \(X\) 中的任意开集映到 \(Y\) 中的开集.
+        \end{dfn}
+
+        \begin{rmk}
+            开映射与连续映射恰好是相对的概念: 开映射将开集推前, 连续映射将开集拉回. \\
+            一个同时是开映射、连续映射、双射的映射是\textbf{同胚映射 (Homeomorphism)}.
+        \end{rmk}
+
+\section{弱拓扑}
+
+    \subsection{【点集拓扑】紧致性与序列紧性}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节先介绍拓扑学中的几个一般概念.
+        \end{intrormk}
+
+        \begin{vardfn}
+            {开覆盖}
+            [Open Cover]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 的一个\textbf{开覆盖}是 \(X\) 中的一族开集 \(\{O_\alpha\}_{\alpha\in I}\), 使得 
+            \[A\subseteq\bigcup_{\alpha\in I} O_\alpha.\]
+            这时也称 \(\{O_\alpha\}_{\alpha\in I}\) 覆盖住了 \(A\).
+        \end{vardfn}
+
+        \begin{vardfn}
+            [Compact]
+            {紧致集 / 紧集}
+            [Compact Set]
+            设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是一个\textbf{紧致集}, 当且仅当 \(A\) 的任意开覆盖都存在一个有限子覆盖. \\
+            也就是说, 对任意 \(A\) 的开覆盖 \(\{O_\alpha\}_{\alpha\in I}\), 都存在 \(\alpha_1,\dots,\alpha_n\in I\) 使得
+            \[A\subseteq\bigcup_{i=1}^n O_{\alpha_i}.\]
+        \end{vardfn}
+
+        \begin{vardfn}
+            {有限交性}
+            [Finite Intersection Property]
+            设 \(X\) 是拓扑空间, \(\{A_\alpha\}_{\alpha\in I}\) 是 \(X\) 中的一族集合. 定义 \(\{A_\alpha\}_{\alpha\in I}\) 满足有限交性当且仅当
+            \[\bigcap_{i=1}^n A_{\alpha_i} \neq \varnothing.\]
+            也就是说, 任意有限个集合的交集都非空.
+        \end{vardfn}
+
+        \begin{varthm}
+            {紧集的等价定义}
+            \(A\) 是 \(X\) 中的\hyperref[dfn:Compact]{紧集}当且仅当对 \(X\) 中的任意一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 都满足:
+            若 \(\{F_\alpha\cap A\}_{\alpha\in I}\) 满足有限交性, 则 \(\bigcap_{\alpha\in I} F_\alpha\cap A\neq\varnothing.\)
+        \end{varthm}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个等价定义实际上是使用开集定义的紧集的对偶版本. 只需利用闭集是开集的补、以及 De Morgan 定律就可以证明了.
+        \end{rmk}
+
+        \begin{varthm}
+            {紧集的闭子集是紧的}
+            设 \(A\) 是 \(X\) 中的一个\hyperref[dfn:Compact]{紧集}, 则 \(A\) 的任意闭子集 \(B\) 也是 \(X\) 中的一个紧集.
+        \end{varthm}
+
+        \begin{prf}
+            设 \(B\) 是紧集 \(A\) 的闭子集. 则 \(X\) 中的一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 满足 \(\{F_\alpha\cap B\}_{\alpha\in I} = \{(F_\alpha\cap B)\cap A\}_{\alpha\in I}\) 满足有限交性. 利用 \(A\) 的紧性, 
+            \[\bigcap_{\alpha\in I} (F_\alpha\cap B) = \bigcap_{\alpha\in I} ((F_\alpha\cap B)\cap A) \neq \varnothing.\]
+            这就说明了 \(B\) 是紧集.
+        \end{prf}
+
+        \begin{varthm}
+            {连续映射保持紧致性}
+            设 \(f:X\to Y\) 是拓扑空间 \(X\) 到 \(Y\) 的一个连续映射, \(A\subseteq X\) 是 \(X\) 中的一个\hyperref[dfn:Compact]{紧集}, 则 \(f(A)\) 是 \(Y\) 中的一个紧集.
+        \end{varthm}
+
+        \begin{prf}
+            设 \(\{O_\alpha\}_{\alpha\in I}\) 是 \(Y\) 中的一族开集, 使得 \(f(A)\subseteq\bigcup_{\alpha\in I} O_\alpha\). 则 \(\{f^{-1}(O_\alpha)\}_{\alpha\in I}\) 是 \(X\) 中的一族开集, 使得
+            \[A\subseteq f^{-1}(f(A)) \subseteq \bigcup_{\alpha\in I} f^{-1}(O_\alpha).\]
+            根据 \(A\) 的紧性, 存在 \(\alpha_1,\dots,\alpha_n\in I\) 使得
+            \[A\subseteq \bigcup_{i=1}^n f^{-1}(O_{\alpha_i}).\]
+            从而
+            \[f(A)\subseteq \bigcup_{i=1}^n O_{\alpha_i}.\]
+            这就说明了 \(f(A)\) 是 \(Y\) 中的一个紧集.
+        \end{prf}
+
+        \begin{varthm}
+            [Tychonoff]
+            {Tychonoff 定理}
+            设 \(X_\alpha\) 是一族\hyperref[dfn:Compact]{紧拓扑空间}. 则积拓扑空间
+            \[\prod_{\alpha\in I} X_\alpha\]
+            是一个紧拓扑空间.
+        \end{varthm}
+
+        \begin{prf}
+            证明该定理需要承认 Zorn 引理. 设 \(\mathscr{F}\) 是积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 的一族满足有限交性质的闭集. 根据 Zorn 引理, 设 \(\mathscr{P}\) 是任意包含了 \(\mathscr{F}\) 的具有有限交性的闭子集族, 其中偏序关系是 \(\subseteq\), 对于 \(\mathscr{P}\) 的任意全序子集 \(\mathscr{C}\), 都存在一个上界 \(\bigcup\mathscr{C}\). 从而存在一个包含 \(\mathscr{F}\) 的最大的满足有限交性的闭集族 \(\mathscr{E}\).\\
+            令 \(p_\alpha\) 是 积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 上的第 \(\alpha\) 个坐标投影. 对任意 \(E\in\mathscr{E}\), 记 \(E_\alpha = p_\alpha(E)\). 则 \(\{E_\alpha:E\in\mathscr{E}\}\) 也满足有限交性, 也就是
+            \[\bigcap_{i=1}^n E_{\alpha_i} = \bigcap_{i=1}^n p_{\alpha_i}(E) = p_{\alpha_1}\qty(\bigcap_{i=1}^n E_i)\neq\varnothing.\]
+            \bysorry
+        \end{prf}
+
+    \subsection{弱拓扑与弱*拓扑}
+
+        \begin{intrormk}
+            [Dedicatia]
+            本节介绍弱拓扑和弱*拓扑. 这是两种在线性空间上定义的比范数拓扑更弱的拓扑. 这两种拓扑在泛函分析中非常重要, 因为它们允许我们在 Banach 空间中讨论收敛性和连续性时使用更宽松的条件.
+        \end{intrormk}
+
+        \begin{dfn}
+            {弱邻域}
+            [Weak Neighborhood]
+            设 \(X\) 是一个赋范线性空间, \(x\in X\). 定义 \(X\) 中的一个集合 \(V\) 是 \(x\) 的一个\textbf{弱邻域}, 当且仅当存在 \(f_1,\dots,f_n\in X^*\), \(\epsilon>0\) 使得
+            \[V\supseteq\bigcap_{i=1}^n \{y\in X: |f_i(y-x)|<\epsilon\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            {弱拓扑}
+            [Weak Topology]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 上的\textbf{弱拓扑}是由 \(X\) 中的所有弱邻域构成的拓扑. 记作 $(X,w_X)$.
+        \end{dfn}
+
+        \begin{thm}
+            {弱拓扑的等价定义}
+            设 \(X\) 是赋范线性空间, \(X\) 上的弱拓扑可以定义为:
+            \begin{enumerate}[label=(\alph*)]
+                \item \(f_i\) 是一族能分离点的线性泛函, 弱拓扑是使得所有 \(f_i\) 都连续的最弱的拓扑;
+                \item 由半范数族 \[\{p_f\}_{f\in X^*}, p_f (x) = |f(x)|\] 生成的拓扑: 弱邻域为 \[\{x\in X: p_{f_i}(x-x_0) < \epsilon,\forall i = 1,\cdots,n\}\]
+            \end{enumerate}
+        \end{thm}
+
+        \begin{prf}
+            这里我们只介绍思路: \\
+            弱拓扑是使得所有线性泛函都连续的最弱的拓扑, 根据拓扑空间连续映射的定义, 泛函映入的标量域的开集的原像必须也是开的. 而根据拓扑空间的定义, 有限多个开集的交是开集, 所以弱邻域的定义就自然地是\textbf{有限多个连续线性泛函的原像的交集}:
+            \[\bigcap_{i=1}^n \{y\in X: |f_i(y-x)|<\epsilon\}\]
+            接下来只需验证这是一族半范数:\begin{enumerate}[label=(\roman*)]
+                \item 非负性: \(p_f(x)=|f(x)|\geq 0\);
+                \item 绝对齐次性: \(p_f(\lambda x)=|\lambda||f(x)|=|\lambda|p_f(x)\);
+                \item 次可加性: \(p_f(x+y)=|f(x+y)|\leq |f(x)|+|f(y)|=p_f(x)+p_f(y)\).
+            \end{enumerate}
+            所以这不过是等价转述了弱邻域的定义而已.
+        \end{prf}
+
+        \begin{ppt}
+            {弱拓扑空间是 Hausdorff 空间}
+        \end{ppt}
+
+        \begin{prf}
+            设 \(x,y\in X, x\neq y\). 根据 Hahn-Banach 定理, \(\exists\,f \in X^*, \forall\,\alpha\in\R, f(x)>\alpha>f(y)\). 从而 \(f\) 是一个连续线性泛函, \(f^{-1}((\alpha,+\infty))\) 和 \(f^{-1}((-\infty,\alpha))\) 是 \(X\) 中的两个弱开集, 分别包含 \(x\) 和 \(y\), 从而 \(X\) 是 Hausdorff 空间.
+        \end{prf}
+
+        \begin{dfn}
+            {弱*邻域}
+            [Weak-star Neighborhood]
+            设 \(X\) 是一个赋范线性空间, \(f\in X^*\). 定义 \(X^*\) 中的一个集合 \(V\) 是 \(f\) 的一个\textbf{弱*邻域}, 当且仅当存在 \(x_1,\dots,x_n\in X\), \(\epsilon>0\) 使得
+            \[V\supseteq\bigcap_{i=1}^n \{g\in X^*: |g(x_i)-f(x_i)|<\epsilon\}.\]
+        \end{dfn}
+
+        \begin{dfn}
+            {弱*拓扑}
+            [Weak-star Topology]
+            设 \(X\) 是一个赋范线性空间. 定义 \(X^*\) 上的\textbf{弱*拓扑}是由 \(X^*\) 中的所有弱*邻域构成的拓扑. 记作 \((X^*, w^*)\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            \(X^{**}\) 上的弱*拓扑不一定同胚于 \(X\) 上的弱拓扑. 只有当 \(X\) 是一个\hyperref[dfn:Reflexive]{自反空间}时, \(X^{**}\) 上的弱*拓扑才同胚于 \(X\) 上的弱拓扑.
+        \end{rmk}
+
+        \begin{thm}
+            {有限维空间的弱拓扑、弱*拓扑与范数拓扑一致}
+            设 \(X\) 是赋范线性空间, \(\dim X<+\infty\). 则 \((X, \tau_{\norm{\cdot}})\cong (X, w_X) \cong (X^*,w^*)\)
+        \end{thm}
+
+        \begin{prf}
+            我们仅证明对弱*拓扑的情况. 设 \(O\subseteq X^*\) 是弱*开集, \(f_0\in O\). 设 \(\{e_i\}_{i=1}^n\) 是 \(X\) 的一组基. 定义
+            \[p(f) = \max_{1\leq i\leq n} |f(e_i)|\]
+            则 \(p\) 是 \(X^*\) 上的范数, 且与原先任意一个范数等价. 它诱导的开集
+            \[O'=\{f\in X^*: p(f-f_0)<\epsilon\} = \bigcap_{i=1}^n \{f\in X^*: |f(e_i)-f_0(e_i)|<\epsilon\}\]
+            是一个弱*开集. 这就说明了 \(O'\subseteq O\). 另一方面, 设 \(O''\) 是 \(X^*\) 上的一个弱*开集, \(f_0\in O''\). 则存在 \(x_1,\dots,x_m\in X\), \(\epsilon>0\) 使得
+            \[O''\supseteq\bigcap_{j=1}^m \{f\in X^*: |f(x_j)-f_0(x_j)|<\epsilon\}\]
+            设 \(x_j=\sum_{i=1}^n a_{ij} e_i\). 则
+            \[|f(x_j)-f_0(x_j)| = \left|\sum_{i=1}^n a_{ij} (f(e_i)-f_0(e_i))\right| \leq \sum_{i=1}^n |a_{ij}| |f(e_i)-f_0(e_i)|\]
+            从而
+            \[\bigcap_{j=1}^m \{f\in X^*: |f(x_j)-f_0(x_j)|<\epsilon\} \supseteq \bigcap_{i=1}^n \qty{f\in X^*: |f(e_i)-f_0(e_i)|<\frac{\epsilon}{\sum_{j=1}^m |a_{ij}|}} = O'''\]
+            这就说明了 \(O'''\subseteq O''\). 综上, \(O'''\subseteq O''\subseteq O\). 这就说明了 \(X^*\) 上的任意一个弱*开集都包含了一个范数开集. 从而 \(X^*\) 上的弱*拓扑与范数拓扑一致.
+        \end{prf}
+
+        \begin{thm}
+            {弱*拓扑空间是 Hausdorff 空间}
+            设 \(X\) 是一个赋范线性空间, 则 \((X^*, w^*)\) 是一个 Hausdorff 空间.
+        \end{thm}
+
+        \begin{ppt}
+            {双对偶空间中的弱*连续性}
+            设 \(X\) 是 Banach 空间, \(F\in X^{**}\). 如果 \(F\) 是弱*连续的, 则 \(\exists\,x\in X, \st F=J_X(x)\). \(J_X\) 是\hyperref[dfn:CanonicalEmbedding]{典范嵌入}.
+        \end{ppt}
+
+        \begin{prf}
+            \(F\) 是弱*连续的, 也就是它映入的标量域的开集的原像是弱*开集. 设为 \(O\):
+            \[O_\epsilon=\bigcap_{i=1}^{n}\{f\in X^*, |f(x_i)|<\epsilon \}\]
+            换句话说, \(\forall\,f\in O_\epsilon\), \(|F(f)|<M\), 不妨取 \(M=1\). 考虑
+            \[\mathcal{N}:=\bigcap_{i=1}^n \qty{f\in X^*, f(x_i)=0}=\bigcap_{i=1}^n\ker J_X(x_i) \]
+            则 \(\mathcal{N}\) 是 \(X^*\) 中的一个线性子空间且使得: \(\forall \lambda\in\R, |F(\lambda f)|\leq 1\), 所以 \(F(f)=0\) 对任意 \(f\in\mathcal{N}\) 都成立. 所以
+            \[F = \sum_{i=1}^n \alpha_i J_X(x_i).\]
+        \end{prf}
+
+        \begin{dfn}
+            [WeakConvergence]
+            {弱收敛}
+            [Weak Convergence]
+            设 \(X\) 是一个赋范线性空间, \(\{x_n\}_{n=1}^{\infty}\) 是 \(X\) 中的一列元素, \(x\in X\). 定义 \(\{x_n\}_{n=1}^{\infty}\) \textbf{弱收敛}到 \(x\), 当且仅当 \(\forall\,f\in X^*, f(x_n)\to f(x)\).\\
+            记作 \(x_n\wlim x\).
+        \end{dfn}
+
+        \begin{dfn}
+            [WeakstarConvergence]
+            {弱*收敛}
+            [Weak-star Convergence]
+            设 \(X\) 是一个赋范线性空间, \(\{f_n\}_{n=1}^{\infty}\) 是 \(X^*\) 中的一列元素, \(f\in X^*\). 定义 \(\{f_n\}_{n=1}^{\infty}\) \textbf{弱*收敛}到 \(f\), 当且仅当 \(\forall\,x\in X, f_n(x)\to f(x)\).\\
+            记作 \(f_n\wslim f\).
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            弱收敛/弱*收敛就是在弱拓扑/弱*拓扑下的收敛方式.
+        \end{rmk}
+
+        \begin{thm}
+            {任意可分的 Hilbert 空间的标准正交基弱收敛到 0}
+            设 \(H\) 是一个\hyperref[dfn:Separable]{可分}的 Hilbert 空间, \(\{e_n\}_{n=1}^{\infty}\) 是 \(H\) 的一个标准正交基. 则 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
+        \end{thm}
+
+        \begin{prf}
+            我们仅对 \(\ell^2\) 空间证明. 根据 \hyperref[thm:Riesz.Hilbert]{Riesz 表示定理}, 存在唯一 \(a\in\ell^2\) 使得
+            \[T e_n = \langle a, e_n \rangle\]
+            当 \(n\to\infty\), \(Te_n\to 0\), 从而 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
+        \end{prf}
+
+        \begin{cxmp}
+            {弱收敛不蕴含范数收敛}
+            考虑 \(\Lp[2]([0,1])\) 中的函数列 \(\{\sin 2n\pi x\}\), 则根据 Riemann-Lebesgue 引理我们有
+            \[\int_0^1 \sin 2n\pi x \cdot g(x) \dd{x} \to 0, \forall\,g\in\Lp[2]([0,1]).\]
+            从而 \(\{\sin 2n\pi x\}\wlim 0\). 但是 \(\norm{\sin 2n\pi x}_2 = \frac{1}{\sqrt{2}}\) 不趋于零, 从而 \(\{\sin 2n\pi x\}\) 弱收敛但不范数收敛.
+        \end{cxmp}
+
+        \begin{thm}
+            [BanachAlaoglu]
+            {Banach-Alaoglu 定理}
+            [Banach-Alaoglu Theorem]
+            设 \(X\) 是 Banach 空间, 则 \(X^*\) 的单位闭球 \(B=\overline{B}(0,1):=\{f\in X^*: \norm{f}\leq 1\}\) 在弱*拓扑下是\hyperref[dfn:Compact]{紧的}.
+        \end{thm}
+
+        \begin{prf}
+            定义
+            \[\{f: B\to [-1,1]\}\]
+            则它可以写作
+            \[\prod_{\card (B)} [-1,1]\]
+            根据 Tychonoff 定理, 这是一个紧拓扑空间. 将 \(X\) 上的泛函限制在 \(B\) 上, 我们只需要证明它是紧的. 根据紧拓扑空间的闭子集是紧的, 我们只需证明它是闭的. 将 \(f\) 延拓到整个空间上, 利用齐次性: \(\forall\,x\in X, F(x) = \norm{x} f\qty(\frac{x}{\norm{x}})\). 则 \(F\) 是有界线性泛函且 \(\norm{F}\leq\norm{f}\leq 1\). 从而 \(F\in X^*\). 这就说明了 \(X^*\) 的单位闭球在弱*拓扑下是紧的.
+        \end{prf}
+
+        \begin{crl}
+            {Hilbert 空间的单位闭球是弱紧的}
+            这是因为可以建立从 Hilbert 空间到其\hyperref[dfn:DualSpace]{对偶空间}的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是\hyperref[dfn:Compact]{紧的}.
+        \end{crl}
+
+    \subsection{【实分析】Lp 空间}
+
+        \begin{intrormk}
+            [Dedicatia]
+            在实分析中, 最常用的具有研究价值的空间就是 \(\Lp\) 可积函数空间. 本节我们将以 \(\Lp\) 空间为例, 来介绍弱拓扑和弱*拓扑在实分析中的应用. 通过对 \(\Lp\) 空间中函数的弱收敛和弱*收敛的研究, 我们可以更深入地理解函数空间的结构和性质.
+        \end{intrormk}
+
+        \begin{ins}
+            [LP]
+            {Lp 空间}
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(1\leq p < +\infty\). 定义 \(\Lp(X)\) 是所有满足 \(\int_X |f|^p \dd{m} < +\infty\) 的可测函数 \(f\) 的集合. 定义 \(L^\infty(X)\) 是所有满足 \(\esssup\limits_{x\in X} |f(x)| < +\infty\) 的可测函数 \(f\) 的集合, 统称为 \(\Lp\) 空间.
+        \end{ins}
+
+        \begin{varthm}
+            {Lp 空间是赋范线性空间}
+            \(\Lp\) 空间上定义范数
+            \[\norm{f}_p = \begin{cases}
+                \left(\int_X |f|^p \dd{m}\right)^{\frac{1}{p}}, & 1\leq p < +\infty;\\
+                \esssup\limits_{x\in X} |f(x)|, & p = +\infty.
+            \end{cases}\]
+            则 \(\Lp(X)\) 是一个赋范线性空间.
+        \end{varthm}
+
+        \begin{prf}
+            先证明 Holder 不等式
+            \[\int_X |fg| \dd{m} \leq \norm{f}_p \norm{g}_q\]
+            其中 \(1<p,q<\infty\). 设 \(y=\phi(x)\) 是一个严格递增的连续函数, \(x=\psi(y)\) 是其反函数. 则下列不等式成立:
+            \[\int_0^a \phi(x)\dd{x}+\int_0^b \psi(y)\dd{y} \geq ab\]
+            取等条件为 \(b=\phi(a)\). 则令 \(\phi(x)=x^{p-1}, \psi(y)=y^{q-1}\), 得到
+            \[\int_0^a x^{p-1}\dd{x}+\int_0^b y^{q-1}\dd{y} = \frac{a^p}{p} + \frac{b^q}{q} \geq ab\]
+            记作
+            \[A^{1/p}B^{1/q} \geq \frac{A}{p}+\frac{B}{q}.\]
+            现在来证明 Holder 不等式. 如果 \(\norm{f}_p\) 或 \(\norm{g}_q\) 中至少有一个为零, 则不等式显然成立. \\
+            否则, 取 \(\phi(x)=\frac{f(x)}{\norm{f}_p}\), \(\psi(y)=\frac{g(y)}{\norm{g}_q}\), \(A=|\phi(x)|^p\), \(B=|\psi(x)|^q\), 则
+            \[|\phi(x)\psi(x)|\leq\frac{|\phi(x)|^p}{p}+\frac{|\psi(x)|^q}{q}\]
+            积分, 得
+            \[\int_X |\phi\psi| \dd{m} \leq \frac{1}{p}\int_X |\phi|^p \dd{m} + \frac{1}{q}\int_X |\psi|^q \dd{m} = 1.\]
+            换回 \(f,g\), 得到
+            \[\int_X |fg| \dd{m} \leq \norm{f}_p \norm{g}_q.\]
+            我们验证范数前两个性质:
+            \begin{enumerate}[label=(\roman*)]
+                \item 正定性: 由于是对非负函数积分, 所以显然是非负的. 由于将 Lp 空间中的元素视作等价类, 所以 \(\norm{f}_p=0\) 当且仅当 \(f=0\) a.e., 正定性得证;
+                \item 绝对齐次性: \(\norm{\lambda f}_p = |\lambda| \norm{f}_p\) 显然成立.
+            \end{enumerate}
+            接下来证明 Minkowski 不等式
+            \[\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.\]
+            特殊情况1: 如果 \(p=1\), 则不等式显然成立. \\
+            特殊情况2: 如果 \(\norm{f+g}_p=0\), 不等式也成立. \\
+            令 \(1/p+1/q=1\), 由 Holder 不等式得到
+            \[\int_X|f||f+g|^{p/q}\dd{m}\leq\qty(\int_X|f|^p\dd{m})^{1/p}\qty(\int_X|f+g|^q\dd{m})^{1/q}\]
+            \[\int_X|g||f+g|^{p/q}\dd{m}\leq\qty(\int_X|g|^p\dd{m})^{1/p}\qty(\int_X|f+g|^q\dd{m})^{1/q}\]
+            从而
+            \[\int_X |f+g|^p\dd{m}=\int_X |f+g|^{1+\frac{p}{q}}\dd{m}\leq\int_X(|f|+|g|)\cdot|f+g|^{p/q}\dd{m}\]
+            由 Holder 不等式, 得到
+            \[\int_X |f+g|^p\dd{m} \leq (\norm{f}_p + \norm{g}_p) \norm{f+g}_p^{p-1}.\]
+            除以 \(\norm{f+g}_p^{p-1}\), 得到
+            \[\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.\]
+            这就说明了范数满足次可加性. 所以 \(\Lp(X)\) 是一个赋范线性空间.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            习惯上称 Lp 空间中的依范数收敛为\textbf{均方收敛} / \textbf{平均收敛} / \textbf{Lp 收敛}, 以区别于其他的收敛方式, i.e. 依测度收敛和几乎处处收敛.
+        \end{rmk}
+
+        \begin{vardfn}
+            {依测度收敛}
+            [Convergence in Measure]
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(\{f_n\}_{n=1}^{\infty}\) 是 \(\Lp(X)\) 中的可积函数列, \(f\in \Lp(X)\). 定义 \(\{f_n\}_{n=1}^{\infty}\) \textbf{依测度收敛}到 \(f\), 当且仅当 
+            \[\forall\,\epsilon>0, m(\{x\in X: |f_n(x)-f(x)|>\epsilon\})\to 0.\]
+            记作 \(f_n\mlim f\).
+        \end{vardfn}
+
+        \begin{varthm}
+            {均方收敛蕴含依测度收敛}
+            设 \(\{f_n\}\) 是 \(\Lp(X)\) 中的可积函数列, \(f\in \Lp(X)\). 则
+            \[\int_X |f_n-f|^p \dd{m} \to 0 \implies f_n\mlim f.\]
+        \end{varthm}
+
+        \begin{prf}
+            任取 \(\delta>0\), 
+            \[\int_X|f_n-f|^p\dd{m}\geq\int_{X\cap \{x:|f_n(x)-f(x)|\geq\delta\}}|f_n-f|^p\dd{m}\geq\delta^p m\qty(\{x:|f_n(x)-f(x)|\geq\delta\}).\]
+            令 \(n\to\infty\).
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            依测度收敛是很弱的收敛方式. 为 \(X=[0,1]\) 配备 Lebesgue 测度, 则得到\textbf{概率空间}, 依测度收敛就是概率意义下的收敛, 这时也称为也\textbf{依概率收敛}. 它的含义是某件事情发生的概率越来越大, 但并不能阻止它不发生.
+        \end{rmk}
+
+        \begin{varthm}
+            {Lp 空间是 Banach 空间}
+            \(\Lp(X)\) 是一个 Banach 空间.
+        \end{varthm}
+
+        \begin{prf}
+            我们这里仅证明 \(1\leq n<\infty\) 的情况:
+            设 \(\{f_n\}\) 是 Cauchy 列. 对任何 \(\delta>0\), 
+            \[m(\{x\in X : |f_n(x)-f_m(x)|\geq\delta\}) < \frac{1}{\delta}\qty(\int_X |f_n-f_m|^p \dd{m})^{1/p}=\frac{1}{\delta} \norm{f_n-f_m}_p\]
+            这表明了 \(\{f_n\}\) 是依测度收敛的 Cauchy 列. 设 \(f\) 是 \(\{f_n\}\) 的一个依测度收敛的极限. 则根据 F.Riesz 定理, 存在一个子列 \(\{f_{n_k}\}\) 使得 \(\{f_{n_k}\}\) 几乎处处收敛到 \(f\). 取 
+            \[\norm{f_n-f_{n_k}}<\epsilon\]
+            根据 Fatou 引理, 固定 \(n\),
+            \[\epsilon\geq\lim_{k\to\infty}\norm{f_{n_k}-f_n}_p=\lim_{k\to\infty}\qty(\int_X |f_{n_k}-f_n|^p \dd{m})^{1/p}=\qty(\lim_{k\to\infty}\int_X |f_{n_k}-f_n|^p \dd{m})^{1/p}\]
+            \[\geq\qty(\int_X |f_n-f|^p \dd{m})^{1/p}=\norm{f_n-f}_p\]
+            这表明了当 \(n\) 足够大的时候, \(\norm{f_n-f}_p<\epsilon\). 从而 \(\{f_n\}\) 依范数收敛到 \(f\). 这就说明了 \(\Lp(X)\) 是完备的.
+        \end{prf}
+
+        \begin{thm}
+            {Lp 空间的对偶空间}
+            设 \((X, \mathcal{M}, m)\) 是测度空间, \(1\leq p < +\infty\), 则 \(\Lp(X)^* \cong L^q(X)\), 其中 \(1/p+1/q=1\). 
+        \end{thm}
+
+        \begin{prf}
+            我们只需给出一个等距同构:
+            定义
+            \[T:\qquad\begin{matrix}
+                L^q(X) & \to & \Lp(X)^*\\
+                g & \mapsto & T_g:=\qty(f\mapsto\int_X fg \dd{m})
+            \end{matrix}\]
+            其证明与\hyperref[thm:Riesz.Hilbert]{Riesz 表示定理}类似.
+        \end{prf}
+
+        \begin{ins}
+            {L2 空间是 Lp 空间中唯一的 Hilbert 空间}
+            \(\Lp[2](X)\) 是一个 Hilbert 空间, 内积定义为
+            \[\langle f, g\rangle = \int_X f\cdot\overline{g} \dd{m}.\]
+            这是因为只有 \(\Lp[2]\) 空间是自反的.
+        \end{ins}
+
+        \begin{thm}
+            {Lp 空间的自反性}
+            Lp 空间是自反的当且仅当 \(1<p<\infty\).
+        \end{thm}
+
+        \begin{cxmp}
+            {L1 空间的非自反性}
+            \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). \\
+            这是因为 \(\Lp[1](X)\) 是\hyperref[dfn:Separable]{可分}的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\chi_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
+        \end{cxmp}
+
+        \begin{rmk}
+            [Dedicatia]
+            总结下来, 我们有如下的表格:
+            \begin{center}
+                \begin{tabular}{c|cccc}
+                    \toprule
+                    空间 & \(\Lp[1]\) & \(\Lp[2]\) & 其余的 \(\Lp[p], 1<p<\infty\) & \(\Lp[\infty]\)\\
+                    \midrule
+                    Banach 空间 (完备的范数) & \checkmark & \checkmark & \checkmark & \checkmark\\
+                    Hilbert 空间 (完备的内积) & \texttimes & \checkmark & \texttimes & \texttimes\\
+                    \hyperref[dfn:Separable]{可分性} & \checkmark & \checkmark & \checkmark & \texttimes\\
+                    \hyperref[dfn:Reflexive]{自反性} & \texttimes & \checkmark & \checkmark & \texttimes\\
+                    单位球的一致凸性 & \texttimes & \checkmark & \checkmark & \texttimes\\
+                    \bottomrule
+                \end{tabular}
+            \end{center}
+            这也就解释了为什么同样是Lp空间, L2 空间非常优美, 但 L1 空间却臭名昭著.
+        \end{rmk}
