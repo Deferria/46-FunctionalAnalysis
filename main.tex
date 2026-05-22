@@ -410,6 +410,7 @@
         \end{dfn}
         
         \begin{dfn}
+            [Complete]
             {完备}
             [Completeness]
             设 \((X, \norm{\cdot})\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{完备的}, 当且仅当 \(X\) 中的每个 Cauchy 列都收敛于 \(X\) 中的某个元素.
@@ -515,7 +516,7 @@
 
         \begin{rmk}
             [Dedicatia]
-            直观地理解, 有界线性算子将 \(X\) 的单位闭球映到 \(Y\) 中半径不超过 \(M\) 的单位闭球中.
+            直观地理解, 有界线性算子将 \(Y\) 的单位闭球拉回 \(X\) 中半径不超过 \(M\) 的单位闭球中.
         \end{rmk}
 
         \begin{dfn}
@@ -580,6 +581,7 @@
         \end{crl}
 
         \begin{thm}
+            [BoundedIffContinuous]
             {有界等价于连续}
             [Bounded iff Continuous]
             设 \(X,Y\) 是两个赋范线性空间, \(T:X\to Y\) 是一个线性映射. 则 \(T\) 是有界的当且仅当 \(T\) 是连续的.
@@ -634,6 +636,8 @@
             定义算子 \(D:\Cont^1([0,1])\to\Cont([0,1])\) 使得
             \[Df(x)=f'(x)\]
             则 \(D\) 不是一个有界线性算子. 这是因为考虑函数列 \(f_n=x^n\), 则 \(\norm{f_n}_\infty=1\), 但 \(\norm{Df_n}_\infty=n\to\infty\).
+            \tcbline
+            这好像很违背直觉. 但是从另一个角度看, 微分算子也不是连续的.
         \end{cxmp}
 
         \begin{vardfn}
@@ -795,13 +799,14 @@
         \end{dfn}
 
         \begin{dfn}
+            [Reflexive]
             {自反空间}
             [Reflexive Space]
-            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{自反的}, 当且仅当 \(X\) 的典范嵌入是双射.
+            设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{自反的}, 当且仅当 \(X\) 的\hyperref[dfn:CanonicalEmbedding]{典范嵌入}是双射.
         \end{dfn}
 
         \begin{rmk}
-            注意: 这里的自反空间是利用典范嵌入定义的. 有可能出现如下的情况:
+            注意: 这里的\hyperref[dfn:Reflexive]{自反空间}是利用\hyperref[dfn:CanonicalEmbedding]{典范嵌入}定义的. 有可能出现如下的情况:
             \begin{itemize}
                 \item \(X\cong X^{**}\), 但 \(J_X\) 不是双射; 这时按定义 \(X\) 不是自反空间;
             \end{itemize}
@@ -817,6 +822,7 @@
         \end{prf}
 
         \begin{dfn}
+            [Separable]
             {可分 / 可析}
             [Separable]
             设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{可分的}, 当且仅当 \(X\) 中存在一个可数的稠密子集.
@@ -824,7 +830,7 @@
 
         \begin{thm}
             {可分的赋范线性空间的原对偶空间也是可分的}
-            设 \(X\) 是赋范线性空间, 则如果 \(X^*\) 是可分的, 则 \(X\) 也是可分的.
+            设 \(X\) 是赋范线性空间, 则如果 \(X^*\) 是\hyperref[dfn:Separable]{可分}的, 则 \(X\) 也是可分的.
         \end{thm}
 
         \begin{prf}
@@ -1053,7 +1059,7 @@
                 \item \(X\) 有可数的标准正交基;
                 \item \(X\) 与 \(\ell^2\) 等距同构;
                 \item \(X\) 上存在 Fourier 级数;
-                \item \(X\) 是可分的.
+                \item \(X\) 是\hyperref[dfn:Separable]{可分的}.
             \end{enumerate}
         \end{thm}
 
@@ -1583,7 +1589,7 @@
             [MetricSpace]
             {度量空间}
             [Metric Space]
-            设 \(X\) 是一个集合, \(d\) 是 \(X\) 上的一个度量. 则 \((X, d)\) 是一个\textbf{度量空间(Metric Space)}.
+            设 \(X\) 是一个集合, \(d\) 是 \(X\) 上的一个\hyperref[dfn:Metric]{度量}. 则 \((X, d)\) 是一个\textbf{度量空间(Metric Space)}.
         \end{dfn}
 
         \begin{rmk}
@@ -1626,7 +1632,7 @@
 
         \begin{thm}
             {完备化定理}
-            对任意度量空间 \(X\), 都存在一个完备度量空间 \(Y\) 使得 \(X\) 是 \(Y\) 的一个稠密度量子空间.
+            对任意度量空间 \(X\), 都存在一个\hyperref[dfn:Complete]{完备}度量空间 \(Y\) 使得 \(X\) 是 \(Y\) 的一个稠密度量子空间.
         \end{thm}
 
         \begin{ins}
@@ -1647,19 +1653,19 @@
             [Residual]
             {余纲集}
             [Residual Set / Comeager Set]
-            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{余纲集}, 当且仅当 \(A^c\) 是第一纲集.
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{余纲集}, 当且仅当 \(A^c\) 是\hyperref[dfn:Meager]{第一纲集}.
         \end{dfn}
 
         \begin{dfn}
             [SecondCategory]
             {Baire 第二纲集}
             [Baire 2nd Category Set]
-            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第二纲集}, 当且仅当 \(A\) 不是第一纲集.
+            设 \(X\) 是一个拓扑空间. 定义 \(X\) 中的一个子集 \(A\) 是一个\textbf{Baire 第二纲集}, 当且仅当 \(A\) 不是\hyperref[dfn:Meager]{第一纲集}.
         \end{dfn}
 
         \begin{rmk}
             [Dedicatia]
-            需要注意的是, \colora{第二纲集和余纲集是不同的概念}. 存在既不是第一纲集也不是余纲集的集合. 但一个集合一定要么是第一纲集, 要么是第二纲集.
+            需要注意的是, \colora{第二纲集和余纲集是不同的概念}. 存在既不是\hyperref[dfn:Meager]{第一纲集}也不是\hyperref[dfn:Residual]{余纲集}的集合. 但一个集合一定要么是第一纲集, 要么是第二纲集.
         \end{rmk}
 
         \begin{ins}
@@ -1678,7 +1684,7 @@
 
         \begin{ppt}
             {第一纲集的可数并仍然是第一纲集}
-            其对偶结论为: 余纲集的可数交仍然是余纲集.
+            其对偶结论为: \hyperref[dfn:Residual]{余纲集}的可数交仍然是余纲集.
         \end{ppt}
 
         \begin{ppt}
@@ -1719,7 +1725,7 @@
             [BCT]
             {Baire 纲定理}
             [Baire Category Theorem]
-            Baire 空间本身一定是第二纲的.
+            Baire 空间本身一定是\hyperref[dfn:SecondCategory]{第二纲的}.
         \end{thm}
 
         \begin{prf}
@@ -1735,7 +1741,7 @@
 
         \begin{ppt}
             {余纲集的等价定义}
-            Baire 空间中的 \(X\) 中的集合 \(A\) 是余纲集当且仅当存在 G-delta 集 \(G\) 使得 \(G\subseteq A\), \(\overline{G}=A\).
+            Baire 空间中的 \(X\) 中的集合 \(A\) 是\hyperref[dfn:Residual]{余纲集}当且仅当存在 G-delta 集 \(G\) 使得 \(G\subseteq A\), \(\overline{G}=A\).
         \end{ppt}
 
         \begin{rmk}
@@ -1830,6 +1836,7 @@
         \end{vardfn}
 
         \begin{vardfn}
+            [Compact]
             {紧致集 / 紧集}
             [Compact Set]
             设 \(X\) 是一个拓扑空间, \(A\subseteq X\). 定义 \(A\) 是一个\textbf{紧致集}, 当且仅当 \(A\) 的任意开覆盖都存在一个有限子覆盖. \\
@@ -1847,7 +1854,7 @@
 
         \begin{varthm}
             {紧集的等价定义}
-            \(A\) 是 \(X\) 中的紧集当且仅当对 \(X\) 中的任意一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 都满足:
+            \(A\) 是 \(X\) 中的\hyperref[dfn:Compact]{紧集}当且仅当对 \(X\) 中的任意一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 都满足:
             若 \(\{F_\alpha\cap A\}_{\alpha\in I}\) 满足有限交性, 则 \(\bigcap_{\alpha\in I} F_\alpha\cap A\neq\varnothing.\)
         \end{varthm}
 
@@ -1858,7 +1865,7 @@
 
         \begin{varthm}
             {紧集的闭子集是紧的}
-            设 \(A\) 是 \(X\) 中的一个紧集, 则 \(A\) 的任意闭子集 \(B\) 也是 \(X\) 中的一个紧集.
+            设 \(A\) 是 \(X\) 中的一个\hyperref[dfn:Compact]{紧集}, 则 \(A\) 的任意闭子集 \(B\) 也是 \(X\) 中的一个紧集.
         \end{varthm}
 
         \begin{prf}
@@ -1869,7 +1876,7 @@
 
         \begin{varthm}
             {连续映射保持紧致性}
-            设 \(f:X\to Y\) 是拓扑空间 \(X\) 到 \(Y\) 的一个连续映射, \(A\subseteq X\) 是 \(X\) 中的一个紧集, 则 \(f(A)\) 是 \(Y\) 中的一个紧集.
+            设 \(f:X\to Y\) 是拓扑空间 \(X\) 到 \(Y\) 的一个连续映射, \(A\subseteq X\) 是 \(X\) 中的一个\hyperref[dfn:Compact]{紧集}, 则 \(f(A)\) 是 \(Y\) 中的一个紧集.
         \end{varthm}
 
         \begin{prf}
@@ -1883,15 +1890,15 @@
         \end{prf}
 
         \begin{varthm}
+            [Tychonoff]
             {Tychonoff 定理}
-            设 \(X_\alpha\) 是一族紧拓扑空间. 则积拓扑空间
+            设 \(X_\alpha\) 是一族\hyperref[dfn:Compact]{紧拓扑空间}. 则积拓扑空间
             \[\prod_{\alpha\in I} X_\alpha\]
             是一个紧拓扑空间.
         \end{varthm}
 
         \begin{prf}
-            证明该定理需要承认 Zo
-            rn 引理. 设 \(\mathscr{F}\) 是积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 的一族满足有限交性质的闭集. 根据 Zorn 引理, 设 \(\mathscr{P}\) 是任意包含了 \(\mathscr{F}\) 的具有有限交性的闭子集族, 其中偏序关系是 \(\subseteq\), 对于 \(\mathscr{P}\) 的任意全序子集 \(\mathscr{C}\), 都存在一个上界 \(\bigcup\mathscr{C}\). 从而存在一个包含 \(\mathscr{F}\) 的最大的满足有限交性的闭集族 \(\mathscr{E}\).\\
+            证明该定理需要承认 Zorn 引理. 设 \(\mathscr{F}\) 是积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 的一族满足有限交性质的闭集. 根据 Zorn 引理, 设 \(\mathscr{P}\) 是任意包含了 \(\mathscr{F}\) 的具有有限交性的闭子集族, 其中偏序关系是 \(\subseteq\), 对于 \(\mathscr{P}\) 的任意全序子集 \(\mathscr{C}\), 都存在一个上界 \(\bigcup\mathscr{C}\). 从而存在一个包含 \(\mathscr{F}\) 的最大的满足有限交性的闭集族 \(\mathscr{E}\).\\
             令 \(p_\alpha\) 是 积拓扑空间 \(\prod\limits_{\alpha\in I} X_\alpha\) 上的第 \(\alpha\) 个坐标投影. 对任意 \(E\in\mathscr{E}\), 记 \(E_\alpha = p_\alpha(E)\). 则 \(\{E_\alpha:E\in\mathscr{E}\}\) 也满足有限交性, 也就是
             \[\bigcap_{i=1}^n E_{\alpha_i} = \bigcap_{i=1}^n p_{\alpha_i}(E) = p_{\alpha_1}\qty(\bigcap_{i=1}^n E_i)\neq\varnothing.\]
             \bysorry
@@ -1961,7 +1968,7 @@
 
         \begin{rmk}
             [Dedicatia]
-            \(X^{**}\) 上的弱*拓扑不一定同胚于 \(X\) 上的弱拓扑. 只有当 \(X\) 是一个自反空间时, \(X^{**}\) 上的弱*拓扑才同胚于 \(X\) 上的弱拓扑.
+            \(X^{**}\) 上的弱*拓扑不一定同胚于 \(X\) 上的弱拓扑. 只有当 \(X\) 是一个\hyperref[dfn:Reflexive]{自反空间}时, \(X^{**}\) 上的弱*拓扑才同胚于 \(X\) 上的弱拓扑.
         \end{rmk}
 
         \begin{thm}
@@ -1990,7 +1997,7 @@
 
         \begin{ppt}
             {双对偶空间中的弱*连续性}
-            设 \(X\) 是 Banach 空间, \(F\in X^{**}\). 如果 \(F\) 是弱*连续的, 则 \(\exists\,x\in X, \st F=J_X(x)\).
+            设 \(X\) 是 Banach 空间, \(F\in X^{**}\). 如果 \(F\) 是弱*连续的, 则 \(\exists\,x\in X, \st F=J_X(x)\). \(J_X\) 是\hyperref[dfn:CanonicalEmbedding]{典范嵌入}.
         \end{ppt}
 
         \begin{prf}
@@ -2025,7 +2032,7 @@
 
         \begin{thm}
             {任意可分的 Hilbert 空间的标准正交基弱收敛到 0}
-            设 \(H\) 是一个可分的 Hilbert 空间, \(\{e_n\}_{n=1}^{\infty}\) 是 \(H\) 的一个标准正交基. 则 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
+            设 \(H\) 是一个\hyperref[dfn:Separable]{可分}的 Hilbert 空间, \(\{e_n\}_{n=1}^{\infty}\) 是 \(H\) 的一个标准正交基. 则 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
         \end{thm}
 
         \begin{prf}
@@ -2045,7 +2052,7 @@
             [BanachAlaoglu]
             {Banach-Alaoglu 定理}
             [Banach-Alaoglu Theorem]
-            设 \(X\) 是 Banach 空间, 则 \(X^*\) 的单位闭球 \(B=\overline{B}(0,1):=\{f\in X^*: \norm{f}\leq 1\}\) 在弱*拓扑下是紧的.
+            设 \(X\) 是 Banach 空间, 则 \(X^*\) 的单位闭球 \(B=\overline{B}(0,1):=\{f\in X^*: \norm{f}\leq 1\}\) 在弱*拓扑下是\hyperref[dfn:Compact]{紧的}.
         \end{thm}
 
         \begin{prf}
@@ -2058,7 +2065,7 @@
 
         \begin{crl}
             {Hilbert 空间的单位闭球是弱紧的}
-            这是因为可以建立从 Hilbert 空间到其对偶空间的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是紧的.
+            这是因为可以建立从 Hilbert 空间到其\hyperref[dfn:DualSpace]{对偶空间}的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是\hyperref[dfn:Compact]{紧的}.
         \end{crl}
 
     \subsection{【实分析】Lp 空间}
@@ -2198,7 +2205,7 @@
         \begin{cxmp}
             {L1 空间的非自反性}
             \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). \\
-            这是因为 \(\Lp[1](X)\) 是可分的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\chi_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
+            这是因为 \(\Lp[1](X)\) 是\hyperref[dfn:Separable]{可分}的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\chi_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
         \end{cxmp}
 
         \begin{rmk}
@@ -2211,8 +2218,8 @@
                     \midrule
                     Banach 空间 (完备的范数) & \checkmark & \checkmark & \checkmark & \checkmark\\
                     Hilbert 空间 (完备的内积) & \texttimes & \checkmark & \texttimes & \texttimes\\
-                    可分性 & \checkmark & \checkmark & \checkmark & \texttimes\\
-                    自反性 & \texttimes & \checkmark & \checkmark & \texttimes\\
+                    \hyperref[dfn:Separable]{可分性} & \checkmark & \checkmark & \checkmark & \texttimes\\
+                    \hyperref[dfn:Reflexive]{自反性} & \texttimes & \checkmark & \checkmark & \texttimes\\
                     单位球的一致凸性 & \texttimes & \checkmark & \checkmark & \texttimes\\
                     \bottomrule
                 \end{tabular}
