@@ -54,6 +54,7 @@
         \begin{ins}
             [Euclid]
             {配备 \(p\) 范数的有限维 Euclid 空间是 Banach 空间}
+            [Euclidean Space with \(p\) Norm is Banach Space]
             设 \(n\in\N\), \(1<p<\infty\), 定义 \(\R^n\) 上的范数 \(\norm{\cdot}_p\) 为
             \[\norm{x}_p=\left(\sum_{i=1}^n\abs{x_i}^p\right)^{\frac{1}{p}}, \forall x=(x_1,\cdots,x_n)\in\R^n\]
             则 \((\R^n, \norm{\cdot}_p)\) 是 Banach 空间.\\
@@ -451,10 +452,16 @@
             设 \(X\) 是一个赋范线性空间. 定义 \(X\) 是\textbf{可分的}, 当且仅当 \(X\) 中存在一个可数的稠密子集.
         \end{dfn}
 
-        \begin{thm}
+        \begin{rmk}
+            [Dedicatia]
+            可分空间的含义是可以用空间中的一列元素来近似空间中的任意元素. \\
+            ``Separable'' 翻译为``可分''. 在《实变函数论与泛函分析》中翻译为了``可析''.
+        \end{rmk}
+
+        \begin{varthm}
             {可分的赋范线性空间的原对偶空间也是可分的}
             设 \(X\) 是赋范线性空间, 则如果 \(X^*\) 是\hyperref[dfn:Separable]{可分}的, 则 \(X\) 也是可分的.
-        \end{thm}
+        \end{varthm}
 
         \begin{prf}
             由于 \(X^*\) 是可分的, 存在一列 \(\{f_n\}\) 在单位球中稠密. 对每个 \(f_n\), 由于 \(\sup_{\norm{x}=1}|f_n(x)|=\norm{f_n}>\frac{1}{2}\), 则必然存在 \(x_n\) 使得 
@@ -1509,6 +1516,113 @@
         \begin{rmk}
             开映射与连续映射恰好是相对的概念: 开映射将开集推前, 连续映射将开集拉回. \\
             一个同时是开映射、连续映射、双射的映射是\textbf{同胚映射 (Homeomorphism)}.
+        \end{rmk}
+
+        \begin{thm}
+            [OMT]
+            {Banach 空间的开映射定理}
+            [Open Mapping Theorem for Banach Spaces]
+            设 \(X,Y\) 是两个 Banach 空间, \(T\in\blo(X,Y)\), 如果 \(T\) 是满射, 则 \(T\) 是一个\hyperref[dfn:OpenMapping]{开映射}.
+        \end{thm}
+
+        \begin{prf}
+            由于 \(X\) 可以分成一列开球的并
+            \[X=\bigcup_{i=1}^{\infty} B_X(0,n)\]
+            而 \(T\) 是满射
+            \[Y=T(X)=T\qty(\bigcup_{i=1}^{\infty} B_X(0,n))=\bigcup_{i=1}^{\infty} T(B_X(0,n))\]
+            根据 \(T\) 的线性性, 
+            \[Y=\bigcup_{i=1}^{\infty} T(B_X(0,n))=\bigcup_{i=1}^{\infty} nT(B_X(0,1))\]
+            由于 \(Y\) 是完备的度量空间, 所以是 Baire 空间, 满足 Baire 纲定理, 它一定是第二纲的. 这说明上面的一列集合中至少有一个集合的闭包是有内部的.\\
+            也就是 \(\overline{T(B_X(0,1))}\) 必然包含开球. 设为 \(B_Y(y_0,r)\subseteq\overline{T(B_X(0,1))} \). 则
+            \[y=y_0+y-y_0\in\overline{T(B_X(0,1))}-\overline{T(B_X(0,1))}\subseteq\overline{T(B_X(0,2))}  \]
+            根据线性性可以把 \(2\) 提出来. 所以我们得到了
+            \[\exists\,\eta>0, \st B_Y(0,\eta)\subseteq\overline{T(B_X(0,1))} \]
+            设 \(y\in B_Y(0,\eta)\), 则存在 \(x_1\in B_X(0,1)\) 使得 \(\norm{T(x_1)-y}<\frac{\eta}{2}\). 设 \(y_1=y-T(x_1)\), 则 \(\norm{y_1}<\frac{\eta}{2}\). 同样的, 存在 \(x_2\in B_X(0,1)\) 使得 \(\norm{T(x_2)-y_1}<\frac{\eta}{4}\). 设 \(y_2=y_1-T(x_2)\), 则 \(\norm{y_2}<\frac{\eta}{4}\). \\
+            重复这个过程, 可以得到一列点 \(\{x_n\}_{n=1}^{\infty}\) 和一列数 \(\{\epsilon_n\}_{n=1}^{\infty}\), 使得
+            \[\norm{y-\sum_{i=1}^n T(x_i)}=\norm{y_n}<\epsilon_n\]
+            其中 \(\epsilon_n\to 0\). 这说明 \(\sum_{i=1}^n T(x_i)\) 收敛到 \(y\). 由于 \(T\) 是连续的, \(\sum_{i=1}^n x_i\) 收敛到 \(x\), 从而 \(T(x)=y\). 这说明 \(T(B_X(0,2))\) 包含了 \(B_Y(0,\eta)\). 从而 \(T(B_X(0,1))\) 包含了 \(B_Y(0,\frac{\eta}{2})\). 这就说明了 \(T\) 是一个开映射.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个证明中 Banach 空间的要求是不可缺的: \\
+            (i) \(Y\) 是 Banach 空间是为了保证 \(Y\) 是 Baire 空间;
+            (ii) \(X\) 是 Banach 空间是为了保证最后构造的级数一定收敛.
+        \end{rmk}
+
+        \begin{thm}
+            [IMT]
+            {Banach 空间的逆映射定理}
+            [Inverse Mapping Theorem for Banach Spaces] 
+            设 \(X,Y\) 是两个 Banach 空间, \(T\in\blo(X,Y)\), 如果 \(T\) 是双射, 则 \(T^{-1}\in\blo(Y,X)\).
+        \end{thm}
+
+        \begin{prf}
+            当 \(T\) 是双射时, \(T\) 是开映射等价于 \(T^{-1}\) 是连续映射. 根据开映射定理即可得到.
+        \end{prf}
+
+        \begin{thm}
+            {Banach 空间的范数等价定理}
+            [Norm Equivalence Theorem for Banach Spaces]
+            设 \(X\) 是一个线性空间, \(\norm{\cdot}_1, \norm{\cdot}_2\) 是 \(X\) 上的两个范数, 使得 \((X,\norm{\cdot}_1)\) 和 \((X,\norm{\cdot}_2)\) 都是 Banach 空间, 则 \(\norm{\cdot}_1\) 和 \(\norm{\cdot}_2\) 是等价的.
+        \end{thm}
+
+        \begin{prf}
+            对两个范数诱导的 Banach 空间使用逆映射定理.
+        \end{prf}
+
+        \begin{dfn}
+            {闭线性算子}
+            [Closed Linear Operator]
+            设 \(X,Y\) 是两个 Banach 空间, \(T:X\to Y\) 是一个线性映射. 定义 \(T\) 是一个\textbf{闭线性算子}, 当且仅当 \(T\) 的图像 \(\Gamma(T)=\{(x,T(x)):x\in X\}\) 是积拓扑空间 \(X\times Y\) 中的一个闭集. 这个闭集称为\textbf{闭图像(Closed Graph)}.
+        \end{dfn}
+
+        \begin{thm}
+            [CGT]
+            {Banach 空间的闭图像定理}
+            [Closed Graph Theorem for Banach Spaces]
+            设 \(X,Y\) 是两个 Banach 空间, \(T:E\subseteq X\to Y\) 是一个线性映射, \(E\) 是闭子空间. 如果 \(T\) 是闭线性算子, 则 \(T\in\blo(X,Y)\).
+        \end{thm}
+
+        \begin{prf}
+            设 \(X\) 上的范数为 \(\norm{\cdot}_X\), \(Y\) 上的范数为 \(\norm{\cdot}_Y\). 定义 \(X\times Y\) 上的范数为
+            \[\norm{(x,y)}_{X\times Y}=\norm{x}_X+\norm{y}_Y.\]
+            则 \(X\times Y\) 是一个 Banach 空间. 由于 \(T\) 是闭线性算子, \(\Gamma(T)\) 是 \(X\times Y\) 中的一个闭子空间. 从而 \(\Gamma(T)\) 是一个 Banach 空间. 定义映射 \(S:\Gamma(T)\to X\), \((x,T(x))\mapsto x\). 则 \(S\) 是一个双射, 根据逆映射定理, \(S^{-1}\in\blo(X,\Gamma(T))\). 从而 \(T=\pi_Y\circ S^{-1}\in\blo(X,Y)\).
+        \end{prf}
+
+        \begin{cxmp}
+            {微分算子是一个闭线性算子}
+            在配备上确界范数的 \(\Cont^1[0,1]\) 函数空间上定义的微分算子 \(D(f)=f'\) 是闭线性算子. 也就是说, 如果函数列 \(\{f_n\}\) 一致收敛到 \(f\), 且 \(D(f_n)\) 一致收敛到 \(g\), 则 \(g=D(f)\). \\
+            但是我们之前已经说过微分算子不是有界线性算子. 这不与闭图像定理矛盾, 因为此时的 \(\Cont^1[0,1]\) 不是一个 Banach 空间.\\
+            \(\Cont^1[0,1]\) 在配备 C1 范数下才是完备的. C1 范数定义为
+            \[\norm{f}_{C1}=\norm{f}_{\infty}+\norm{f'}_{\infty}\]
+            或者, 需要固定 \(x_0\in[0,1]\) 使得 \[\norm{f}_{C1}=\norm{f(x_0)}+\norm{f'}_{\infty}\]
+             这时微分算子 \(D\) 就是一个有界线性算子, 自然也满足了闭图像定理. 
+        \end{cxmp}
+
+        \begin{thm}
+            [BanachSteinhaus]
+            {一致有界性定理 / Banach-Steinhaus 定理 / 共鸣定理}
+            [Uniform Boundedness Principle / Banach-Steinhaus Theorem]
+            设 \(X\) 是 Banach 空间, \(Y\) 是赋范线性空间, 一族有界线性算子满足
+            \[T_i\in\blo(X, Y), \qquad \forall i\in I,\forall x\in X, \sup_{i\in I} \norm{T_i x} < \infty.\]
+            则对任意 \(x\in X\), 有
+            \[\sup_{i\in I} \norm{T_i(x)} < \infty.\]
+        \end{thm}
+
+        \begin{prf}
+            在 \(X\) 上定义范数 
+            \[\norm{x}_M:=\max\{\norm{x}, \sup_{i\in I} \norm{T_i x}\}\]
+            定义映射
+            \[J: (X, \norm{\cdot}_M) \to (X, \norm{\cdot}_X)\]
+            则 \(J\) 是双射. 根据逆映射定理, \(J^{-1}\in\blo(X, \norm{\cdot}_M)\). 即
+            \[\norm{x}_M = \norm{J^{-1}(x)}_M \leq \norm{x}_X\norm{J^{-1}}.\]
+            这说明了 \(\sup_{i\in I} \norm{T_i x} \leq \norm{x}_X\norm{J^{-1}}\). 证毕.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            之所以叫一致有界性定理, 是因为它能根据逐点的有界推出算子范数的有界, 并且所有的算子都是等价地有界.
         \end{rmk}
 
 \section{弱拓扑}
