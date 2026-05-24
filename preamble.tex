@@ -2,10 +2,11 @@
 
 \usepackage{xltxtra}
 
+\usepackage{etoolbox}
+
 \usepackage{setspace}
 
 \usepackage{fontspec}
-
 \setmainfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{BASKVILL.TTF}
 \setsansfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{POORICH.TTF}
 \setmonofont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{cour.ttf}
@@ -32,11 +33,11 @@
 
 \usepackage{xcolor}
 
-\usepackage{colortbl} % 单元格颜色
-\usepackage{makecell} % 单元格换行
-\usepackage{multirow} % 合并列
-\usepackage{longtable} % 跨页长表格
-\usepackage{booktabs} % 三线表
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{booktabs}
 
 \definecolor{backcolor}{rgb}{0.95,0.95,0.92}
 \definecolor{codegray}{gray}{0.6}
@@ -46,10 +47,10 @@
 
 \definecolor{line15}{RGB}{200,179,142}
 
-\definecolor{green1}{RGB}{0, 156, 39} % 深绿
-\definecolor{green2}{RGB}{214, 254, 224} % 浅绿
-\definecolor{blue1}{RGB}{163, 172, 204} % 深蓝
-\definecolor{blue2}{RGB}{204, 252, 254} % 浅蓝
+\definecolor{green1}{RGB}{0, 156, 39}
+\definecolor{green2}{RGB}{214, 254, 224}
+\definecolor{blue1}{RGB}{163, 172, 204}
+\definecolor{blue2}{RGB}{204, 252, 254}
 
 \definecolor{blue3}{HTML}{D1FCFE} % Theorem blue
 \definecolor{blue4}{RGB}{72, 141, 246} % Definition blue
@@ -85,8 +86,6 @@
     boxsep=0pt,left=6pt,right=6pt,top=2pt,bottom=2pt
 }
 
-% ========================= Envs ================================
-
 % counters:
 \newcounter{thmcounter}[subsection]
 \setcounter{thmcounter}{0}
@@ -105,6 +104,16 @@
 \newcommand{\thedfncountercustomsub}{\thesubsection.\arabic{dfncounter}}
 \newcommand{\thexmpcountercustomsub}{\thesubsection.\arabic{xmpcounter}}
 
+% toggles:
+\newtoggle{showremark}
+\newtoggle{showproof}
+\newtoggle{showvar}
+\newtoggle{showxmp}
+\toggletrue{showremark}
+\toggletrue{showproof}
+\toggletrue{showvar}
+\toggletrue{showxmp}
+
 \NewDocumentEnvironment{qst}{s O{NaN}}{\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{darkred}, breakable]
     \textbf{{\Large Question~#2}}\phantomsection\label{qst:#2}
@@ -112,23 +121,26 @@
 }{\end{tcolorbox}}
 
 % proof:
-\newenvironment{prf}{\begin{tcolorbox}
+\NewDocumentEnvironment{prf}{+b}{
+    \iftoggle{showproof}{\begin{tcolorbox}
     [enhanced, colback=lightgray!50!white, boxrule=0pt, frame hidden, breakable, after upper={\hfill$\square$}]
-    {{\large\textit{Proof:}}\newline\fontik}
-}{\end{tcolorbox}}
+    {{\large\textit{Proof:}}\newline\fontik}#1}{}
+}{\iftoggle{showproof}{\end{tcolorbox}}{}}
 
 % remark:
-\newenvironment{rmk}[1][contributor]{\begin{tcolorbox}
+\NewDocumentEnvironment{rmk}{O{Contributer} +b}{
+    \iftoggle{showremark}{\begin{tcolorbox}
     [enhanced, colback=line15!20!white, boxrule=0pt, frame hidden, fontupper=\sffamily,
         borderline west={0.7mm}{0.1mm}{line15}, breakable, after upper={\hfill\textcolor{codegray}{\textit{remarked~by~#1}}}]
-    {\textbf{{\large\rmfamily Remark}}}\newline
-}{\end{tcolorbox}}
+    {\textbf{{\large\rmfamily Remark}}}\newline #2}{}
+}{\iftoggle{showremark}{\end{tcolorbox}}{}}
 
-\newenvironment{intrormk}[1][contributor]{\begin{tcolorbox}
+\NewDocumentEnvironment{intrormk}{O{Contributor} +b}{
+    \iftoggle{showremark}{\begin{tcolorbox}
     [enhanced, colback=line15!10!white, boxrule=0pt, frame hidden, fontupper=\sffamily,
         borderline north={0.7mm}{0.1mm}{line15}, breakable, after upper={\hfill\textcolor{codegray}{\textit{remarked~by~#1}}}]
-    {\textbf{{\centering\large\rmfamily Introduction}}}\newline
-}{\end{tcolorbox}}
+    {\textbf{{\centering\large\rmfamily Introduction}}}\newline #2}{}
+}{\iftoggle{showremark}{\end{tcolorbox}}{}}
 
 % definition:
 \NewDocumentEnvironment{dfn}{s o m s o O{contributor}}{\begin{tcolorbox}
@@ -137,11 +149,12 @@
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}}
 
-\NewDocumentEnvironment{vardfn}{s o m s o O{contributor}}{\begin{tcolorbox}
+\NewDocumentEnvironment{vardfn}{s o m s o O{contributor} +b}{
+    \iftoggle{showvar}{\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4, dotted}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{dfncounter}\textbf{{\large Definition \thedfncountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{dfn:#2}}}
-    \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+    \IfBooleanTF{#1}{}{\newline} #7}{}
+}{\iftoggle{showvar}{\end{tcolorbox}}{}}
 
 % theorem:
 \NewDocumentEnvironment{thm}{s o m s o O{contributor}}{\begin{tcolorbox} % bool(newline), label, name, bool(contributor displayed), subname, contributor
@@ -150,11 +163,12 @@
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}}
 
-\NewDocumentEnvironment{varthm}{s o m s o O{contributor}}{\begin{tcolorbox} % bool(newline), label, name, bool(contributor displayed), subname, contributor
+\NewDocumentEnvironment{varthm}{s o m s o O{contributor} +b}{
+    \iftoggle{showvar}{\begin{tcolorbox}
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
-    \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+    \IfBooleanTF{#1}{}{\newline} #7}{}
+}{\iftoggle{showvar}{\end{tcolorbox}}{}}
 
 % property theorem and criterion theorem 
 \NewDocumentEnvironment{ppt}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
@@ -181,25 +195,28 @@
 }{\end{tcolorbox}}
 
 % exmaple and counterexample:
-\NewDocumentEnvironment{xmp}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
+\NewDocumentEnvironment{xmp}{s o m s o O{contributor} +b}{
+    \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{xmpcounter}\textbf{{Example} \thexmpcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{xmp:#2}}}
-    \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+    \IfBooleanTF{#1}{}{\newline}#7}{}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
 
-\NewDocumentEnvironment{cxmp}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
+\NewDocumentEnvironment{cxmp}{s o m s o O{contributor} +b}{
+    \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=green1!25!white, boxrule=0pt, frame hidden, 
     borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{xmpcounter}\textbf{{Counterexample} \thexmpcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{cxmp:#2}}}
-    \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+    \IfBooleanTF{#1}{}{\newline}#7}{}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
 
 % instance:
-\NewDocumentEnvironment{ins}{s o m s o O{contributor}}{\begin{tcolorbox}
+\NewDocumentEnvironment{ins}{s o m s o O{contributor} +b}{
+    \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=green2!50!white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
     {\stepcounter{xmpcounter}\textbf{{Instance} \thexmpcountercustomsub~~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{xmp:#2}}}
-    \IfBooleanTF{#1}{\newline}{}
-}{\end{tcolorbox}}
+    \IfBooleanTF{#1}{\newline}{} #7}{}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
 
 % ========================Reused Envs==========================
 
@@ -236,7 +253,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning,calc,decorations.pathreplacing,patterns,3d,intersections}
 
-% 自定义的数学运算符
 \DeclareMathOperator{\N}{\mathbb{N}}                    % Set of Natural Numbers
 \DeclareMathOperator{\Nat}{\mathsf{Nat}}
 \DeclareMathOperator{\Z}{\mathbb{Z}}                    % Set of Integers
