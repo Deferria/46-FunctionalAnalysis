@@ -97,12 +97,9 @@
 \setcounter{pcdcounter}{0}
 \newcounter{notecounter}
 \setcounter{notecounter}{0}
-\newcommand{\thethmcountercustom}{\thesection.\arabic{thmcounter}}
-\newcommand{\thedfncountercustom}{\thesection.\arabic{dfncounter}}
-\newcommand{\thexmpcountercustom}{\thesection.\arabic{xmpcounter}}
-\newcommand{\thethmcountercustomsub}{\thesubsection.\arabic{thmcounter}}
-\newcommand{\thedfncountercustomsub}{\thesubsection.\arabic{dfncounter}}
-\newcommand{\thexmpcountercustomsub}{\thesubsection.\arabic{xmpcounter}}
+\renewcommand{\thethmcounter}{\arabic{section}.\arabic{subsection}.\arabic{thmcounter}}
+\renewcommand{\thedfncounter}{\arabic{section}.\arabic{subsection}.\arabic{dfncounter}}
+\renewcommand{\thexmpcounter}{\arabic{section}.\arabic{subsection}.\arabic{xmpcounter}}
 
 % toggles:
 \newtoggle{showremark}
@@ -143,80 +140,94 @@
 }{\iftoggle{showremark}{\end{tcolorbox}}{}}
 
 % definition:
-\NewDocumentEnvironment{dfn}{s o m s o O{contributor}}{\begin{tcolorbox}
+\NewDocumentEnvironment{dfn}{s o m s o O{contributor}}{
+    \refstepcounter{dfncounter}\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{dfncounter}\textbf{{\large Definition \thedfncountercustomsub:~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{dfn:#2}}}
+    {\textbf{{\large Definition \thedfncounter :~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+}{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{dfn:#2}}}
 
 \NewDocumentEnvironment{vardfn}{s o m s o O{contributor} +b}{
-    \iftoggle{showvar}{\begin{tcolorbox}
-    [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4, dotted}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{dfncounter}\textbf{{\large Definition \thedfncountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{dfn:#2}}}
-    \IfBooleanTF{#1}{}{\newline} #7}{}
-}{\iftoggle{showvar}{\end{tcolorbox}}{}}
+    \refstepcounter{dfncounter}
+    \iftoggle{showvar}{
+        \begin{tcolorbox}
+        [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4, dotted}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
+        {
+            \textbf{{\large Definition \thedfncounter*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}
+            \IfBooleanTF{#1}{}{\newline} #7
+        }
+    }{}
+}{\IfNoValueTF{#2}{}{\label{dfn:#2}}\iftoggle{showvar}{\end{tcolorbox}}{}}
 
 % theorem:
-\NewDocumentEnvironment{thm}{s o m s o O{contributor}}{\begin{tcolorbox} % bool(newline), label, name, bool(contributor displayed), subname, contributor
+\NewDocumentEnvironment{thm}{s o m s o O{contributor}}{ % bool(newline), label, name, bool(contributor displayed), subname, contributor
+    \refstepcounter{thmcounter}\begin{tcolorbox}
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, colback=blue3, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub:~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
+    {\textbf{{\large Theorem \thethmcounter :~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+}{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{thm:#2}}}
 
 \NewDocumentEnvironment{varthm}{s o m s o O{contributor} +b}{
+    \refstepcounter{thmcounter}
     \iftoggle{showvar}{\begin{tcolorbox}
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{\large Theorem \thethmcountercustomsub*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
+    {\textbf{{\large Theorem \thethmcounter*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline} #7}{}
-}{\iftoggle{showvar}{\end{tcolorbox}}{}}
+}{\iftoggle{showvar}{\end{tcolorbox}}{}\IfNoValueTF{#2}{}{\label{thm:#2}}}
 
 % property theorem and criterion theorem 
-\NewDocumentEnvironment{ppt}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
+\NewDocumentEnvironment{ppt}{s o m s o O{contributor}}{
+    \refstepcounter{thmcounter}\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{Property Theorem} \thethmcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{ppt:#2}}}
+    {\textbf{{Property Theorem} \thethmcounter~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{\newline}{}
-}{\end{tcolorbox}}
+}{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{ppt:#2}}}
 
-\NewDocumentEnvironment{crt}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
+\NewDocumentEnvironment{crt}{s o m s o O{contributor}}{
+    \refstepcounter{thmcounter}\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, 
     borderline west={0.7mm}{0.1mm}{blue6}, interior style={left color=white, right color=blue6!50!white}, 
     breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{Criterion Theorem} \thethmcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
+    {\textbf{{Criterion Theorem} \thethmcounter~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{\newline}{}
-}{\end{tcolorbox}}
+}{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{crt:#2}}}
 
 % corollary:
-\NewDocumentEnvironment{crl}{s o m s o O{contributor}}{\begin{tcolorbox} % star, label, name, subname, contributor
+\NewDocumentEnvironment{crl}{s o m s o O{contributor}}{
+    \refstepcounter{thmcounter}\begin{tcolorbox}
     [enhanced, colback=white!95!blue, boxrule=1pt, frame hidden, 
     borderline west={0.7mm}{0.1mm}{blue1}, 
     breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{thmcounter}\textbf{{Corollary} \thethmcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{thm:#2}}}
+    {\textbf{{Corollary} \thethmcounter~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{}{\newline}
-}{\end{tcolorbox}}
+}{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{crl:#2}}}
 
 % exmaple and counterexample:
 \NewDocumentEnvironment{xmp}{s o m s o O{contributor} +b}{
+    \refstepcounter{xmpcounter}
     \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{xmpcounter}\textbf{{Example} \thexmpcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{xmp:#2}}}
+    {\textbf{{Example} \thexmpcounter~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{}{\newline}#7}{}
-}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}\IfNoValueTF{#2}{}{\label{xmp:#2}}}
 
 \NewDocumentEnvironment{cxmp}{s o m s o O{contributor} +b}{
+    \refstepcounter{xmpcounter}
     \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=green1!25!white, boxrule=0pt, frame hidden, 
     borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{xmpcounter}\textbf{{Counterexample} \thexmpcountercustomsub~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{cxmp:#2}}}
+    {\textbf{{Counterexample} \thexmpcounter~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{}{\newline}#7}{}
-}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}\IfNoValueTF{#2}{}{\label{cxmp:#2}}}
 
 % instance:
 \NewDocumentEnvironment{ins}{s o m s o O{contributor} +b}{
+    \refstepcounter{xmpcounter}
     \iftoggle{showxmp}{\begin{tcolorbox}
     [enhanced, colback=green2!50!white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{green1}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\stepcounter{xmpcounter}\textbf{{Instance} \thexmpcountercustomsub~~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}\IfNoValueTF{#2}{}{\phantomsection\label{xmp:#2}}}
+    {\textbf{{Instance} \thexmpcounter~~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}:}}
     \IfBooleanTF{#1}{\newline}{} #7}{}
-}{\iftoggle{showxmp}{\end{tcolorbox}}{}}
+}{\iftoggle{showxmp}{\end{tcolorbox}}{}\IfNoValueTF{#2}{}{\label{ins:#2}}}
 
 % ========================Reused Envs==========================
 
@@ -277,6 +288,8 @@
 
 \DeclareMathOperator{\Id}{Id}                           % Identity
 \DeclareMathOperator{\img}{im}                          % Image
+\DeclareMathOperator{\coker}{coker}                      % Cokernel
+\DeclareMathOperator{\ind}{ind}                      % Index
 
 \DeclareMathOperator{\Hom}{Hom}                         % Set of Homomorphisms
 \DeclareMathOperator{\End}{End}                         % Set of Endomorphisms

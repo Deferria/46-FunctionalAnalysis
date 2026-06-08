@@ -2376,16 +2376,11 @@
             设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个正规算子当且仅当 \(T^* T = T T^*\).
         \end{dfn}
 
-        \begin{thm}
-            {谱定理}
-            [Spectral Theorem]
-            设 $H$ 是 Hilbert 空间, $T$ 既是自伴随算子又是紧算子, 则:
-            \begin{enumerate}[label=(\roman*)]
-                \item 存在 \(H\) 的标准正交基 \(\{e_i\}\) 使得 \(e_i\) 可以对角化 \(T\), 即 \(T e_i = \lambda_i e_i\) 其中 \(\lambda_i\) 是 \(T\) 的特征值;
-                \item 特征子空间 \(\ker (T-\lambda I)\) 是有限维的;
-                \item 所有特征值都是实数, 最多只可能有一个极限点 0: $\forall r>0$, 存在有限多个特征值 $\lambda$ 使得 $|\lambda| > r$.
-            \end{enumerate}
-        \end{thm}
+        \begin{dfn}
+            {特征子空间}
+            [Eigenspace]
+            设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. $\lambda$ 是 $T$ 的一个特征值. 定义 $\ker (T-\lambda I)$ 是 $T$ 的一个特征子空间.
+        \end{dfn}
 
         \begin{dfn}
             {不变子空间}
@@ -2394,6 +2389,7 @@
         \end{dfn}
 
         \begin{thm}
+            [orthogonal-complement-invariant]
             {不变子空间的正交补也是不变子空间}
             \(T\) 是 Hilbert 空间 \(H\) 上的自伴随算子, \(M\) 是 \(T\) 的一个不变子空间, 则 \(M^\perp\) 也是 \(T\) 的一个不变子空间.
         \end{thm}
@@ -2413,3 +2409,134 @@
             \[\overline{\expval{Tx, x}}=\expval{x, T^* x}=\expval{x, T x}=\expval{Tx, x}.\]
             因此, \(\expval{Tx, x}\) 是实数.
         \end{prf}
+
+        \begin{thm}
+            {Hilbert 空间上的范数的等价定义}
+            设 \(T\) 是 Hilbert 空间上的自伴随算子, 则
+            \[\norm{T}=\sup_{\substack{\norm{x}=\norm{y}\leq 1}}\expval{Tx, y}.\]
+        \end{thm}
+
+        \begin{prf}
+            (1) 
+            \[\expval{Tx, y}\leq\norm{T}\norm{x}\norm{y}\leq\norm{T}.  \]
+            (2) 若 \(T=0\), trivial;\\
+            若 \(T\neq 0\), \(x\in H\setminus\ker T\), 则
+            \[\norm{Tx}=\abs{\expval{Tx, \frac{Tx}{\norm{Tx}}}}\]
+            取上确界
+            \[\norm{T}=\sup_{\substack{\norm{x}\leq 1 \\ x\in H\setminus\ker T}}\norm{Tx}=\sup\abs{\expval{Tx, \frac{Tx}{\norm{Tx}}}} \]
+            现在令 \(y=\frac{Tx}{\norm{Tx}}\), 则
+            \[\leq\sup_{\substack{\norm{x}=\norm{y}\leq 1}}\abs{\expval{Tx, y}}.\]
+            现在去掉绝对值: 因为该内积总是实数, 所以 \(\expval{Tx, y}\) 要么是正的, 要么是负的. 如果是负的, 上述证明中必然存在 \(x'=-x\) 使得 \(\expval{Tx', y}=-\expval{Tx, y}\) 是正的. 从而上确界是正的. 这就说明了
+            \[\norm{T}\leq\sup_{\substack{\norm{x}=\norm{y}\leq 1}}\expval{Tx, y}.\]
+        \end{prf}
+
+        \begin{thm}
+            [definition-norm-self-adjoint-2]
+            {自伴随算子范数的等价定义2}
+            设 \(T\) 是 Hilbert 空间上的自伴随算子, 则
+            \[\norm{T}=\sup_{\norm{x}\leq 1}\abs{\expval{Tx, x}}.\]
+        \end{thm}
+
+        \begin{prf}
+            设右边的值是 \(a\), 则根据自伴随算子作用, \(\expval{Tx, x}\) 是实数. 那么:
+            \[\expval{T(x+y), x+y}=\expval{Tx, x}+\expval{Ty, y}+2\expval{Tx, y}.\]
+            \[\expval{T(x-y), x-y}=\expval{Tx, x}+\expval{Ty, y}-2\expval{Tx, y}.\]
+            两式相加:
+            \[\expval{Tx, y} = \frac{1}{4}[\expval{T(x+y), x+y}-\expval{T(x-y), x-y}]\leq\frac{1}{4}\qty(\norm{x+y}^2+\norm{x-y}^2)=\frac{1}{2}\qty(\norm{x}^2+\norm{y}^2) \]
+            令 \(\tilde{x}=\sqrt{a}x\), \(\tilde{y}=\frac{y}{\sqrt{a}}\):
+            \[\expval{Tx,y}=\expval{T\tilde{x}, \tilde{y}} \leq \frac{1}{2}\qty(\norm{\tilde{x}}^2+\norm{\tilde{y}}^2)=\frac{1}{2}\qty(a\norm{x}^2+\frac{1}{a}\norm{y}^2).\]
+            令 \(a=\frac{\norm{y}}{\norm{x}}\), 则
+            \[\expval{Tx, y} \leq \norm{x}\norm{y}.\]
+            取上确界, 得证.
+        \end{prf}
+
+        \begin{thm}
+            {不同特征值的特征子空间是正交的}
+            设 \(T\) 是 Hilbert 空间上的自伴随算子, \(\alpha\) 和 \(\beta\) 是 \(T\) 的两个不同的特征值, 则 \(E_\alpha:=\ker (T-\alpha I)\perp E_\beta:=\ker (T-\beta I)\).
+        \end{thm}
+
+        \begin{prf}
+            任取 \(x\in E_\alpha\), \(y\in E_\beta\).
+            \[\expval{Tx, y}=\expval{\alpha x, y}=\alpha\expval{x,y}\]
+            \[\expval{x, Ty}=\expval{x, \beta y}=\beta\expval{x,y}\]
+            所以
+            \[(\alpha-\beta)\expval{x, y}=0\]
+            由于 \(\alpha\neq\beta\), 所以 \(\expval{x, y}=0\). 从而 \(E_\alpha\perp E_\beta\).
+        \end{prf}
+
+        \begin{thm}
+            {谱定理}
+            [Spectral Theorem]
+            设 $H$ 是 Hilbert 空间, $T$ 既是自伴随算子又是紧算子, 则:
+            \begin{enumerate}[label=(\roman*)]
+                \item 存在 \(H\) 的标准正交基 \(\{e_i\}\) 使得 \(e_i\) 可以对角化 \(T\), 即 \(T e_i = \lambda_i e_i\) 其中 \(\lambda_i\) 是 \(T\) 的特征值;
+                \item 特征子空间 \(\ker (T-\lambda I)\) 是有限维的;
+                \item 所有特征值都是实数, 最多只可能有一个极限点 0: $\forall r>0$, 存在有限多个特征值 $\lambda$ 使得 $|\lambda| > r$.
+            \end{enumerate}
+        \end{thm}
+
+        \begin{prf}
+            Step1: 先找到一个特征向量: 根据定理\ref{thm:definition-norm-self-adjoint-2}, 
+            \[\norm{T}=\sup_{\norm{x}\leq 1}\expval{Tx, x}\]
+            可以找到一列 \(\{x_n\}\), \(\norm{x_n}=1\), 使得
+            \[\expval{Tx_n, x_n}\to\lambda\in\R.\]
+            其中 \(|\lambda|=\norm{T}\neq 0\). 因为 \(T\) 是紧算子, \(T x_n\) 有收敛子列 \(Tx_{n_k}\to y\), 所以 \(y\neq 0\):
+            \[\norm{Tx_{n_k}-\lambda x_{n_k}}^2 = \norm{Tx_{n_k}}^2+\lambda^2\norm{x_{n_k}}^2-2\lambda\expval{Tx_{n_k}, x_{n_k}}\leq 2\norm{T}^2-2\lambda\expval{Tx_{n_k}, x_{n_k}}\to 0\]
+            这说明随着 \(Tx_{n_k}\to y\), \(\lambda x_{n_k}\to y\):
+            \[T y = \lim_{k\to\infty} T x_{n_k} = \lim_{k\to\infty} \lambda x_{n_k} = \lambda y\]
+            所以 \(y\) 是 \(T\) 的一个特征向量, \(\lambda\) 是 \(T\) 的一个特征值.\\
+            Step2: 根据 Zorn 引理, 可以找到 \(H\) 的某个最大的标准正交基 \(\mathcal{B}\) 使得 \(\mathcal{B}\) 中的每个元素都是 \(T\) 的一个特征向量. 设 \(M=\spn(\mathcal{B})\), 则 \(M\) 是 \(T\) 的一个不变子空间. \\
+            根据定理\ref{thm:orthogonal-complement-invariant}, \(M^\perp\) 也是 \(T\) 的一个不变子空间. 如果 \(M^\perp\neq \{0\}\), 则 \(T\) 限制在 \(M^\perp\) 上也是自伴随算子, 根据 Step1, \(M^\perp\) 中存在一个特征向量, 这与 \(\mathcal{B}\) 的最大性矛盾. 从而 \(M^\perp=\{0\}\), 即 \(\mathcal{B}\) 是 \(H\) 的一个标准正交基.\\
+            所以 \(M^\perp\) 是平凡的, \(M=H\).\\
+            Step3: 我们要证明唯一的可能极限点是 0. 取 \(H\) 的标准正交基 \(\{e_i\}_{i\in I}\). 假如存在某个 \(r>0\) 使得 \(\{|\lambda_i|\geq r\}\) 有无穷个, 则
+            \[\norm{Te_i-Te_j}=\norm{\lambda_ie_i - \lambda_je_j}\]
+            根据勾股定理:
+            \[\norm{\lambda_ie_i - \lambda_je_j}^2=\lambda_i^2+\lambda_j^2\geq 2r^2 >0\]
+            这说明标准正交基在 \(T\) 的像不是列紧的, 与 \(T\) 是紧算子矛盾. 从而 \(T\) 的特征值最多只有一个极限点 0. \\
+            这也体现了 \(\dim E_\lambda<\infty\) 对所有 \(\lambda\neq 0\) 成立.
+        \end{prf}
+        
+        \begin{thm}
+            {Hilbert 空间的直和分解}
+            设 \(H\) 是 Hilbert 空间, \(T\) 是 \(H\) 上的一个自伴随算子, 则
+            \[H=\bigoplus_{\lambda\in\sigma(T)}\ker (T-\lambda I).\]
+            并且这是一个正交直和.
+        \end{thm}
+
+        \begin{thm}
+            {同时对角化的自伴随算子}
+            设 \(H\) 是 Hilbert 空间, \(\{T_i\}_{i\in I}\) 是 \(H\) 上的一族自伴随算子, 且满足交换性:
+            \[T_i T_j = T_j T_i, \forall i,j\in I.\]
+            则存在 \(H\) 的一个标准正交基 \(\{e_k\}_{k\in K}\) 使得 \(\{e_k\}_{k\in K}\) 同时对角化 \(\{T_i\}_{i\in I}\), 即 \(\forall i\in I, k\in K, T_i e_k = \lambda_{i,k} e_k\).
+        \end{thm}
+
+        \begin{thm}
+            {正规算子可对角化}
+            对于正规算子 \(S\), \(S\) 可被分解为
+            \[S = A +\ii B\]
+            其中 \(A\) 和 \(B\) 都是自伴随算子, 显式表示为
+            \[A = \frac{1}{2}(S + S^*), \quad B = \frac{1}{2\ii}(S - S^*)\]
+            且 \(A\) 和 \(B\) 交换. 从而 \(S\) 可被一个标准正交基对角化.
+        \end{thm}
+
+    \subsection{Fredholm 算子}
+
+        \begin{dfn}
+            {余核}
+            [Cokernel]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 的\textbf{余核}为
+            \[\coker T := Y/\img T.\]
+        \end{dfn}
+
+        \begin{dfn}
+            {Fredholm 算子}
+            [Fredholm Operator]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 是一个\textbf{Fredholm 算子}当且仅当: \(\dim\ker T<\infty\), \(\dim\coker T<\infty\), 且 \(\img T\) 是闭的.
+        \end{dfn}
+
+        \begin{dfn}
+            {Fredholm 算子的指数}
+            [Index of a Fredholm Operator]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个 Fredholm 算子. 定义 \(T\) 的\textbf{指数}为
+            \[\ind T := \dim\ker T - \dim\coker T.\]
+        \end{dfn}
