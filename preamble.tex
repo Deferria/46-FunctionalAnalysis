@@ -26,6 +26,7 @@
 \newfontfamily{\fontlr}[AutoFakeSlant=0.225,AutoFakeBold=3,Path="V:/Fonts/Eng/"]{LBRITEI.TTF}
 
 \usepackage{amsmath,amssymb,amsthm,amsfonts,mathrsfs}
+\usepackage[scr=boondoxupr]{mathalfa}
 \usepackage{mathtools}
 \usepackage{physics}
 \usepackage{esint}
@@ -304,11 +305,14 @@
 \DeclareMathOperator{\wslim}{\xrightarrow{w^*}}
 \DeclareMathOperator{\aelim}{\xrightarrow{\text{a.e.}}}
 \DeclareMathOperator*{\esssup}{\mathrm{ess\,sup}}              % Essential Supremum
+\DeclareMathOperator{\ext}{ext}                         % Extreme Point
+\DeclareMathOperator{\conv}{conv}                       % Convex Hull
 
 % Operators
 \DeclareMathOperator{\blo}{\mathscr{B}}
 \DeclareMathOperator{\cpt}{\mathscr{K}}
-\DeclareMathOperator{\fnrank}{\mathscr{F}}
+\DeclareMathOperator{\fnrank}{\mathscr{Fr}}
+\DeclareMathOperator{\fred}{\mathscr{F}}
 \DeclareMathOperator{\Cont}{\mathrm{C}}
 \NewDocumentCommand{\Lp}{O{p}}{\mathrm{L}^{#1}}
 \DeclareMathOperator{\ordinal}{\mathbb{O}}

@@ -81,6 +81,7 @@
         \end{ins}
 
         \begin{ins}
+            [cont-with-sup-norm]
             {配备上确界范数的连续函数空间是 Banach 空间}
             设 \(X\) 是紧度量空间, 定义 \(\Cont(X)\) 为 \(X\) 上的连续函数空间. 定义 \(\norm{\cdot}_\infty\) 为
             \[\norm{f}_\infty=\sup_{x\in X}\abs{f(x)}, \forall f\in\Cont(X)\]
@@ -97,6 +98,7 @@
         \end{ins}
 
         \begin{thm}
+            [banach-iff-closed]
             {Banach 空间的子空间是 Banach 空间的充要条件}
             \(X\) 是 Banach 空间, \(Y\) 是 \(X\) 的一个线性子空间. 则 \(Y\) 是 Banach 空间当且仅当 \(Y\) 是 \(X\) 的闭子空间.
         \end{thm}
@@ -172,7 +174,6 @@
             {有界线性算子范数的性质}
             [Properties of Norm of Bounded Linear Operator]
             设 \(T\) 是有界线性算子, 则 \(\norm{Tx}\leq\norm{T}\norm{x}\).
-
         \end{ppt}
 
         \begin{ppt}
@@ -182,6 +183,7 @@
         \end{ppt}
 
         \begin{thm}
+            [blo-banach-iff-codom-banach]
             {有界线性算子空间形成 Banach 空间的充要条件}
             设 \(X,Y\) 是两个赋范线性空间. 则 \(\blo(X,Y)\) 是 Banach 空间当且仅当 \(Y\) 是 Banach 空间.
         \end{thm}
@@ -212,7 +214,7 @@
         \end{thm}
 
         \begin{prf}
-            在【数学分析III】中证明过该命题. 这里仅作提示.\\
+            仅作提示:\\
             "(\(\implies\))": 设 \(T\) 是有界的, 则存在 \(M\geq 0\) 使得 \(\forall x\in X, \norm{Tx}_Y\leq M\norm{x}_X\). 则对于任意 \(\epsilon>0\), 当 \(\norm{x-x_0}_X<\frac{\epsilon}{M}\) 时, \(\norm{Tx-Tx_0}_Y=\norm{T(x-x_0)}_Y\leq M\norm{x-x_0}_X<\epsilon\). 从而 \(T\) 在 \(x_0\) 处连续. 因为 \(x_0\) 是任意的, 所以 \(T\) 是连续的.\\
             "(\(\impliedby\))": 设 \(T\) 是连续的, 则 \(T\) 在 \(0\) 处连续. 则存在 \(\delta>0\) 使得当 \(\norm{x}_X<\delta\) 时, \(\norm{Tx}_Y<1\). 根据赋范线性空间的平移不变性, 对于任意 \(x\in X\), 当 \(\norm{x}_X<\delta\) 时, \(\norm{Tx}_Y<1\). 从而对于任意 \(x\in X\), \(\norm{Tx}_Y<\frac{1}{\delta}\norm{x}_X\). 因此 \(T\) 是有界的.
         \end{prf}
@@ -307,6 +309,7 @@
         \end{prf}
 
         \begin{thm}
+            [riesz]
             {Riesz 引理}
             [Riesz's Lemma]
             设 \(X\) 是一个赋范线性空间, \(Y\) 是 \(X\) 的一个闭子空间, 且 \(Y\neq X\). 则对于任意 \(0<\epsilon<1\), 存在 \(x_0\in X\) 使得 \(\norm{x_0}=1\) 且 
@@ -328,6 +331,7 @@
         \end{dfn}
 
         \begin{thm}
+            [riesz-2]
             {无限维赋范线性空间的单位闭球不是紧的}
             设 \(X\) 是一个赋范线性空间, \(\dim X=\infty\). 则 \(X\) 中的单位闭球 \(B=\{x\in X:\norm{x}\leq 1\}\) 不是紧致集.
         \end{thm}
@@ -338,8 +342,8 @@
         \end{rmk}
 
         \begin{prf}
-            任取 \(x_1\in X\), \(\norm{x_1}=1\), \(x_1\) 张成了子空间 \(X_1:=\{\alpha x_1: \alpha \in \R\}\), 根据 Riesz 引理, 存在 \(x_2\in X\) 使得 \(\norm{x_2}=1\) 且 \(\inf_{x\in X_1}\norm{x_2-x}\geq\frac{1}{2}\). \\
-            继续: \(x_1, x_2\) 张成了子空间 \(X_2:=\{\alpha x_1+\beta x_2: \alpha, \beta \in \R\}\), 根据 Riesz 引理, 存在 \(x_3\in X\) 使得 \(\norm{x_3}=1\) 且 \(\inf_{x\in X_2}\norm{x_3-x}\geq\frac{1}{2}\). \\
+            任取 \(x_1\in X\), \(\norm{x_1}=1\), \(x_1\) 张成了子空间 \(X_1:=\{\alpha x_1: \alpha \in \R\}\), 根据 \hyperref[thm:riesz]{Riesz 引理}, 存在 \(x_2\in X\) 使得 \(\norm{x_2}=1\) 且 \(\inf_{x\in X_1}\norm{x_2-x}\geq\frac{1}{2}\). \\
+            继续: \(x_1, x_2\) 张成了子空间 \(X_2:=\{\alpha x_1+\beta x_2: \alpha, \beta \in \R\}\), 根据 \hyperref[thm:riesz]{Riesz 引理}, 存在 \(x_3\in X\) 使得 \(\norm{x_3}=1\) 且 \(\inf_{x\in X_2}\norm{x_3-x}\geq\frac{1}{2}\). \\
             以此类推, 可以得到一列 \(\{x_n\}\) 使得 \(\norm{x_n}=1\) 且 \(\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\), 其中 \(X_{n-1}=\{\sum_{i=1}^{n-1}\alpha_i x_i: \alpha_i \in \R\}\). 则对于任意 \(m<n\), \(\norm{x_n-x_m}=\inf_{x\in X_{n-1}}\norm{x_n-x}\geq\frac{1}{2}\). 从而 \(\{x_n\}\) 中不存在收敛子列. 因此单位闭球不是紧的.
         \end{prf}
 
@@ -676,6 +680,7 @@
         \end{thm}
 
         \begin{ins}
+            [fourier-series]
             {Fourier 级数}
             [Fourier Series]
             设 \(L^2(\mathbb{T}[0,2\pi])\) 是定义在 \([0,2\pi]\) 上的满足 \(f(0)=f(2\pi)\) 平方可积函数空间. 取标准正交基
@@ -715,7 +720,7 @@
         \end{prf}
 
         \begin{thm}
-            [riesz.hilbert]
+            [riesz-hilbert]
             {Hilbert 空间的 Riesz 表示定理}
             [Riesz Representation Theorem for Hilbert Spaces]
             \(X\) 是 Hilbert 空间, 则 \(X\cong X^*\). 其中的等距同构为:\\
@@ -835,7 +840,7 @@
 
         \begin{rmk}
             [Dedicatia]
-            Hahn-Banach 定理只适用于对泛函的延拓, 不适用于对任意先行算子的延拓.
+            Hahn-Banach 定理只适用于对泛函的延拓, 不适用于对任意线性算子的延拓.
         \end{rmk}
 
         \begin{thm}
@@ -1609,7 +1614,7 @@
             \(\Cont^1[0,1]\) 在配备 C1 范数下才是完备的. C1 范数定义为
             \[\norm{f}_{C1}=\norm{f}_{\infty}+\norm{f'}_{\infty}\]
             或者, 需要固定 \(x_0\in[0,1]\) 使得 \[\norm{f}_{C1}=\norm{f(x_0)}+\norm{f'}_{\infty}\]
-             这时微分算子 \(D\) 就是一个有界线性算子, 自然也满足了闭图像定理. 
+            这时微分算子 \(D\) 就是一个有界线性算子, 自然也满足了闭图像定理. 
         \end{cxmp}
 
         \begin{thm}
@@ -1634,7 +1639,10 @@
 
         \begin{rmk}
             [Dedicatia]
-            之所以叫一致有界性定理, 是因为它能根据逐点的有界推出算子范数的有界, 并且所有的算子都是等价地有界.
+            之所以叫一致有界性定理, 是因为它能根据逐点的有界推出算子范数的有界, 并且所有的算子都是等价地有界.\\
+            其背后的核心原因就是 Banach 空间的完备性: 根据 Baire 空间的性质, 如果有一个坏点被有界线性算子拉到了无穷大, 那么全空间中应该到处都是. 这显然违背了逐点的有界性.
+            \tcbline
+            这个定理的一个应用是证明了存在连续函数, 它的 Fourier 级数在某些点不收敛. 这是因为 Fourier 级数的部分和算子是一个有界线性算子, 但它们的范数却不受限制地增长. 自然也找不到一致的上界.
         \end{rmk}
 
 \section{弱拓扑}
@@ -1957,7 +1965,7 @@
         \end{thm}
 
         \begin{prf}
-            我们仅对 \(\ell^2\) 空间证明. 根据 \hyperref[thm:riesz.hilbert]{Riesz 表示定理}, 存在唯一 \(a\in\ell^2\) 使得
+            我们仅对 \(\ell^2\) 空间证明. 根据 \hyperref[thm:riesz-hilbert]{Riesz 表示定理}, 存在唯一 \(a\in\ell^2\) 使得
             \[T e_n = \langle a, e_n \rangle\]
             当 \(n\to\infty\), \(Te_n\to 0\), 从而 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
         \end{prf}
@@ -2086,8 +2094,47 @@
                     \bottomrule
                 \end{tabular}
             \end{center}
-            这里有一个关键差异, 在 Lebesgue 测度下, \(\Lp[1]([0,1])\) 不是任何空间的对偶空间, 这一点将在之后看到, \bysorry. 所以它不存在弱*拓扑.
+            这里有一个关键差异, 在 Lebesgue 测度下, \(\Lp[1]([0,1])\) 不是任何空间的对偶空间, 这一点将在例子\ref{cxmp:lp1-not-dual}看到. 所以它不存在弱*拓扑.
         \end{ins}
+
+        \begin{dfn}
+            {凸组合}
+            [Convex Combination]
+            设 \(X\) 是一个集合, \(x_1,\dots,x_n\in X\), \(\lambda_1,\dots,\lambda_n\geq 0\), \(\sum_{i=1}^n \lambda_i = 1\). 定义
+            \[\sum_{i=1}^n \lambda_i x_i\]
+            是 \(x_1,\dots,x_n\) 的一个\textbf{凸组合}.
+        \end{dfn}
+
+        \begin{dfn}
+            [extreme-point]
+            {凸集的端点}
+            [Extreme Point of a Convex Set]
+            设 \(A\) 是线性空间 \(X\) 中的凸集. 定义 \(x\in A\) 是 \(A\) 的一个\textbf{端点}, 当且仅当 \(x\) 不是 \(A\) 中任意两点的凸组合. 也就是
+            \[\forall\,y,z\in A, \lambda\in(0,1), \quad x = \lambda y + (1-\lambda) z \implies x = y \lor x = z.\]
+            凸集 \(A\) 的全体端点记作 \(\ext(A)\).
+        \end{dfn}
+
+        \begin{dfn}
+            [convex-hull]
+            {凸包}
+            [Convex Hull]
+            设 \(X\) 是一个线性空间, \(A\subseteq X\). 定义 \(A\) 的\textbf{凸包}是包含 \(A\) 的所有凸集的交集. 记作 \(\conv(A)\).\\
+            即, \(\conv(A)\) 是 \(A\) 中所有凸组合的全体.
+        \end{dfn}
+
+        \begin{thm}
+            {Krein-Milman 定理}
+            [Krein-Milman Theorem]
+            设 \(X\) 是一个赋范线性空间, \(A\subseteq X\) 是一个非空的紧凸集. 则 \(A = \overline{\conv(\ext(A))}\).
+        \end{thm}
+
+        \begin{cxmp}
+            [lp1-not-dual]
+            {\(\Lp[1]\) 空间不是任何 Banach 空间的对偶空间}
+            区间 \([0,1]\) 上赋予 Lebesgue 测度下的 \(Lp[1]([0,1])\) 函数空间的单位闭球没有任何端点. \\
+            这是因为如果 \(f\in\Lp[1]([0,1])\) 是一个端点, 那么可以令 \(E\subseteq [0,1]\), 使得 \(\int_E|f|=\frac{1}{2}\int_{[0,1]}|f|\). 设 \(g = f\cdot \chi_E\), \(h = f\cdot \chi_{[0,1]\setminus E}\). 则 \(f = \frac{1}{2}(2g) + \frac{1}{2}(2h)\), 这说明了 \(f\) 不是一个端点. 从而 \(\ext(\overline{B}_{\Lp[1]})=\varnothing\). \\
+            根据 Krein-Milman 定理, 一个紧凸集必须有端点. 假如 \(\Lp[1]([0,1])\) 是某个 Banach 空间的对偶空间, 那么它的单位闭球在弱*拓扑下是紧的. 但是它没有端点, 与 Krein-Milman 定理矛盾. 从而 \(\Lp[1]([0,1])\) 不是任何 Banach 空间的对偶空间. 相应, \(\Lp[1]([0,1])\) 不存在弱*拓扑.
+        \end{cxmp}
 
     \subsection{【实分析】Lp 空间}
 
@@ -2197,7 +2244,7 @@
         \end{prf}
 
         \begin{thm}
-            {Lp 空间的对偶空间}
+            {Lp 空间的 Riesz 表示定理}
             设 \((X, \mathcal{M}, m)\) 是测度空间, \(1\leq p < +\infty\), 则 \(\Lp(X)^* \cong L^q(X)\), 其中 \(1/p+1/q=1\). 
         \end{thm}
 
@@ -2208,7 +2255,7 @@
                 L^q(X) & \to & \Lp(X)^*\\
                 g & \mapsto & T_g:=\qty(f\mapsto\int_X fg \dd{m})
             \end{matrix}\]
-            其证明与\hyperref[thm:riesz.hilbert]{Riesz 表示定理}类似.
+            其证明与\ref{thm:riesz-hilbert}类似.
         \end{prf}
 
         \begin{ins}
@@ -2245,7 +2292,6 @@
                     \bottomrule
                 \end{tabular}
             \end{center}
-            这也就解释了为什么同样是Lp空间, L2 空间非常优美, 但 L1 空间却臭名昭著.
         \end{rmk}
 
 \section{Banach 空间上的谱论}
@@ -2309,6 +2355,7 @@
         \end{ppt}
         
         \begin{dfn}
+            [finite-rank-operator]
             {有限秩算子}
             [Finite Rank Operator]
             设 \(X\) 和 \(Y\) 是 Banach 空间, 则线性算子 \(T:X\to Y\) 是一个\textbf{有限秩算子}, 当且仅当 \(\dim\img T<\infty\).\\
@@ -2357,23 +2404,48 @@
             \[ (T^* f) (x) = f (T(x)), \forall f \in Y^* \]
         \end{dfn}
 
+        \begin{rmk}
+            [Dedicatia]
+            一定要注意其顺序. 括号不能随意减少.
+        \end{rmk}
+
         \begin{thm}
             {Schauder 定理}
             $T$ 是紧算子 iff $T^*$ 是紧算子.
         \end{thm}
+
+        \begin{prf}
+            我们先证明 \(T\in\cpt(X,Y)\implies T^*\in\cpt(Y^*,X^*)\).\\
+            取一列 \(\{f_n\}\subset Y^*\), \(\norm{f_n}\leq C\). 考虑 \(K\). \(K\subseteq Y\) 是 \(X\) 的单位球面在 \(T\) 下的像的闭包. 这里, 取单位球面是因为赋范线性空间中总有标量乘法, 任意集合都可以缩放到单位球之内. 取闭包是因为要利用其紧性. 定义
+            \[\Phi_n: K\to\R,\qquad y\mapsto f_n (y) \]
+            由于 \(f_n\) 是有界的, 限制在 \(K\) 上也是有界的, 还是一致有界的. 考虑
+            \[\abs{\Phi_n(y_1)-\Phi_n(y_2)}=\abs{f_n(y_1)-f_n(y_2)}\leq C\norm{y_1-y_2}\]
+            这是因为有界线性泛函本身是 Lipschitz 连续的. 所以 \(\{\Phi_n\}\) 是等度连续的. 根据 Arzelà-Ascoli 定理, 存在一个子列 \(\{\Phi_{n_k}\}\) 使得 \(\{\Phi_{n_k}\}\) 在 \(K\) 上一致收敛. 设 \(\Phi\) 是它的极限. \\
+            所以令 \(g_k\) 是一列线性泛函, 其将 \(X\) 的单位球面映入 \(\R\), 定义为 \(x\mapsto \Phi_{n_k} (Tx)=f_{n_k} (Tx)=(T^* f_{n_k}) (x) \). 由于 \(f_{n_k}\) 在 \(K\) 上一致收敛, 所以 \(g_k\) 也收敛. 设 \(g\) 是它的极限, 可以利用单位球面和线性性将其延拓到全空间上, 
+            \[\norm{g_k-g}=\norm{T f_{n_k}-T f}\to 0\]
+            这就说明了 \(T^* f_{n_k}\) 收敛, 从而 \(T^*\in\cpt(Y^*,X^*)\).\\
+            反过来, 取典范嵌入 \(J_Y\), 
+            \[J_Y (Tx_n) = T^{**} (J_X (x_n))\]
+            这是因为 \(\forall\,f\in Y^*\), \(T^{**} (J_X (x_n))=(J_X (x_n)) (T^* f)=(T^* f) (x_n) = f(Tx_n) \in J_Y(Tx_n)\).
+            已经证明了 \(T\) 是紧的可以得到 \(T^*\) 是紧的. 在这里, \(T^*\) 是紧的可以得到 \(T^{**}\) 是紧的, 又因为典范嵌入是等距的单射, 所以有
+            \begin{center}
+                \(\{x_n\}\) 是有界的 \(\implies\) \(\{J_X(x_n)\}\) 是有界的 \(\implies\) \(\{J_Y (Tx_n)\}\) 是相对紧的 \(\implies\) \(\{Tx_n\}\) 是相对紧的.
+            \end{center}
+            所以 \(T^*\in \cpt(Y^*,X^*)\implies T\in\cpt(X,Y)\).
+        \end{prf}
 
     \subsection{Hilbert 空间上的算子}
 
         \begin{dfn}
             {自伴随算子}
             [Self-adjoint Operator]
-            设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个自伴算子当且仅当 \(T=T^*\).
+            设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个\textbf{自伴随算子}当且仅当 \(T=T^*\).
         \end{dfn}
 
         \begin{dfn}
             {正规算子}
             [Normal Operator]
-            设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个正规算子当且仅当 \(T^* T = T T^*\).
+            设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个\textbf{正规算子}当且仅当 \(T^* T = T T^*\).
         \end{dfn}
 
         \begin{dfn}
@@ -2504,7 +2576,7 @@
         \end{thm}
 
         \begin{thm}
-            {同时对角化的自伴随算子}
+            {自伴随算子可交换等价于可同时对角化}
             设 \(H\) 是 Hilbert 空间, \(\{T_i\}_{i\in I}\) 是 \(H\) 上的一族自伴随算子, 且满足交换性:
             \[T_i T_j = T_j T_i, \forall i,j\in I.\]
             则存在 \(H\) 的一个标准正交基 \(\{e_k\}_{k\in K}\) 使得 \(\{e_k\}_{k\in K}\) 同时对角化 \(\{T_i\}_{i\in I}\), 即 \(\forall i\in I, k\in K, T_i e_k = \lambda_{i,k} e_k\).
@@ -2519,9 +2591,30 @@
             且 \(A\) 和 \(B\) 交换. 从而 \(S\) 可被一个标准正交基对角化.
         \end{thm}
 
+        \begin{vardfn}
+            {酉算子 / 幺正算子}
+            [Unitary Operator]
+            设 \(H\) 是 Hilbert 空间, \(T: H \to H\) 是一个有界线性算子. 定义 \(T\) 是一个\textbf{酉算子}当且仅当 \(T\) 是 \(H\) 的等距同构.
+        \end{vardfn}
+
+        \begin{varthm}*
+            {酉算子的性质}
+            \begin{enumerate}[label=(\roman*)]
+                \item 酉算子一定是自伴随的;
+                \item \(U\) 是酉算子, 则 \(\expval{Ux, Uy} = \expval{x, y}\) 对所有 \(x, y \in H\) 成立;
+                \item \(U\) 是酉算子, 则 \(U^{-1}\) 一定存在且也是一个酉算子; 
+                \item \(U\) 是酉算子等价于 \(U^* U = I\) 等价于 \(U U^* = I\), 等价于 \(U^* = U^{-1}\).
+            \end{enumerate}
+        \end{varthm}
+
+        \begin{varthm}*
+            {酉算子是紧算子当且仅当空间是有限维的}
+        \end{varthm}
+
     \subsection{Fredholm 算子}
 
         \begin{dfn}
+            [cokernel]
             {余核}
             [Cokernel]
             设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 的\textbf{余核}为
@@ -2529,14 +2622,80 @@
         \end{dfn}
 
         \begin{dfn}
+            [fredholm-operator]
             {Fredholm 算子}
             [Fredholm Operator]
-            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 是一个\textbf{Fredholm 算子}当且仅当: \(\dim\ker T<\infty\), \(\dim\coker T<\infty\), 且 \(\img T\) 是闭的.
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 是一个\textbf{Fredholm 算子}当且仅当: \(\dim\ker T<\infty\), \(\dim\coker T<\infty\), 且 \(\img T\) 是闭的.\\
+            全体 Fredholm 算子记作 \(\fred(X,Y)\).
         \end{dfn}
 
         \begin{dfn}
+            [fredholm-index]
             {Fredholm 算子的指数}
             [Index of a Fredholm Operator]
             设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个 Fredholm 算子. 定义 \(T\) 的\textbf{指数}为
             \[\ind T := \dim\ker T - \dim\coker T.\]
         \end{dfn}
+
+        \begin{ins}
+            {序列空间上的左移 / 右移算子是 Fredholm 算子}
+            设 \(X=\ell^2\), 其上的左移算子
+            \[T: x=(x_1, x_2, \ldots) \mapsto (x_2, x_3, \ldots)\]
+            满足
+            \[\ker T=\{(x_1, 0, \cdots), x_1\in\F \}, \dim\ker T = 1; \]
+            \[\img T = \ell^2, \dim\coker T = 0.\]
+            从而 \(T\) 是一个 Fredholm 算子, 且 \(\ind T = 1\). 同样的, 其上的右移算子也是一个 Fredholm 算子, 且 \(\ind T = -1\).
+        \end{ins}
+
+        \begin{thm}
+            {Fredholm 算子在有界线性算子中是开集}
+            [Fredholm Operators Form an Open Subset of Bounded Linear Operators]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, 则 \(\fred(X,Y)\) 是 \(\blo(X,Y)\) 中的一个开集. 
+        \end{thm}
+
+        \begin{prf}
+            我们设 \(T\in\fred(X,Y)\). 目标是证明存在 \(\epsilon_0>0\) s.t. \(\forall\,S\in\blo(X,Y), \norm{S-T}<\epsilon_0\implies\) \(S\in\fred(X,Y)\). \\
+            显然, 存在闭子空间 \(X',Y'\) 使得 \(X=X'\oplus\ker T\), \(Y=Y'\oplus\img T\). 其中 \(\dim\ker T<\infty\), \(\dim Y'<\infty\). 考虑 
+            \[\tilde{T}: X'\oplus Y'\to Y, (x_1, y_1)\mapsto Tx_1+y_1\] 
+            这是一个双射. 根据\hyperref[thm:omt]{开映射定理}, \(\tilde{T}\) 是作为 Banach 空间的同构. \\
+            令 \(\epsilon_0=\frac{1}{\norm{T^{-1}}}\), 得到
+            \[\norm{\tilde{S}-\tilde{T}}<\epsilon_0\]
+            由此确定了的 \(S\) 满足
+            \[Sx_1+y_1 = \tilde{S}(x_1, y_1)\implies \norm{T-S} < \epsilon_0\]
+            有: \\
+            (1) \(\ker S\) 不在 \(X'\) 中, 否则 \(S\) 在 \(X'\) 上不是单射. 说明 \(\dim\ker S\leq\dim\ker T < \infty\);
+            (2) \(\img S\oplus Y'=Y\), 这是因为
+            \[\forall\, y\in Y, y = Sx_1+y_1=\tilde{S} (x_1, y_1)\]
+            说明 \(\dim\coker S\leq\dim Y' < \infty\);
+            (3) \(\img S\) 是闭的, 因为 \(\tilde{S}\) 是同构.\\
+            从而 \(S\) 是一个 Fredholm 算子.
+        \end{prf}
+
+    \subsection{Riesz 表示}
+
+        \begin{dfn}
+            {拓扑群}
+            [Topological Group]
+            设 \(G\) 是一个群, \(G\) 上的一个拓扑使得 \(G\) 的乘法和取逆运算都是连续的, 则称 \(G\) 是一个\textbf{拓扑群}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个定义非常抽象. 我们将其详细解释: \\
+            群上具有乘法运算 
+            \[\mu:\qquad\begin{matrix}
+                (G, G) & \to & G\\
+                (x,y) & \mapsto & x\cdot y
+            \end{matrix} \]
+            连续指的是: 
+            \paragraph{使用逆开性定义: 将开集拉回开集.} \(U\subseteq G\) 是一个开集, 那么它的原像必须是 \(G\times G\) 中的一个开集:
+            \[U\in\tau_G \implies \mu^{-1}(U)\in\tau'_{G\times G}\]
+            \paragraph{使用开集定义.} 对任意 \(x,y\in G\), 若 \(x\cdot y\in W\) 落在开邻域中, 那么存在 \(x\) 的开邻域 \(U\) 和 \(y\) 的开邻域 \(V\) 使得 \(U\cdot V \subseteq W\). 
+            \paragraph{使用点定义.} 对任意 \(x,y\in G\), 若 \(x\cdot y\in W\) 落在开邻域中, 那么存在 \(x\) 的开邻域 \(U\) 和 \(y\) 的开邻域 \(V\) 使得 \(\forall u\in U, v\in V, u\cdot v \in W\). 
+            类似地可以定义取逆运算的连续性.
+        \end{rmk}
+
+        \begin{ins}
+            {\(\R\) 是一个拓扑群}
+            \((\R,+)\) 是一个拓扑群. 因为 \(\R\) 上的加法 (\(+\)) 和取负运算都是连续的.
+        \end{ins}
