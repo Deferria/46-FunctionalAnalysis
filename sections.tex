@@ -356,7 +356,7 @@
                 0, & x\in[0,1) \\
                 1, & x=1
             \end{cases}\]
-            这说明 \(\{f_n\}\) 中不存在收敛子列. 从而 \(\Cont([0,1])\) 的单位闭球不是序列紧的, 从而不是紧的.\\
+            这说明 \(\{f_n\}\) 中不存在收敛子列. 从而 \(\Cont([0,1])\) 的单位闭球不是\hyperref[dfn:sequential-compact]{序列紧的}, 从而不是紧的.\\
             这个函数列不是 Cauchy 列, 也不具有一致收敛极限. 因此它不能用来说明 \(\Cont([0,1])\) 不是 Banach 空间.
         \end{cxmp}
 
@@ -1544,20 +1544,33 @@
 
         \begin{prf}
             由于 \(X\) 可以分成一列开球的并
-            \[X=\bigcup_{i=1}^{\infty} B_X(0,n)\]
+            \[X=\bigcup_{n=1}^{\infty} B_X(0,n)\]
             而 \(T\) 是满射
-            \[Y=T(X)=T\qty(\bigcup_{i=1}^{\infty} B_X(0,n))=\bigcup_{i=1}^{\infty} T(B_X(0,n))\]
+            \[Y=T(X)=T\qty(\bigcup_{n=1}^{\infty} B_X(0,n))=\bigcup_{n=1}^{\infty} T(B_X(0,n))\]
             根据 \(T\) 的线性性, 
-            \[Y=\bigcup_{i=1}^{\infty} T(B_X(0,n))=\bigcup_{i=1}^{\infty} nT(B_X(0,1))\]
+            \[Y=\bigcup_{n=1}^{\infty} T(B_X(0,n))=\bigcup_{n=1}^{\infty} nT(B_X(0,1))\]
             由于 \(Y\) 是完备的度量空间, 所以是 Baire 空间, 满足 Baire 纲定理, 它一定是第二纲的. 这说明上面的一列集合中至少有一个集合的闭包是有内部的.\\
             也就是 \(\overline{T(B_X(0,1))}\) 必然包含开球. 设为 \(B_Y(y_0,r)\subseteq\overline{T(B_X(0,1))} \). 则
             \[y=y_0+y-y_0\in\overline{T(B_X(0,1))}-\overline{T(B_X(0,1))}\subseteq\overline{T(B_X(0,2))}  \]
-            根据线性性可以把 \(2\) 提出来. 所以我们得到了
+            根据线性性可以把 \(2\) 用标量乘法换成任意 \(\epsilon>0\). 所以我们得到了
+            \[\exists\,\eta>0, \st B_Y(0,\epsilon\eta)\subseteq\overline{T(B_X(0,\epsilon))} \]
+            特别地可以取 \(\epsilon=1\):
             \[\exists\,\eta>0, \st B_Y(0,\eta)\subseteq\overline{T(B_X(0,1))} \]
-            设 \(y\in B_Y(0,\eta)\), 则存在 \(x_1\in B_X(0,1)\) 使得 \(\norm{T(x_1)-y}<\frac{\eta}{2}\). 设 \(y_1=y-T(x_1)\), 则 \(\norm{y_1}<\frac{\eta}{2}\). 同样的, 存在 \(x_2\in B_X(0,1)\) 使得 \(\norm{T(x_2)-y_1}<\frac{\eta}{4}\). 设 \(y_2=y_1-T(x_2)\), 则 \(\norm{y_2}<\frac{\eta}{4}\). \\
-            重复这个过程, 可以得到一列点 \(\{x_n\}_{n=1}^{\infty}\) 和一列数 \(\{\epsilon_n\}_{n=1}^{\infty}\), 使得
-            \[\norm{y-\sum_{i=1}^n T(x_i)}=\norm{y_n}<\epsilon_n\]
-            其中 \(\epsilon_n\to 0\). 这说明 \(\sum_{i=1}^n T(x_i)\) 收敛到 \(y\). 由于 \(T\) 是连续的, \(\sum_{i=1}^n x_i\) 收敛到 \(x\), 从而 \(T(x)=y\). 这说明 \(T(B_X(0,2))\) 包含了 \(B_Y(0,\eta)\). 从而 \(T(B_X(0,1))\) 包含了 \(B_Y(0,\frac{\eta}{2})\). 这就说明了 \(T\) 是一个开映射.
+            接下来应该想办法把闭包去掉, 考虑证明 \(B_Y(0,\frac{\eta}{2})\subseteq T(B_X(0,1))\). 根据上面的结论, 令 \(\epsilon=\frac{1}{2}\), 得到
+            \[\exists\,\eta>0, \st B_Y(0,\frac{\eta}{2})\subseteq\overline{T(B_X(0,\frac{1}{2}))} \]
+            则存在 \(x_1\in B_X(0,\frac{1}{2})\) 使得 \(\norm{T(x_1)-y}<\frac{\eta}{4}\). \\
+            设 \(y_1=y-T(x_1)\), 再令 \(\epsilon=\frac{1}{4}\), 得到
+            \[\exists\,\eta>0, \st B_Y(0,\frac{\eta}{4})\subseteq\overline{T(B_X(0,\frac{1}{4}))} \]
+            同样的, 存在 \(x_2\in B_X(0,\frac{1}{4})\) 使得 \(\norm{T(x_2)-y_1}<\frac{\eta}{8}\). \\
+            重复这个过程, 可以得到一列点 \(\{x_n\}_{n=1}^{\infty}\) 和一列数 \(\{\frac{\eta}{2^n}\}_{n=1}^{\infty}\). 按照构造过程, 满足
+            \[\norm{x_n}\leq\frac{1}{2^n}\]
+            这说明 \(\{x_n\}\) 是 Cauchy 列, 根据完备性, 收敛到 \(X\) 中的一个点 \(x\):
+            \[\norm{x}\leq\sum_{n=1}^{\infty} \norm{x_n} \leq \sum_{n=1}^{\infty} \frac{1}{2^n} = 1\implies x\in B_X(0,1) \]
+            另一方面, 由于
+            \[\norm{y-T(x_1+x_2+\cdots+x_n)}\leq\frac{\eta}{2^{n+1}}\to 0\]
+            且 \(T\) 是连续线性算子, 则可以交换极限和 \(T\) 的作用,
+            \[\lim_{n\to\infty}T\qty(\sum_{k=1}^n x_k)=T\qty(\lim_{n\to\infty}\sum_{k=1}^n x_k)=Tx\]
+            所以 \(T(x)=y\). 这说明对任意 \(B_Y(0,\frac{\eta}{2})\) 的元素都有来自 \(T(B_X(0,1))\) 的原像. 从而 \(T(B_X(0,1))\) 确实包含了 \(B_Y(0,\frac{\eta}{2})\). 这就说明了 \(T\) 是一个开映射.
         \end{prf}
 
         \begin{rmk}
@@ -1681,7 +1694,7 @@
 
         \begin{varthm}
             [compact]
-            {紧集的等价定义}
+            {紧集的有限交性定义}
             \(A\) 是 \(X\) 中的\hyperref[dfn:compact]{紧集}当且仅当对 \(X\) 中的任意一族闭集 \(\{F_\alpha\}_{\alpha\in I}\) 都满足:
             若 \(\{F_\alpha\cap A\}_{\alpha\in I}\) 满足有限交性, 则 \(\bigcap_{\alpha\in I} F_\alpha\cap A\neq\varnothing.\)
         \end{varthm}
@@ -1692,7 +1705,9 @@
         \end{rmk}
 
         \begin{varthm}
+            [closed-subset-of-compact]
             {紧集的闭子集是紧的}
+            [Closed Subset of Compact Set is Compact]
             设 \(A\) 是 \(X\) 中的一个\hyperref[dfn:compact]{紧集}, 则 \(A\) 的任意闭子集 \(B\) 也是 \(X\) 中的一个紧集.
         \end{varthm}
 
@@ -1720,7 +1735,7 @@
         \begin{varthm}
             [tychonoff]
             {Tychonoff 定理}
-            设 \(X_\alpha\) 是一族\hyperref[dfn:compact]{紧拓扑空间}. 则积拓扑空间
+            设 \(X_\alpha\) 是一族\hyperref[dfn:compact]{紧拓扑空间}, \(I\) 是任意一个索引集. 则积拓扑空间
             \[\prod_{\alpha\in I} X_\alpha\]
             是一个紧拓扑空间.
         \end{varthm}
@@ -1741,6 +1756,11 @@
             也就是, \(X\) 中的任意序列都存在一个收敛子序列. \\
             对子集也可以定义列紧性. 设 \(A\subseteq X\), 定义 \(A\) 是列紧的, 当且仅当 \(A\) 中的任意序列都存在一个收敛子序列, 且收敛子序列的极限也在 \(A\) 中.
         \end{vardfn}
+
+        \begin{rmk}
+            需要注意的是, 列紧性的定义就是其中的任意序列都有收敛的子列. 而 \(\R\) 上的 Bolzano-Weierstrass 定理则是其中的任意有界序列都有收敛的子列. 这两者是不同的概念. \\
+            但换句话表述就是, \(\R\) 中的任意有界闭集都是列紧的. 结合 \(\R\) 是度量空间的事实, 这正是 Heine-Borel 定理的内容.
+        \end{rmk}
 
         \begin{thm}
             {度量空间中的紧性与列紧性是等价的}
@@ -1946,7 +1966,7 @@
             \begin{itemize}
                 \item 逐点收敛的连续函数列极限不一定是连续函数;
                 \item 逐点收敛的 Riemann 可积函数列极限不一定是 Riemann 可积函数;
-                \item 逐点收敛的可微函数列的极限不一定是可微函数;
+                \item 逐点收敛的可微函数列的极限不一定是可微函数; 即使加上导数逐点收敛也不能保证;
                 \item 逐点收敛的 Lebesgue 可积函数列的极限不一定是 Lebesgue 可积函数, 除非是根据 Egorov 定理, 逐点收敛的可测函数列在有限测度下差不多一致收敛.
             \end{itemize}
             相比之下, 一致收敛拓扑可以保持绝大多数良好性质:
@@ -1970,6 +1990,13 @@
             当 \(n\to\infty\), \(Te_n\to 0\), 从而 \(\{e_n\}_{n=1}^{\infty}\wlim 0\).
         \end{prf}
 
+        \begin{rmk}
+            [Dedicatia]
+            令 \(H=\Lp[2]\), 取标准正交基为 \(\{1, \cos x, \sin x, \cdots, \cos nx, \sin nx, \cdots\}\), 那么这个结论就是著名的 Riemann-Lebesgue 引理:
+            \[\int_0^{2\pi} \cos nx \cdot g(x) \dd{x} \to 0, \forall\,g\in\Lp[2]([0,2\pi]),\]
+            \[\int_0^{2\pi} \sin nx \cdot g(x) \dd{x} \to 0, \forall\,g\in\Lp[2]([0,2\pi]).\]
+        \end{rmk}
+
         \begin{cxmp}
             {弱收敛不蕴含范数收敛}
             考虑 \(\Lp[2]([0,1])\) 中的函数列 \(\{\sin 2n\pi x\}\), 则根据 Riemann-Lebesgue 引理我们有
@@ -1985,17 +2012,25 @@
         \end{thm}
 
         \begin{prf}
-            定义
-            \[\{f: B\to [-1,1]\}\]
-            则它可以写作
-            \[\prod_{\card (B)} [-1,1]\]
-            根据 Tychonoff 定理, 这是一个紧拓扑空间. 将 \(X\) 上的泛函限制在 \(B\) 上, 我们只需要证明它是紧的. 根据紧拓扑空间的闭子集是紧的, 我们只需证明它是闭的. 将 \(f\) 延拓到整个空间上, 利用齐次性: \(\forall\,x\in X, F(x) = \norm{x} f\qty(\frac{x}{\norm{x}})\). 则 \(F\) 是有界线性泛函且 \(\norm{F}\leq\norm{f}\leq 1\). 从而 \(F\in X^*\). 这就说明了 \(X^*\) 的单位闭球在弱*拓扑下是紧的.
+            对任意 \(x\in X\), 定义
+            \[D_x:=\{a\in\R, |a|\leq\norm{x}\}\]
+            显然这是一个紧致集. 那么积拓扑空间 
+            \[\prod_{x\in X} D_x=:D\]
+            根据 \hyperref[thm:tychonoff]{Tychonoff 定理}, \(D\) 是一个紧空间. 这时, 因为所有的 \(a\leq\norm{x}\) 可以看成是某个泛函 \(\phi\) 的值域, 所以 \(D\) 中的元素是所有将 \(x\) 映到 \(\R\) 的函数 \(\phi\), 且满足 \(|\phi(x)|\leq\norm{x}\). \\
+            并且, 这里的积拓扑是逐点的, 恰好与弱*拓扑一致, 所以干脆将包含了所有有界线性泛函的 \(X^*\) 的单位闭球 \(B\) 看作是 \(D\) 的一个子集.
+            我们要证明 \(B\) 是紧的, 根据定理\ref{thm:closed-subset-of-compact}, 只需证明 \(B\) 是 \(D\) 的一个闭子空间, 也就是要证明线性泛函在一族有界泛函中逐点收敛到线性泛函, 这是显而易见的. \\
+            从而 \(B\) 是 \(D\) 的一个闭子空间, 也是一个紧空间.
         \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            实际上, 这里定理证明不需要完备性. 该定理对一般赋范线性空间也成立.
+        \end{rmk}
 
         \begin{crl}
             {Hilbert 空间的单位闭球是弱紧的}
             [Weak Compactness of the Unit Ball in Hilbert Spaces]
-            这是因为可以建立从 Hilbert 空间到其\hyperref[dfn:dual-space]{对偶空间}的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是\hyperref[dfn:compact]{紧的}.
+            这是因为根据 \hyperref[thm:riesz-hilbert]{Riesz 表示定理}, 可以建立从 Hilbert 空间到其\hyperref[dfn:dual-space]{对偶空间}的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是\hyperref[dfn:compact]{紧的}.
         \end{crl}
 
         \begin{thm}
@@ -2062,6 +2097,11 @@
             这体现了弱拓扑的好处, 当限制在单位闭球上时, 我们希望的一些好性质又回来了.
         \end{rmk}
 
+        \begin{crl}
+            {Banach-Alaoglu 定理在可分空间中的表述}
+            设 \(X\) 是一个\hyperref[dfn:separable]{可分}的赋范线性空间, 则 \(X^*\) 的单位闭球在弱*拓扑下是\hyperref[dfn:sequential-compact]{列紧的}. 即对任意一列对偶空间中的元素 \(\{f_n\}_{n=1}^{\infty}\), 存在一列 \(f_{n_k}\subset \{f_n\}\) 使得 \(f_{n_k}\wslim f\) 对某个 \(f\in X^*\) 成立.
+        \end{crl}
+
         \begin{ins}
             {序列空间的可度量性}
             我们考虑序列空间 \(\ell^1\) 与 \(\ell^\infty\) 的单位闭球的拓扑是否可度量化:
@@ -2094,7 +2134,7 @@
                     \bottomrule
                 \end{tabular}
             \end{center}
-            这里有一个关键差异, 在 Lebesgue 测度下, \(\Lp[1]([0,1])\) 不是任何空间的对偶空间, 这一点将在例子\ref{cxmp:lp1-not-dual}看到. 所以它不存在弱*拓扑.
+            这里有一个关键差异, 在 Lebesgue 测度下, \(\Lp[1] ([0,1])\) 不是任何空间的对偶空间, 这一点将在例子\ref{cxmp:lp1-not-dual}看到. 所以它不存在弱*拓扑.
         \end{ins}
 
         \begin{dfn}
@@ -2131,7 +2171,7 @@
         \begin{cxmp}
             [lp1-not-dual]
             {\(\Lp[1]\) 空间不是任何 Banach 空间的对偶空间}
-            区间 \([0,1]\) 上赋予 Lebesgue 测度下的 \(Lp[1]([0,1])\) 函数空间的单位闭球没有任何端点. \\
+            区间 \([0,1]\) 上赋予 Lebesgue 测度下的 \(\Lp[1]([0,1])\) 函数空间的单位闭球没有任何端点. \\
             这是因为如果 \(f\in\Lp[1]([0,1])\) 是一个端点, 那么可以令 \(E\subseteq [0,1]\), 使得 \(\int_E|f|=\frac{1}{2}\int_{[0,1]}|f|\). 设 \(g = f\cdot \chi_E\), \(h = f\cdot \chi_{[0,1]\setminus E}\). 则 \(f = \frac{1}{2}(2g) + \frac{1}{2}(2h)\), 这说明了 \(f\) 不是一个端点. 从而 \(\ext(\overline{B}_{\Lp[1]})=\varnothing\). \\
             根据 Krein-Milman 定理, 一个紧凸集必须有端点. 假如 \(\Lp[1]([0,1])\) 是某个 Banach 空间的对偶空间, 那么它的单位闭球在弱*拓扑下是紧的. 但是它没有端点, 与 Krein-Milman 定理矛盾. 从而 \(\Lp[1]([0,1])\) 不是任何 Banach 空间的对偶空间. 相应, \(\Lp[1]([0,1])\) 不存在弱*拓扑.
         \end{cxmp}
