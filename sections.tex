@@ -857,6 +857,7 @@
         \end{prf}
 
         \begin{thm}
+            [norming-functional]
             {赋范泛函}
             [Norming Functional]
             设 \(X\) 是赋范线性空间, \(\forall x\neq 0\), \(\exists\,f\in X^*\st f(x)=\norm{x}\) 且 \(\norm{f}=1\).
@@ -1242,6 +1243,7 @@
         \end{prf}
 
         \begin{thm}
+            [convex-set-separation]
             {凸集分离定理}
             [Convex Set Separation Theorem]
             设 \(X\) 是 \(\R\) 上的赋范线性空间. \(A, B\) 是两个非空的凸集, \(A\cap B=\varnothing\). \(A\) 是开集, 那么 
@@ -1428,7 +1430,7 @@
             [bct]
             {Baire 纲定理}
             [Baire Category Theorem]
-            Baire 空间本身一定是\hyperref[dfn:second-category]{第二纲的}.
+            Baire 空间中的开集一定是\hyperref[dfn:second-category]{第二纲的}.
         \end{thm}
 
         \begin{prf}
@@ -1816,6 +1818,11 @@
             设 \(D\) 是 \(X\) 中的一个可数稠密子集, 则 \(\B=\{B(x,r):x\in D, r\in\Q^+\}\) 是 \(X\) 的一个可数拓扑基.
         \end{prf}
 
+        \begin{rmk}
+            [Dedicatia]
+            事实上, 第二可数性质比\hyperref[dfn:separable]{可分性}强. 但是在度量空间中二者等价.
+        \end{rmk}
+
     \subsection{弱拓扑与弱*拓扑}
 
         \begin{intrormk}
@@ -1868,7 +1875,7 @@
         \end{ppt}
 
         \begin{prf}
-            设 \(x,y\in X, x\neq y\). 根据 Hahn-Banach 定理, \(\exists\,f \in X^*, \forall\,\alpha\in\R, f(x)>\alpha>f(y)\). 从而 \(f\) 是一个连续线性泛函, \(f^{-1}((\alpha,+\infty))\) 和 \(f^{-1}((-\infty,\alpha))\) 是 \(X\) 中的两个弱开集, 分别包含 \(x\) 和 \(y\), 从而 \(X\) 是 Hausdorff 空间.
+            设 \(x,y\in X, x\neq y\). 根据 Hahn-Banach 定理, \(\exists\,f \in X^*,\alpha\in\R, f(x)>\alpha>f(y)\). 从而 \(f\) 是一个连续线性泛函, \(f^{-1}((\alpha,+\infty))\) 和 \(f^{-1}((-\infty,\alpha))\) 是 \(X\) 中的两个弱开集, 分别包含 \(x\) 和 \(y\), 从而 \(X\) 是 Hausdorff 空间.
         \end{prf}
 
         \begin{dfn}
@@ -1908,10 +1915,10 @@
             这就说明了 \(O'''\subseteq O''\). 综上, \(O'''\subseteq O''\subseteq O\). 这就说明了 \(X^*\) 上的任意一个弱*开集都包含了一个范数开集. 从而 \(X^*\) 上的弱*拓扑与范数拓扑一致.
         \end{prf}
 
-        \begin{thm}
+        \begin{ppt}
             {弱*拓扑空间是 Hausdorff 空间}
             设 \(X\) 是一个赋范线性空间, 则 \((X^*, w^*)\) 是一个 Hausdorff 空间.
-        \end{thm}
+        \end{ppt}
 
         \begin{ppt}
             {双对偶空间中的弱*连续性}
@@ -2004,6 +2011,10 @@
             从而 \(\{\sin 2n\pi x\}\wlim 0\). 但是 \(\norm{\sin 2n\pi x}_2 = \frac{1}{\sqrt{2}}\) 不趋于零, 从而 \(\{\sin 2n\pi x\}\) 弱收敛但不范数收敛.
         \end{cxmp}
 
+        \begin{ins}
+            {\(\ell^1\) 空间上的弱收敛与范数收敛等价}
+        \end{ins}
+
         \begin{thm}
             [banach-alaoglu]
             {Banach-Alaoglu 定理}
@@ -2027,27 +2038,97 @@
             实际上, 这里定理证明不需要完备性. 该定理对一般赋范线性空间也成立.
         \end{rmk}
 
+        \begin{varthm}
+            {弱*闭集是紧的当且仅当其在范数拓扑下有界}
+            设 \(X\) 是赋范线性空间, 则弱*闭集 \(S\subseteq X^*\) 是弱*紧集当且仅当其在范数拓扑下有界.
+        \end{varthm}
+
+        \begin{prf}
+            (\(\impliedby\)): 若 \(S\) 是有界的, 那么 \(S\subseteq B_r\) 包含在了某个有界闭球之内. 根据 \hyperref[thm:banach-alaoglu]{Banach-Alaoglu 定理}, \(B_r\) 是弱*紧的, 紧集的闭子集也是紧的, 所以 \(S\) 也是弱*紧的.\\
+            (\(\implies\)): 设 \(S\) 是弱*紧的, 那么 \(S\) 中的泛函 \(f\) 对 \(x\in X\) 的像 \(f(x)\) 也是紧的, 因为连续映射将紧集映到紧集. \(\R\) 上的紧集是有界闭的, 所以 \(\forall\, x\in X\), \(f(x)\) 逐点有界. 根据\hyperref[thm:banach-steinhaus]{一致有界性定理}, \(\norm{f}\) 一致有界. 所以 \(S\) 在范数拓扑下有界.
+        \end{prf}
+
         \begin{crl}
-            {Hilbert 空间的单位闭球是弱紧的}
+            {自反空间的单位闭球是弱紧的}
             [Weak Compactness of the Unit Ball in Hilbert Spaces]
-            这是因为根据 \hyperref[thm:riesz-hilbert]{Riesz 表示定理}, 可以建立从 Hilbert 空间到其\hyperref[dfn:dual-space]{对偶空间}的同构, 从而 Hilbert 空间的单位闭球在弱拓扑下也是\hyperref[dfn:compact]{紧的}.
+            这是因为原空间到其\hyperref[dfn:dual-space]{对偶空间}存在同构, 从而自反空间的单位闭球在弱拓扑下也是\hyperref[dfn:compact]{紧的}. \\
+            特别地, Hilbert 空间的单位闭球是弱紧的.
         \end{crl}
+
+        \begin{varthm}
+            {弱收敛的点列是一致有界的}
+            设 $\{x_n\}$ 是一列赋范线性空间 \(X\) 上的弱收敛序列, 则 \(\{x_n\}\) 是一致有界的.
+        \end{varthm}
+
+        \begin{prf}
+            根据\hyperref[thm:banach-steinhaus]{一致有界性定理}, 对一列 \(\{x_n\}\), 若对任意 \(f\in X^*\) 都有 
+            \[|f(x_n)|\leq M\norm{f}, \forall x_n\]
+            那么 \(\{x_n\}\) 有一致的界. \(\exists\,c\in\R\) s.t. \(\norm{x_n}\leq c,\forall x_n\).
+        \end{prf}
+
+        \begin{varthm}
+            {弱收敛极限的下半连续性}
+            设 \(X\) 是赋范线性空间, \(\{x_n\}\subset X\), \(x_n\wlim x\). 那么有
+            \[\norm{x}\leq\liminf\norm{x_n}. \]
+        \end{varthm}
+
+        \begin{prf}
+            根据定理\ref{thm:norming-functional}, \(\exists\,f\in X^*\) s.t. \(\norm{f}=1\) \(\land\) \(\norm{x}=\abs{f(x)}\). 则
+            \[f(x)=\lim_{n\to\infty}f(x_n), \abs{f(x_n)}\leq\norm{f}\norm{x_n}=\norm{x_n} \]
+            所以下半连续性成立.
+        \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            这些定理同样有对弱*收敛的表述. 不再赘述.
+        \end{rmk}
+
+        \begin{thm}
+            [mazur]
+            {Mazur 定理}
+            [Mazur's Theorem]
+            Banach 空间 \(X\) 上的闭凸集 \(K\) 一定是弱闭的.
+        \end{thm}
+
+        \begin{prf}
+            我们尝试证明对 \(z\in X\), 如果 \(z\notin K\), 那么 \(z\) 也不在 \(K\) 在弱拓扑的闭包之中. \\
+            由于 \(K\) 是范数拓扑下的闭集, 所以存在 \(z\) 的开邻域 \(B(z,r)\) 使得 \(B(z,r)\cap K=\varnothing\). 根据\hyperref[thm:convex-set-separation]{凸集分离定理}, \(\exists f\in X^*\) \(c\in\R\), s.t.
+            \[f(u)\leq c\leq f(v), \forall\,u\in K, v\in B(z,r). \]
+            对于 \(v\in B(z,r)\), \(v=z+x\), \(\norm{x}\leq r\). 那么我们有
+            \[\inf_{v\in B(z,r)}f(v)=f(z)+\inf_{|x|\leq R}f(x)=f(z)-R\norm{f}\]
+            这说明
+            \[f(z)\geq c\]
+            所以 \(z\in\{x: f(x)\geq c\}\), 这正是一个弱开集. 但是根据分离性, 这个集合中没有任何 \(K\) 中的元素. 由此得到了证明.
+        \end{prf}
 
         \begin{thm}
             {Goldstine 定理}
             [Goldstine's Theorem]
-            设 \(X\) 是赋范线性空间, 则 \(X\) 的单位闭球 \(\overline{B}_X\) 的典范嵌入的像 \(J_X(\overline{B}_X)\) 在 \(X^{**}\) 的单位闭球 \(\overline{B}_{X^{**}}\) 中是弱*稠密的.\\
+            设 \(X\) 是赋范线性空间, 则 \(X\) 的单位闭球 \(\overline{B}_X\) 的典范嵌入的像 \(J_X(\overline{B}_X)\) 在 \(X^{**}\) 的单位闭球 \(\overline{B}_{X^{**}}\) 中是弱*稠密的. 也就是
+            \[\overline{J(\overline{B}_{X})}^{w^*}=\overline{B}_{X^{**}}.\]
             即: \(\forall\,f\in X^*, \exists\,\{x_\alpha\}\subset\overline{B}_X\st f(x_\alpha)\to f(0)\).
         \end{thm}
 
         \begin{prf}
-            (\(\implies\)): 
-            \[J_X(\overline{B}_X)\subseteq \overline{B}_{X^{**}}\implies J_X(\overline{B}_X)^{w^*}\subseteq (\overline{B}_{X^{**}})^{w^*}=\overline{B}_{X^{**}}.\]
-            (\(\impliedby\)): 设存在 \(\xi\in\overline{B}_{X^{**}}\setminus(J_X(\overline{B}_X))^{w^*} \). 则这二者可以通过开集分离. 设 \(U\) 是弱*开集, \(U\cap (J_X(\overline{B}_X))^{w^*} =\varnothing\), \(\xi\in U\). 则
+            (\(\implies\)): 由于 \(J\) 是等距的嵌入, 所以自然有 
+            \[J_X(\overline{B}_X)\subseteq \overline{B}_{X^{**}}.\]
+            根据 \hyperref[thm:banach-alaoglu]{Banach-Alaoglu 定理}, 单位闭球是弱*紧的, 自然也是闭的. 所以取闭包仍然包含在 \(B_{X^{**}}\) 内. 即
+            \[\overline{J_X(\overline{B}_X)}\subseteq \overline{B}_{X^{**}}.\]
+            %\[J_X(\overline{B}_X)\subseteq \overline{B}_{X^{**}}\implies J_X(\overline{B}_X)^{w^*}\subseteq (\overline{B}_{X^{**}})^{w^*}=\overline{B}_{X^{**}}.\]
+            (\(\impliedby\)): 设存在 \(\xi\in\overline{B}_{X^{**}}\setminus\overline{J_X(\overline{B}_X)}^{w^*} \). 则根据 \hyperref[thm:hahn-banach]{Hahn-Banach 定理}, 存在一个将装备了弱*拓扑的 \(X^{**}\) 映到 \(\R\) 的连续线性泛函 \(F\), 和 \(a\in\R\) 使得 
+            \[F(\xi)>a\geq\sup_{y\in J_X(\overline{B}_X)} F(y) \]
+            而装备了弱*拓扑的 \(X^{**}\) 的对偶空间正好是 \(X^*\) (这一点验证比较繁琐, 此处从略). 这说明 \(\forall\eta\in X^{**}\), \(F(\eta)=\eta(f)\). 那么分离条件变为
+            \[\xi(f)>a\geq\sup_{\norm{x}\leq 1} J_X(x)(f)=\sup_{\norm{x}\leq 1} f(x)\]
+            这时, \(\xi(f)>\norm{f}\). 但是
+            \[\abs{\xi(f)}\leq\norm{\xi}\norm{f}\leq\norm{f} \]
+            这就导致了矛盾. 这说明这样的 \(\xi\) 不存在. 所以 \(\overline{B}_{X^{**}}\subseteq\overline{J(\overline{B}_{X})}^{w^*} \).
+            \iffalse
+            这二者可以通过开集分离. 设 \(U\) 是弱*开集, \(U\cap (J_X(\overline{B}_X))^{w^*} =\varnothing\), \(\xi\in U\). 则
             \[U = \bigcap_{i=1}^n \{F\in X^{**}: |F(x_i)-\xi(x_i)|<\epsilon\}\]
             其中 \(x_1,\dots,x_n\in X\), \(\epsilon>0\). 定义
             \[V = \bigcap_{i=1}^n \{x\in X: |x_i(x)-\xi(x_i)|<\epsilon\}\]
             则 \(V\) 是 \(X\) 中的一个弱邻域, 且 \(V\cap \overline{B}_X = \varnothing\). 这就说明了 \(0\in X\) 和 \(\overline{B}_X\) 可以通过开集分离. 这显然是矛盾的. 从而 \(\xi\in (J_X(\overline{B}_X))^{w^*}\).
+            \fi
         \end{prf}
 
         \begin{thm}
@@ -2060,6 +2141,26 @@
         \end{thm}
 
         \begin{prf}
+            只证明 (1). \\
+            \(\implies\): 设 \(X\) 是可分的, 则存在可数的稠密子集
+            \[\{x_n\}_{n=1}^{\infty}\subseteq\overline{B}_X \]
+            由于 \(X^*\) 上的弱*拓扑就是逐点的拓扑, 假使 \(f,g\in X^*\) 的接近程度可以使用这些点 \(\{x_n\}\) 来刻画, 那我们的目的也就达成了. 事实上直接三段控制即可: 只要 \(f\to g\) 在 \(x_n\) 上都成立, 就有
+            \[|f(x)-g(x)|\leq|f(x)-f(x_k)|+|f(x_k)-g(x_k)|+|g(x)-g(x_k)| =3\varepsilon \]
+            另外两项成立是因为
+            \[|f(x)-f(x_k)|\leq\norm{f}\norm{x-x_k} \]
+            由于 \(\{x_k\}\) 是稠密的, 所以 \(x_k\) 可以任意接近 \(x\). \(f,g\) 在单位闭球中, 所以是有界的, 这两项也就成为无穷小.
+            这表明, 可以认为 \(f\to g\) 在 \(\overline{B}_{X^*}\) 上成立. 所以一个度量可以选用
+            \[d(f,g)=\sum_{n=1}^{\infty}2^{-n}\frac{|f(x_n)-g(x_n)|}{1+|f(x_n)-g(x_n)|}.\]
+            \(\impliedby\): 设 \(X^*\) 的单位闭球在弱拓扑下可度量, 则满足第一可数性质, \(0\in \overline{B}_{X^*}\) 存在可数的邻域基, 记作 \(\{U_n\}_{n=1}^{\infty}\). \\
+            按照弱*邻域定义, \(0\) 的一个弱*邻域应该是有限个向量就可以表达的:
+            \[V_n:=\qty{f\in \overline{B}_{X^*}: |f(x_{n,1})|<\epsilon_n, \cdots, |f(x_{n,m_n})|<\epsilon_n }\]
+            可数个由有限个向量描述的拓扑应该也可以被有限个向量描述. 也就是说, 所有邻域中的所有用来确定该邻域的向量收集起来得到
+            \[D:=\{x_{n,j}, n\in\N, 1\leq j\leq m_n\}\]
+            是可数的.\\
+            现在考虑证明 \(D\) 确实可以线性张成 \(X\) 上的稠密子集. 假如不是, 那么存在 \(x_0\in X\setminus\overline{\spn(D)}\), 根据 Hahn-Banach 定理, \(\exists\,f\in X^*, f\neq 0\) 使得 \(f\) 限制在 \(\overline{\spn(D)}\) 上是 \(0\). \\
+            \(f(x)=0, \forall\,x\in D\), 那么 \(f\) 在 \(0\in X^*\) 的所有邻域中. 虽然弱*拓扑非常弱, 但仍旧是 Hausdorff 空间. 所以 \(f=0\), 这就导致了矛盾. \\
+            所以, 若 \(f\neq g\) 在 \(D\) 上, 那么 \(f\neq g\) 在 \(X\) 上都成立. \(D\) 就是一个可数的稠密子集. 所以 \(X\) 是可分的.
+            \iffalse
             只证明 (2). \\
             \((\implies)\): 设 \(X^*\) 是可分的, 则存在可数的稠密子集
             \[\{f_n\}_{n=1}^{\infty}\subseteq X^*\]
@@ -2078,6 +2179,7 @@
             根据 Goldstine 定理, \(\exists\,\{x_\alpha\}\subset\overline{B}_X\) 使得 \(x_\alpha\wslim\phi\). 即: \(\forall\,f\in X^*\), \(f(x_\alpha)\to \phi(f)\): \(f\in M\) 时:
             \[f(x_\alpha)\to 0\]
             但是 \(\{V_m\}\) 是原点的邻域基, \(x_\alpha\) 在 \(\alpha\) 足够大时一定会进入 \(V_m\), 这说明 \(x_\alpha\to 0\). 那么 \(\phi(g)=0, \forall\,g\in X^*\). 这只有一种可能就是 \(\phi=0\), 与 \(\norm{\phi}=1\) 矛盾. 从而 \(Y=X^*\), \(X^*\) 是可分的. 
+            \fi
         \end{prf}
 
         \begin{rmk}
@@ -2364,14 +2466,12 @@
 
         \begin{ppt}
             {紧算子的复合也是紧算子}
-            设 \(X\) 是 Banach 空间:
-            \[X\xrightarrow{S} X \xrightarrow{T} X\xrightarrow{U} X\]
-            若 $T\in\cpt(X,X)$, $S,U\in\mathcal{B}(X,X)$, 则 $U\circ T\in\cpt(X,X)$, $T\circ S\in\cpt(X,X)$.
+            设 \(X,Y,Z\) 是 Banach 空间, \(T:\blo(X,Y)\), \(S:\blo(Y,Z)\), 若 \(T,S\) 中至少有一个紧算子, 则 \(S\circ T\in\cpt(X,Z)\).
         \end{ppt}
 
         \begin{rmk}
             [Dedicatia]
-            这说明了在 $\blo(X,X)$ 中, $\cpt(X,X)$ 是一个双边理想. 这也是我们在后续定义 Fredholm 算子时的一个重要性质.
+            这说明了在 $\blo(X,X)$ 中, $\cpt(X,X)$ 是一个双边理想.
         \end{rmk}
 
         \begin{ppt}
@@ -2415,12 +2515,11 @@
 
         \begin{rmk}
             [Dedicatia]
-            但是, 一般的 Banach 空间中的紧算子不一定能被有限秩算子逼近. 具备这种性质的 Banach 空间一般称为有限逼近性质的空间.
+            但是, 一般的 Banach 空间中的紧算子不一定能被有限秩算子逼近, 即使是可分的空间. 具备这种性质的 Banach 空间一般称为有限逼近性质的空间.
         \end{rmk}
 
         \begin{xmp}
-            {Hilbert-Schmidt 算子}
-            [Hilbert-Schmidt Operators]
+            {\(\Lp[2](D)\) 上的积分算子}
             设 $D \subset \R$ 是区域. $K \in L^2(D \times D)$, 的定义
             \[T_K: L^2(D) \to L^2(D), \qquad (T_K f)(x) = \int_D K(x,y) f(y) \dd{y}\]
             其中 \(K\) 称为积分核, \(T_K\) 称为积分算子, 则 \(T_k\) 是紧算子:\\
@@ -2450,6 +2549,7 @@
         \end{rmk}
 
         \begin{thm}
+            [schauder]
             {Schauder 定理}
             $T$ 是紧算子 iff $T^*$ 是紧算子.
         \end{thm}
@@ -2473,6 +2573,40 @@
             \end{center}
             所以 \(T^*\in \cpt(Y^*,X^*)\implies T\in\cpt(X,Y)\).
         \end{prf}
+
+        \begin{dfn}
+            {谱}
+            [Spectrum]
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{谱 (Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 不为双射.\\
+            一个线性算子 \(T\) 的谱用 \(\spec T\) 表示.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            需要注意的是, 谱和线性代数中的特征值很像, 但谱可以包含 0, 特征值一般不允许为 0.
+        \end{rmk}
+
+        \begin{dfn}
+            {特征值}
+            [Eigenvalue]
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{谱 (Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 不为单射, 即 \(\ker(\lambda\Id-T)\neq\{0\}\).
+        \end{dfn}
+
+        \begin{thm}
+            {紧算子的 Frdholm 闭性}
+            设 \(X\) 是 \(\C\) 上的 Banach 空间. \(T\in\cpt(X,X)\). 则 \(\forall\,z\in\C, \img(\lambda\Id-T)\) 是 \(X\) 的闭子空间.
+        \end{thm}
+
+        \begin{thm}
+            {Riesz-Shauder 定理}
+            设 \(X,Y\) 是 \(\C\) 上的 Banach 空间, \(T\in\cpt(X,Y)\). 则有:
+            \begin{enumerate}
+                \item \(\dim X=+\infty\) 时, \(0\in\spec T\);
+                \item 除去 \(0\), \(T\) 的谱均为特征值;
+                \item 若 \(\lambda\) 是特征值, \(\dim\ker(\lambda\Id-T)<+\infty\);
+                \item \(\spec T\) 只可能有一个聚点 \(0\).
+            \end{enumerate}
+        \end{thm}
 
     \subsection{Hilbert 空间上的算子}
 
@@ -2607,6 +2741,14 @@
             这说明标准正交基在 \(T\) 的像不是列紧的, 与 \(T\) 是紧算子矛盾. 从而 \(T\) 的特征值最多只有一个极限点 0. \\
             这也体现了 \(\dim E_\lambda<\infty\) 对所有 \(\lambda\neq 0\) 成立.
         \end{prf}
+
+        \begin{ins}
+            {\(\Lp[2]([0,1])\) 上的 Volterra 积分算子}
+            在 \(\Lp[2]([0,1])\) 空间上令积分核为 \(K(x,t)=\I_{t\leq x}\), 则定义积分算子
+            \[V:=f\mapsto\int_0^1K(x,t)f(t)\dd{t}=\int_0^xf(t)\dd{t} \]
+            \(V=\) 就是 \([0,1]\) 上的 Volterra 积分算子. \\
+            \(V\) 的唯一特征值是 \(0\).
+        \end{ins}
         
         \begin{thm}
             {Hilbert 空间的直和分解}
@@ -2711,7 +2853,43 @@
             从而 \(S\) 是一个 Fredholm 算子.
         \end{prf}
 
-    \subsection{Riesz 表示}
+        \begin{thm}
+            [index-fredholm-continuous]
+            {Fredholm 指数是连续映射}
+            \(\ind: \fred(X,Y)\to \Z\) 是连续映射. 即\\ 
+            设 \(X,Y\) 是 Banach 空间. \(T\in\fred(X,Y)\). \(\epsilon>0\) 是小量, 则 \(\forall\,S\in\blo(X,Y)\land \norm{S}<\epsilon\), \(T+S\in\fred(X,Y)\), \(\ind(T+S)=\ind T\).
+        \end{thm}
+
+        \begin{thm}
+            {紧算子与 Fredholm 算子的关系}
+            \(X\) 是 Banach 空间. \(K\in\cpt(X,X)\). \(T=\Id+K\). 则 \(T\in\fred(X,X)\), \(\ind T=0\).
+        \end{thm}
+
+        \begin{prf}
+            逐一验证 Frodholm 算子的条件:\\
+            (1) \(\dim\ker\Id+K<\infty\): 设 \(\{x_n\}\subset\ker(\Id+K)\). \(\norm{x_n}\leq 1,\forall n\). 那么 \(Kx_n\) 有收敛子列, 但是 \((\Id+K)x_n=0\). 
+            所以 \(x_n=\Id x_n\) 也存在收敛子列. 由于 \(\{x_n\}\) 是任取的, 所以 \(\ker\Id+K\) 的单位闭球是紧的. 所以是有限维的.\\
+            (2) \(\img\Id+K\) 是闭的: 令 \(X=\ker T\oplus V\). 由于 \(V\cong\img T\), 所以 \(T\) 限制在 \(V\) 上是双射. 我们只需要考虑 \(T\) 限制在 \(V\) 上是不是有界的. \\
+            反设如果不是双射, 则 \(\exists\{x_n\}\subset V\), 其中 \(\norm{x_n}\geq\epsilon\) 但是 \(Tx_n\to 0\). 
+            利用线性性令 \(y_n=x_n/\norm{x_n}\), 则 \(\norm{y_n}=1\). 同样根据 \(K\) 是紧算子, \(Kx_n\) 有收敛到 \(z\) 的子列, 所以 \(y_n\to -z\), 其中 \(\norm{z}=1\) 显然 \(z\in V\). 但是按照假设 \((\Id+K)z=0\). 矛盾. 所以 \(\img T\) 是闭的.\\
+            (3) \(\dim\coker T<+\infty\): 考虑其对偶算子 \(T^*=\Id+K^*\). 根据定理\ref{thm:schauder} \(K^*\) 是紧算子, 同样有 \(\dim\ker T^*<+\infty\). 而 \(\img T\) 是闭的, 有 
+            \[\qty(\frac{X}{\img T})^*\cong\ker T^* \]
+            所以 \(\dim\coker T=\dim\ker T^*<+\infty\).\\
+            (4) \(\ind T=0\): 令 \(T_t:=\Id +tK\). \(\ind\Id=0\), 根据连续性, \(\ind T=0\).
+        \end{prf}
+
+        \begin{dfn}
+            {算子的模 Frdholm 逆}
+            [Parametrix of an Operator]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(S:Y\to X\) 是 \(T\) 的一个\textbf{模 Frdholm 逆}当且仅当 \(ST-\Id_X\) 和 \(TS-\Id_Y\) 都是紧算子.
+        \end{dfn}
+
+        \begin{thm}
+            {Fredholm 算子的充要条件}
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 则 \(T\) 是一个 Fredholm 算子当且仅当 \(T\) 存在模 Frdholm 逆.
+        \end{thm}
+
+    \subsection{【测度论】Riesz 表示}
 
         \begin{dfn}
             {拓扑群}
