@@ -2397,7 +2397,7 @@
                 L^q(X) & \to & \Lp(X)^*\\
                 g & \mapsto & T_g:=\qty(f\mapsto\int_X fg \dd{m})
             \end{matrix}\]
-            其证明与\ref{thm:riesz-hilbert}类似.
+            其证明与定理\ref{thm:riesz-hilbert}类似.
         \end{prf}
 
         \begin{ins}
@@ -2415,7 +2415,7 @@
         \begin{cxmp}
             {L1 空间的非自反性}
             \(\Lp[1](X)^*=\Lp[\infty](X)\) 但 \(\Lp[\infty](X)^* \neq \Lp[1](X)\). \\
-            这是因为 \(\Lp[1](X)\) 是\hyperref[dfn:separable]{可分}的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\chi_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
+            这是因为 \(\Lp[1](X)\) 是\hyperref[dfn:separable]{可分}的, 但 \(\Lp[\infty](X)\) 是不可分的: 取 \(X=[0,1]\), 则区间 \([0,\lambda]\) 的特征函数 \(\{\I_{[0,\lambda]}: \lambda\in[0,1]\}\) 是 \(\Lp[\infty](X)\) 中的一族元素, 且任意两个元素之间的距离都是 1, 从而 \(\Lp[\infty](X)\) 中存在一个不可数的 1-分离子集, 从而 \(\Lp[\infty](X)\) 是不可分的.
         \end{cxmp}
 
         \begin{rmk}
@@ -2435,6 +2435,75 @@
                 \end{tabular}
             \end{center}
         \end{rmk}
+
+    \subsection{算子拓扑}
+
+        \begin{intrormk}
+            [Dedicatia]
+            我们之前介绍的弱拓扑和弱*拓扑都是关于线性空间或线性泛函的拓扑. 如今我们将研究线性算子 \(\blo(X,Y)\) 作为元素的空间上的拓扑和收敛性.
+        \end{intrormk}
+
+        \begin{dfn}
+            {一致拓扑 / 范数拓扑}
+            [Uniform Topology / Norm Topology]
+            设 \(X,Y\) 是 Banach 空间, 则 \(\blo(X,Y)\) 上的\textbf{一致拓扑}是由范数 \(\norm{T} = \sup_{\norm{x}\leq 1} \norm{Tx}\) 诱导的拓扑. 记作 \((\blo(X,Y), \tau_{\norm{\cdot}})\).
+        \end{dfn}
+
+        \begin{dfn}
+            {强算子拓扑}
+            [Strong Operator Topology]
+            设 \(X,Y\) 是 Banach 空间, 则 \(\blo(X,Y)\) 上的\textbf{强算子拓扑}是由半范数 \(\norm{T}_x = \norm{Tx}\) 诱导的拓扑, 其中 \(x\in X\). 记作 \((\blo(X,Y), s)\).
+        \end{dfn}
+
+        \begin{dfn}
+            {弱算子拓扑}
+            [Weak Operator Topology]
+            设 \(X,Y\) 是 Banach 空间, 则 \(\blo(X,Y)\) 上的\textbf{弱算子拓扑}是由半范数 \(\norm{T}_{x,f} = |f(Tx)|\) 诱导的拓扑, 其中 \(x\in X, f\in Y^*\). 记作 \((\blo(X,Y), w)\).
+        \end{dfn}
+
+        \begin{dfn}
+            {一致收敛}
+            [Uniform Convergence]
+            设 \(X,Y\) 是 Banach 空间, \(\{T_n\}\subset \blo(X,Y)\), \(T\in \blo(X,Y)\). 定义 \(\{T_n\}\) \textbf{一致收敛}到 \(T\), 当且仅当 \(\norm{T_n-T} \to 0\). 记作 \(T_n\rightrightarrows T\).
+        \end{dfn}
+
+        \begin{dfn}
+            {强收敛}
+            [Strong Convergence]
+            设 \(X,Y\) 是 Banach 空间, \(\{T_n\}\subset \blo(X,Y)\), \(T\in \blo(X,Y)\). 定义 \(\{T_n\}\) \textbf{强收敛}到 \(T\), 当且仅当 \(\forall\,x\in X, \norm{T_n x-Tx} \to 0\). 记作 \(T_n\slim T\).
+        \end{dfn}
+
+        \begin{dfn}
+            {弱收敛}
+            [Weak Convergence]
+            设 \(X,Y\) 是 Banach 空间, \(\{T_n\}\subset \blo(X,Y)\), \(T\in \blo(X,Y)\). 定义 \(\{T_n\}\) \textbf{弱收敛}到 \(T\), 当且仅当 \(\forall\,x\in X, f\in Y^*, f(T_n x) \to f(Tx)\). 记作 \(T_n\wlim T\).
+        \end{dfn}
+        
+        \begin{ppt}
+            {三种算子拓扑的关系}
+            \[\text{一致拓扑} \implies \text{强算子拓扑} \implies \text{弱算子拓扑}\]
+            这说明了不同的算子拓扑之间的包含关系. 一致拓扑是最强的, 强算子拓扑次之, 弱算子拓扑最弱. 这也表明在一致拓扑下收敛的序列在强算子拓扑和弱算子拓扑下也收敛, 但反之不一定成立.
+        \end{ppt}
+
+        \begin{cxmp}
+            {强收敛不蕴含一致收敛}
+            设 \(X=Y=\ell^2\), 定义左移算子
+            \[T_n(x_1,x_2,\dots) = (x_{n+1}, x_{n+2}, \dots)\]
+            则 \(\forall\,x\in\ell^2\),
+            \[\norm{T_n x}^2 = \sum_{k=n+1}^{\infty} |x_k|^2 \to 0\]
+            这说明了 \(T_n\slim 0\). 但是 \(\norm{T_n} = 1\) 对所有 \(n\) 都成立, 这说明了算子序列 \(T_n\) 不一致收敛于 \(0\).
+        \end{cxmp}
+
+        \begin{cxmp}
+            {弱收敛不蕴含强收敛}
+            设 \(X=Y=\ell^2\), 定义投影算子
+            \[T_nx=x_1e_n\]
+            其中 \(\{e_n\}\) 是 \(\ell^2\) 中的标准正交基. 则根据 Riesz 表示定理可知, \(\forall\,x\in\ell^2, f\in\ell^2\), 
+            \[f(T_n x) = f(x_1 e_n) = x_1 f(e_n) \to 0\]
+            这说明了 \(T_n\wlim 0\). 但是只要 \(n\neq m\), 
+            \[\norm{T_ne_1-T_me_1} = \norm{e_n-e_m} = \sqrt{2} \]
+            这说明了 \(T_n\) 不强收敛于 \(0\).
+        \end{cxmp}
 
 \section{Banach 空间上的谱论}
 
@@ -2793,6 +2862,67 @@
             {酉算子是紧算子当且仅当空间是有限维的}
         \end{varthm}
 
+        \begin{xmp}
+            {Hilbert-Schmidt 算子}
+            设 \(H\) 是 Hilbert 空间, \(\{e_i\}_{i\in I}\) 是 \(H\) 的标准正交基. 定义 \(T: H \to H\) 是一个\textbf{Hilbert-Schmidt 算子}当且仅当
+            \[\sum_{i\in I} \norm{Te_i}^2 < +\infty.\]
+            其 Hilbert-Schmidt 范数定义为
+            \[\norm{T}_2 = \sqrt{\sum_{i\in I} \norm{Te_i}^2}.\]
+        \end{xmp}
+
+        \begin{ppt}
+            {Hilbert-Schmidt 范数的定义不依赖于标准正交基的选取}
+        \end{ppt}
+
+        \begin{rmk}
+            [Dedicatia]
+            在有限维的时候, 这个范数还有一个熟悉的名字叫做矩阵的 Frobenius 范数.
+        \end{rmk}
+
+        \begin{ppt}
+            {L2 空间上的 Hilbert-Schmidt 算子}
+            在 L2 空间上, Hilbert-Schmidt 算子就是积分算子. \\
+            这时的 Hilbert-Schmidt 范数就是积分核的 L2 范数:
+            \[\norm{T}_2 = \sqrt{\int_D\int_D |K(x,y)|^2 \dd{x}\dd{y}}.\]
+        \end{ppt}
+
+        \begin{thm}
+            {Hilbert-Schmidt 算子是紧算子}
+            设 \(H\) 是 Hilbert 空间, 则 \(H\) 上的 Hilbert-Schmidt 算子都是紧算子.
+        \end{thm}
+
+        \begin{prf}
+            取 \(\norm{x}=1\), \(x\in H\). 将 \(x\) 投影到标准正交基上:
+            \[x=\sum_{i\in I}c_ie_i\]
+            令
+            \[T_nx=\sum_{i\leq n}c_iTe_i\]
+            那么 \(T_n\) 是有限秩算子. 考虑余项, 利用 Cauchy-Schwarz 不等式:
+            \[\norm{Tx-T_nx}^2 = \norm{\sum_{i>n}c_iTe_i}^2\leq\qty(\sum_{i\in I}|c_i|^2)\qty(\sum_{i>n}\norm{Te_i}^2)\]
+            由于
+            \[\sum_{i\in I}|c_i|^2=\norm{x}^2=1, \qquad \sum_{i>n}\norm{Te_i}^2\to 0\]
+            所以 \(T_n\) 收敛到 \(T\). 从而 \(T\) 可以被一列有限秩算子近似, 是一个紧算子.
+        \end{prf}
+
+        \begin{thm}
+            {Hilbert-Schmidt 范数总不小于算子范数}
+            设 \(H\) 是 Hilbert 空间, \(T: H \to H\) 是一个 Hilbert-Schmidt 算子, 则 \(\norm{T}\leq\norm{T}_2\).
+        \end{thm}
+
+        \begin{prf}
+            取 \(\norm{x}=1\), \(x\in H\). 将 \(x\) 投影到标准正交基上:
+            \[x=\sum_{i\in I}c_ie_i\]
+            利用 Cauchy-Schwarz 不等式:
+            \[\norm{Tx}^2 = \norm{\sum_{i\in I}c_iTe_i}^2\leq\qty(\sum_{i\in I}|c_i|^2)\qty(\sum_{i\in I}\norm{Te_i}^2)=\norm{T}_2^2.\]
+            取上确界, 得证.
+        \end{prf}
+        
+        \begin{thm}
+            {Hilbert-Schmidt 算子是 Hilbert 空间}
+            设 \(H\) 是 Hilbert 空间, 则 \(H\) 上的 Hilbert-Schmidt 算子也是一个 Hilbert 空间, 其内积定义为
+            \[\expval{T, S} = \sum_{i\in I} \expval{Te_i, Se_i}.\]
+            换句话说, Hilbert-Schmidt 范数可以诱导内积, 且是完备的.
+        \end{thm}
+
     \subsection{Fredholm 算子}
 
         \begin{dfn}
@@ -2802,6 +2932,21 @@
             设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 的\textbf{余核}为
             \[\coker T := Y/\img T.\]
         \end{dfn}
+
+        \begin{dfn}
+            {余维数}
+            [Codimension]
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(T\) 的像空间的\textbf{余维数}为
+            \[\codim\img T := \dim\coker T.\]
+            所以这两个记号本质上是一回事. 
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            如果放到有限维的情形, 这个关系可以表示为
+            \[\dim X = \dim\ker T + \dim\img T, \qquad \dim Y = \dim\img T + \codim\img T.\]
+            这正是\textbf{线性代数基本定理}的内容: 秩 = 零化度 + 维数. 但是在无限维的情形, 这个关系不再成立了, 因为 \(\img T\) 不一定是闭的, 这时的 \(Y/\img T\) 甚至不一定是 Hausdorff 空间, 也就没有维数的概念. 所以我们需要要求 \(\img T\) 是闭的, 从而 \(\coker T\) 是一个 Banach 空间, 才能定义维数.
+        \end{rmk}
 
         \begin{dfn}
             [fredholm-operator]
@@ -2818,6 +2963,11 @@
             设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个 Fredholm 算子. 定义 \(T\) 的\textbf{指数}为
             \[\ind T := \dim\ker T - \dim\coker T.\]
         \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            一个 Fredholm 算子与一个可逆算子的行为很相似. 除了有限多个独立的 \(Tx=0\) 的解之外, 以及有限多个 \(y\in Y\) 无法表示为 \(Tx\) 的形式之外, 其他的行为都和可逆算子一样. 从这个角度来看, Fredholm 算子是可逆算子在 Banach 空间上的一个推广.
+        \end{rmk}
 
         \begin{ins}
             {序列空间上的左移 / 右移算子是 Fredholm 算子}
@@ -2885,9 +3035,16 @@
         \end{dfn}
 
         \begin{thm}
-            {Fredholm 算子的充要条件}
+            {Atkinson 定理}
             设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 则 \(T\) 是一个 Fredholm 算子当且仅当 \(T\) 存在模 Frdholm 逆.
         \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            如果令
+            \[\mathscr{C}(X,X)=\blo(X,X) / \cpt(X,X)\]
+            那么 \(T\) 是 Fredholm 算子当且仅当 \(T\) 在 \(\mathscr{C}(X,X)\) 中是可逆的. 这给了我们一种更高级别的视角来观看 Fredholm 算子.
+        \end{rmk}
 
     \subsection{【测度论】Riesz 表示}
 
@@ -2917,3 +3074,5 @@
             {\(\R\) 是一个拓扑群}
             \((\R,+)\) 是一个拓扑群. 因为 \(\R\) 上的加法 (\(+\)) 和取负运算都是连续的.
         \end{ins}
+
+        \bysorry
