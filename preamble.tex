@@ -6,15 +6,22 @@
 
 \usepackage{setspace}
 
+\newtoggle{usefont}
+\toggletrue{usefont}
+
 \usepackage{fontspec}
-\setmainfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{BASKVILL.TTF}
-\setsansfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{POORICH.TTF}
-\setmonofont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{cour.ttf}
+\iftoggle{usefont}{
+    \setmainfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{BASKVILL.TTF}
+    \setsansfont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{POORICH.TTF}
+    \setmonofont[Path="V:/Fonts/Eng/",AutoFakeBold=3,AutoFakeSlant=0.25]{cour.ttf}
+}{}
 
 \usepackage{xeCJK}
-\setCJKmainfont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{STZHONGS.TTF}
-\setCJKsansfont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{STKAITI.ttf}
-\setCJKmonofont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{simfang.ttf}
+\iftoggle{usefont}{
+    \setCJKmainfont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{STZHONGS.TTF}
+    \setCJKsansfont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{STKAITI.ttf}
+    \setCJKmonofont[Path="V:/Fonts/Zh/",AutoFakeSlant=0.2,AutoFakeBold=3]{simfang.ttf}
+}{}
 
 \newfontfamily{\yh}[AutoFakeSlant=0.225,AutoFakeBold=3]{Microsoft YaHei}
 \newfontfamily{\fontik}[AutoFakeSlant=0.225,AutoFakeBold=3,Path="V:/Fonts/Eng/"]{Inkfree.ttf}
@@ -53,24 +60,17 @@
 \definecolor{blue1}{RGB}{163, 172, 204}
 \definecolor{blue2}{RGB}{204, 252, 254}
 
-\definecolor{blue3}{HTML}{D1FCFE} % Theorem blue
-\definecolor{blue4}{RGB}{72, 141, 246} % Definition blue
-\definecolor{blue5}{HTML}{F0FEFF} % Lemma blue
-\definecolor{blue6}{RGB}{20, 230, 253} % Criterion blue
-\definecolor{blue7}{RGB}{207, 225, 235} % blue7
+\definecolor{blue3}{HTML}{D1FCFE}
+\definecolor{blue4}{RGB}{72, 141, 246}
+\definecolor{blue5}{HTML}{F0FEFF}
+\definecolor{blue6}{RGB}{20, 230, 253}
+\definecolor{blue7}{RGB}{207, 225, 235}
 
 \usepackage[margin=1.5cm]{geometry}
 
 \setlength{\parindent}{0pt}
 
 \linespread{1.3}
-
-\usepackage{minted}
-\usemintedstyle{default}
-\setminted{
-    %linenos,
-    breaklines,
-}
 
 \usepackage[most]{tcolorbox}
 \usepackage{fontawesome5}
@@ -122,7 +122,7 @@
 \NewDocumentEnvironment{prf}{+b}{
     \iftoggle{showproof}{\begin{tcolorbox}
     [enhanced, colback=lightgray!50!white, boxrule=0pt, frame hidden, breakable, after upper={\hfill$\square$}]
-    {{\large\textit{Proof:}}\newline\fontik}#1}{}
+    {\textit{Proof:}\newline\fontik}#1}{}
 }{\iftoggle{showproof}{\end{tcolorbox}}{}}
 
 % remark:
@@ -130,21 +130,21 @@
     \iftoggle{showremark}{\begin{tcolorbox}
     [enhanced, colback=line15!20!white, boxrule=0pt, frame hidden, fontupper=\sffamily,
         borderline west={0.7mm}{0.1mm}{line15}, breakable, after upper={\hfill\textcolor{codegray}{\textit{remarked~by~#1}}}]
-    {\textbf{{\large\rmfamily Remark}}}\newline #2}{}
+    {\textbf{\rmfamily Remark}}\newline #2}{}
 }{\iftoggle{showremark}{\end{tcolorbox}}{}}
 
 \NewDocumentEnvironment{intrormk}{O{Contributor} +b}{
     \iftoggle{showremark}{\begin{tcolorbox}
     [enhanced, colback=line15!10!white, boxrule=0pt, frame hidden, fontupper=\sffamily,
         borderline north={0.7mm}{0.1mm}{line15}, breakable, after upper={\hfill\textcolor{codegray}{\textit{remarked~by~#1}}}]
-    {\textbf{{\centering\large\rmfamily Introduction}}}\newline #2}{}
+    {\textbf{{\centering\rmfamily Introduction}}}\newline #2}{}
 }{\iftoggle{showremark}{\end{tcolorbox}}{}}
 
 % definition:
 \NewDocumentEnvironment{dfn}{s o m s o O{contributor}}{
     \refstepcounter{dfncounter}\begin{tcolorbox}
     [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\textbf{{\large Definition \thedfncounter :~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
+    {\textbf{Definition \thedfncounter :~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{dfn:#2}}}
 
@@ -154,7 +154,7 @@
         \begin{tcolorbox}
         [enhanced, colback=white, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue4, dotted}, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
         {
-            \textbf{{\large Definition \thedfncounter*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}
+            \textbf{Definition \thedfncounter*:~#3 \IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}
             \IfBooleanTF{#1}{}{\newline} #7
         }
     }{}
@@ -164,7 +164,7 @@
 \NewDocumentEnvironment{thm}{s o m s o O{contributor}}{ % bool(newline), label, name, bool(contributor displayed), subname, contributor
     \refstepcounter{thmcounter}\begin{tcolorbox}
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, colback=blue3, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\textbf{{\large Theorem \thethmcounter :~#3}\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
+    {\textbf{Theorem \thethmcounter :~#3\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline}
 }{\end{tcolorbox}\IfNoValueTF{#2}{}{\label{thm:#2}}}
 
@@ -172,7 +172,7 @@
     \refstepcounter{thmcounter}
     \iftoggle{showvar}{\begin{tcolorbox}
     [enhanced, boxrule=0pt, frame hidden, borderline west={0.7mm}{0.1mm}{blue1}, sharp corners, breakable, after upper={\IfBooleanTF{#4}{\hfill\textcolor{codegray}{\textit{by~#6}}}{}}]
-    {\textbf{{\large Theorem \thethmcounter*:~#3 }\IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
+    {\textbf{Theorem \thethmcounter*:~#3 \IfNoValueTF{#5}{}{\IfBlankTF{#5}{}{(#5)}}}}
     \IfBooleanTF{#1}{}{\newline} #7}{}
 }{\iftoggle{showvar}{\end{tcolorbox}}{}\IfNoValueTF{#2}{}{\label{thm:#2}}}
 
@@ -265,78 +265,16 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning,calc,decorations.pathreplacing,patterns,3d,intersections}
 
-\DeclareMathOperator{\N}{\mathbb{N}}                    % Set of Natural Numbers
-\DeclareMathOperator{\Nat}{\mathsf{Nat}}
-\DeclareMathOperator{\Z}{\mathbb{Z}}                    % Set of Integers
-\DeclareMathOperator{\Q}{\mathbb{Q}}                    % Set of Rational Numbers
-\DeclareMathOperator{\R}{\mathbb{R}}                    % Set of Real Numbers
-\DeclareMathOperator{\C}{\mathbb{C}}                    % Set of Complex Numbers
-\DeclareMathOperator{\D}{\mathbb{D}}
-\DeclareMathOperator{\0}{\mathbf{0}}
-\DeclareMathOperator{\x}{\mathbf{x}}
-\DeclareMathOperator{\M}{\mathbf{M}}
-\DeclareMathOperator{\I}{\mathbf{I}}
-\DeclareMathOperator{\ii}{\mathrm{i}}
-\DeclareMathOperator{\st}{\text{s.t.}}
-\DeclareMathOperator{\B}{\mathcal{B}}                   % Topological Basis
-\DeclareMathOperator{\Ln}{Ln}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\Log}{Log}
-
-\DeclareMathOperator{\card}{card}
-\DeclareMathOperator{\dist}{dist}
-\DeclareMathOperator{\spn}{span}
-\DeclareMathOperator{\interior}{int}                     % Interior
-
-\DeclareMathOperator{\Id}{Id}                           % Identity
-\DeclareMathOperator{\img}{im}                          % Image
-\DeclareMathOperator{\codim}{codim}                      % Codimension
-\DeclareMathOperator{\coker}{coker}                      % Cokernel
-\DeclareMathOperator{\ind}{ind}                      % Index
-\DeclareMathOperator{\spec}{spec}
-
-\DeclareMathOperator{\Hom}{Hom}                         % Set of Homomorphisms
-\DeclareMathOperator{\End}{End}                         % Set of Endomorphisms
-\DeclareMathOperator{\Aut}{Aut}                         % Set of Automorphisms
-\DeclareMathOperator{\Isom}{Isom}                       % Set of Isomorphisms
-
-\DeclareMathOperator{\diag}{diag}                       % Diagonal Matrix
-
-\DeclareMathOperator{\F}{\mathbb{F}}                    % Number Field (F)
-\DeclareMathOperator{\mlim}{\xrightarrow{m}}
-\DeclareMathOperator{\slim}{\xrightarrow{s}}
-\DeclareMathOperator{\wlim}{\xrightarrow{w}}
-\DeclareMathOperator{\wslim}{\xrightarrow{w^*}}
-\DeclareMathOperator{\aelim}{\xrightarrow{\text{a.e.}}}
-\DeclareMathOperator*{\esssup}{\mathrm{ess\,sup}}              % Essential Supremum
-\DeclareMathOperator{\ext}{ext}                         % Extreme Point
-\DeclareMathOperator{\conv}{conv}                       % Convex Hull
-
-% Operators
-\DeclareMathOperator{\blo}{\mathscr{B}}
-\DeclareMathOperator{\cpt}{\mathscr{K}}
-\DeclareMathOperator{\fnrank}{\mathscr{Fr}}
-\DeclareMathOperator{\fred}{\mathscr{F}}
-\DeclareMathOperator{\Cont}{\mathrm{C}}
-\NewDocumentCommand{\Lp}{O{p}}{\mathrm{L}^{#1}}
-\DeclareMathOperator{\ordinal}{\mathbb{O}}
-
-% Hyperrefs
-
-% Colored:
 \newcommand{\colora}[1]{\textcolor{red}{#1}}
 \newcommand{\colorb}[1]{\textcolor{blue4}{#1}}
 \newcommand{\colorc}[1]{\textcolor{blue6}{#1}}
 \newcommand{\colord}[1]{\textcolor{darkpurple}{#1}}
-
-% Non-mathematical
 \newcommand{\nohref}[1]{\textcolor{darkpurple}{``#1''}}
 \newcommand{\nohrefconcept}[1]{\textcolor{blue4}{``#1''}}
 
 \newcommand{\continued}{{\Large\textbf{To be Continued...}}}
 \newcommand{\bysorry}{\fcolorbox{white}{gray!20!white}{\texttt{\textcolor{black}{:= }\textcolor{blue}{by }\textcolor{red}{\textbf{sorry}}}}\;\faTimesCircle\;\,\texttt{\textcolor{gray}{{\footnotesize declaration uses 'sorry'.}}}}
 
-% signature
 \newcommand{\Dedicatia}{{\fontik\textcolor{darkpurple}{Dedicatia}}}
 
 \usepackage{fancyhdr}
@@ -354,5 +292,3 @@
 \title{{\huge 泛函分析} \\ Functional Analysis}
 \author{Dedicatiaaaaa}
 \date{Mar. 3rd, 2026}
-
-% Preamble ends here
