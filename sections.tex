@@ -261,17 +261,6 @@
             这好像很违背直觉. 但是从另一个角度看, 微分算子也不是连续的.
         \end{cxmp}
 
-        \begin{vardfn}
-            {Banach 代数}
-            [Banach Algebra]
-            设 \(X\) 是一个 Banach 空间, 且 \(X\) 上定义了一个二元运算 \(\cdot\), 满足:
-            \begin{enumerate}[label=(\roman*)]
-                \item \((X, \cdot)\) 是代数, 满足代数运算公理;
-                \item 有界性: \(\exists M\geq 0\) 使得 \(\forall x,y\in X, \norm{x\cdot y}\leq M\norm{x}\norm{y}\).
-            \end{enumerate}
-            则 \(X\) 是一个\textbf{Banach 代数}.
-        \end{vardfn}
-
     \subsection{有限维 Banach 空间}
 
         \begin{intrormk}
@@ -1593,6 +1582,11 @@
             当 \(T\) 是双射时, \(T\) 是开映射等价于 \(T^{-1}\) 是连续映射. 根据开映射定理即可得到.
         \end{prf}
 
+        \begin{rmk}
+            [Dedicatia]
+            这些定理的含义是, 在 Banach 空间中的代数结构与拓扑结构是协调的, 一个算子的代数逆也是其拓扑逆. 
+        \end{rmk}
+
         \begin{thm}
             {Banach 空间的范数等价定理}
             [Norm Equivalence Theorem for Banach Spaces]
@@ -1633,6 +1627,15 @@
         \end{cxmp}
 
         \begin{thm}
+            {线性泛函的核的性质}
+            设 \(f\) 是 Banach 空间 \(X\) 上的线性泛函. 则 \(ker f\) 一定要么是闭的, 要么在 \(X\) 中稠密. 特别地, 当 \(\ker f\) 是闭的, \(f\in\blo(X,\R)\).
+        \end{thm}
+
+        \begin{prf}
+            这是因为 \(f\) 的像的维度是 1.
+        \end{prf}
+
+        \begin{thm}
             [banach-steinhaus]
             {一致有界性定理 / Banach-Steinhaus 定理 / 共鸣定理}
             [Uniform Boundedness Principle / Banach-Steinhaus Theorem]
@@ -1655,10 +1658,23 @@
         \begin{rmk}
             [Dedicatia]
             之所以叫一致有界性定理, 是因为它能根据逐点的有界推出算子范数的有界, 并且所有的算子都是等价地有界.\\
-            其背后的核心原因就是 Banach 空间的完备性: 根据 Baire 空间的性质, 如果有一个坏点被有界线性算子拉到了无穷大, 那么全空间中应该到处都是. 这显然违背了逐点的有界性.
-            \tcbline
-            这个定理的一个应用是证明了存在连续函数, 它的 Fourier 级数在某些点不收敛. 这是因为 Fourier 级数的部分和算子是一个有界线性算子, 但它们的范数却不受限制地增长. 自然也找不到一致的上界.
+            其背后的核心原因就是 Banach 空间的完备性: 根据 Baire 空间的性质, 如果有一个坏点被有界线性算子拉到了无穷大, 那么全空间中应该到处都是. 这显然违背了逐点的有界性.    
         \end{rmk}
+
+        \begin{ins}
+            {存在具有发散 Fourier 级数的周期连续函数}
+            从连续函数到其 Fourier 级数的部分和的映射可以定义为
+            \[S_n (f) (x)=\sum_{k=-n}^n \hat{f}(k) \exp(2\pi \ii k x)\]
+            等价地可以用卷积表示为
+            \[S_n (f) (x) = (f \ast D_n)(x)\]
+            其中 \(D_n\) 是 Dirichlet 核, 定义为
+            \[D_n(x) = \sum_{k=-n}^n \exp(2\pi \ii k x) = \frac{\sin((2n+1)\pi x)}{\sin(\pi x)}.\]
+            那么所有 \(S_n\) 都是线性映射. 计算范数:
+            \[\norm{S_n}=\norm{D_n}_{L^1}\]
+            但是 Dirichlet 核的积分的大概估计为
+            \[\norm{D_n}_{L^1} \sim \int_0^{\pi} \frac{\sin((2n+1)x)}{x} dx \sim \ln n\]
+            所以这一列有界线性算子 \(S_n\) 不是一致有界的. 根据一致有界性定理, 存在一个连续函数 \(f\) 使得 \(\sup_n \norm{S_n(f)} = \infty\). 也就是说, 存在一个连续函数 \(f\) 使得其 Fourier 级数至少在一点发散.
+        \end{ins}
 
 \section{弱拓扑}
 
@@ -2468,6 +2484,7 @@
         \end{dfn}
 
         \begin{dfn}
+            [strong-convergence]
             {强收敛}
             [Strong Convergence]
             设 \(X,Y\) 是 Banach 空间, \(\{T_n\}\subset \blo(X,Y)\), \(T\in \blo(X,Y)\). 定义 \(\{T_n\}\) \textbf{强收敛}到 \(T\), 当且仅当 \(\forall\,x\in X, \norm{T_n x-Tx} \to 0\). 记作 \(T_n\slim T\).
@@ -2505,9 +2522,9 @@
             这说明了 \(T_n\) 不强收敛于 \(0\).
         \end{cxmp}
 
-\section{Banach 空间上的谱论}
+\section{紧算子的谱论}
 
-    \subsection{紧致算子}
+    \subsection{紧算子}
 
         \begin{dfn}
             [compact-operator]
@@ -2530,12 +2547,12 @@
 
         \begin{cxmp}
             {无限维赋范线性空间上的恒等算子不是紧算子}
-            设 \(\dim X= \infty\), 则恒等算子 \(I_X\) 不是紧算子. 因为 \(I_X\) 将 \(X\) 中的单位闭球映射到 \(X\) 中的单位闭球, 但 \(X\) 中的单位闭球不是紧的.
+            设 \(\dim X= \infty\), 则恒等算子 \(I_X\) 不是\CompactOp{}. 因为 \(I_X\) 将 \(X\) 中的单位闭球映射到 \(X\) 中的单位闭球, 但 \(X\) 中的单位闭球不是紧的.
         \end{cxmp}
 
         \begin{ppt}
             {紧算子的复合也是紧算子}
-            设 \(X,Y,Z\) 是 Banach 空间, \(T:\blo(X,Y)\), \(S:\blo(Y,Z)\), 若 \(T,S\) 中至少有一个紧算子, 则 \(S\circ T\in\cpt(X,Z)\).
+            设 \(X,Y,Z\) 是 Banach 空间, \(T:\blo(X,Y)\), \(S:\blo(Y,Z)\), 若 \(T,S\) 中至少有一个\CompactOp{}, 则 \(S\circ T\in\cpt(X,Z)\).
         \end{ppt}
 
         \begin{rmk}
@@ -2579,19 +2596,28 @@
 
         \begin{thm}
             {Hilbert 空间上的紧算子可以被有限秩算子逼近}
-            若 \(X\) 是 Hilbert 空间, 则 \(\overline{\fnrank(X, X)}=\cpt(X,X)\).
+            若 \(X\) 是 Hilbert 空间, 则 \(\overline{\fnrank(X, X)}=\cpt(X,X)\).\\
+            即: \(\forall K \in \cpt(X,X)\), 存在一列有限秩算子 \(\{T_j\}\subset \fnrank(X, X)\) 使得
+            \[\lim_{j\to\infty}\norm{K-T_j}= 0\].
         \end{thm}
+
+        \begin{prf}
+            首先证明紧算子的像 \(KX\) 是可分的: 由于 \(KX=\bigcup_{i=1}^\infty K(B_n(0))\) 是可数并集, 所以只需要证明 \(K(B_n(0))\) 是可分的. 由于 \(K\) 是紧算子, 所以 \(K(B_n(0))\) 是相对紧的, 因此其闭包是紧的, 而 Banach 空间上的紧集是可分的.\\
+            于是 \(KX\) 是可分的, 取其一组可数的标准正交基, 则定义有限秩算子
+            \[T_j(x):=\sum_{i=1}^j\langle x,e_i\rangle K(e_i)\]
+            则 \(\lim_{j\to\infty}\norm{K-T_j}=0\).
+        \end{prf}
 
         \begin{rmk}
             [Dedicatia]
-            但是, 一般的 Banach 空间中的紧算子不一定能被有限秩算子逼近, 即使是可分的空间. 具备这种性质的 Banach 空间一般称为有限逼近性质的空间.
+            但是, 一般的 Banach 空间中的\CompactOp{}不一定能被有限秩算子逼近, 即使是可分的空间. 具备这种性质的 Banach 空间一般称为有限逼近性质的空间.
         \end{rmk}
 
         \begin{xmp}
             {\(\Lp[2](D)\) 上的积分算子}
             设 $D \subset \R$ 是区域. $K \in L^2(D \times D)$, 的定义
             \[T_K: L^2(D) \to L^2(D), \qquad (T_K f)(x) = \int_D K(x,y) f(y) \dd{y}\]
-            其中 \(K\) 称为积分核, \(T_K\) 称为积分算子, 则 \(T_k\) 是紧算子:\\
+            其中 \(K\) 称为积分核, \(T_K\) 称为积分算子, 则 \(T_k\) 是\CompactOp{}:\\
             (1) 有界性: 
             \[\norm{T_K f}=\int_D\abs{\int_D K(x,y)f(y)\dd y}^2\dd x\]
             根据 Cauchy-Schwarz 不等式可知
@@ -2620,14 +2646,14 @@
         \begin{thm}
             [schauder]
             {Schauder 定理}
-            $T$ 是紧算子 iff $T^*$ 是紧算子.
+            $T$ 是\CompactOp{} iff $T^*$ 是\CompactOp{}.
         \end{thm}
 
         \begin{prf}
             我们先证明 \(T\in\cpt(X,Y)\implies T^*\in\cpt(Y^*,X^*)\).\\
             取一列 \(\{f_n\}\subset Y^*\), \(\norm{f_n}\leq C\). 考虑 \(K\). \(K\subseteq Y\) 是 \(X\) 的单位球面在 \(T\) 下的像的闭包. 这里, 取单位球面是因为赋范线性空间中总有标量乘法, 任意集合都可以缩放到单位球之内. 取闭包是因为要利用其紧性. 定义
             \[\Phi_n: K\to\R,\qquad y\mapsto f_n (y) \]
-            由于 \(f_n\) 是有界的, 限制在 \(K\) 上也是有界的, 还是一致有界的. 考虑
+            由于 \(f_n\) 是有界的, 限制在 \(K\) 上也是有界的, 所以也是一致有界的. 考虑
             \[\abs{\Phi_n(y_1)-\Phi_n(y_2)}=\abs{f_n(y_1)-f_n(y_2)}\leq C\norm{y_1-y_2}\]
             这是因为有界线性泛函本身是 Lipschitz 连续的. 所以 \(\{\Phi_n\}\) 是等度连续的. 根据 Arzelà-Ascoli 定理, 存在一个子列 \(\{\Phi_{n_k}\}\) 使得 \(\{\Phi_{n_k}\}\) 在 \(K\) 上一致收敛. 设 \(\Phi\) 是它的极限. \\
             所以令 \(g_k\) 是一列线性泛函, 其将 \(X\) 的单位球面映入 \(\R\), 定义为 \(x\mapsto \Phi_{n_k} (Tx)=f_{n_k} (Tx)=(T^* f_{n_k}) (x) \). 由于 \(f_{n_k}\) 在 \(K\) 上一致收敛, 所以 \(g_k\) 也收敛. 设 \(g\) 是它的极限, 可以利用单位球面和线性性将其延拓到全空间上, 
@@ -2644,6 +2670,7 @@
         \end{prf}
 
         \begin{dfn}
+            [spectrum]
             {谱}
             [Spectrum]
             设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{谱 (Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 不为双射.\\
@@ -2652,13 +2679,45 @@
 
         \begin{rmk}
             [Dedicatia]
-            需要注意的是, 谱和线性代数中的特征值很像, 但谱可以包含 0, 特征值一般不允许为 0.
+            需要注意的是, 谱和线性代数中的特征值很像, 但谱可以包含 0.
         \end{rmk}
 
         \begin{dfn}
             {特征值}
             [Eigenvalue]
-            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{谱 (Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 不为单射, 即 \(\ker(\lambda\Id-T)\neq\{0\}\).
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{谱 (Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 不为单射, 即 \(\ker(\lambda\Id-T)\neq\{0\}\). 所有特征值的集合也称为 \(T\) 的\textbf{点谱 (Point Spectrum)}.\\
+            等价地, 这是存在非零向量 \(x\in X\) 使得 \(Tx=\lambda x\).
+        \end{dfn}
+
+        \begin{dfn}
+            {剩余谱}
+            [Residual Spectrum]
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{剩余谱 (Residual Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 是单射但不是满射且值域也不稠密, 即 \(\ker(\lambda\Id-T)=\{0\}\) 且 \(\overline{\img(\lambda\Id-T)}\neq X\).\\
+            这时, 算子的逆算子 \((\lambda\Id-T)^{-1}\) 存在, 但只能定义在某个很小的子空间上.
+        \end{dfn}
+
+        \begin{dfn}
+            {连续谱}
+            [Continuous Spectrum]
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{连续谱 (Continuous Spectrum)}中, 当且仅当线性算子 \(\lambda\Id-T\) 是单射但不是满射且值域稠密, 即 \(\ker(\lambda\Id-T)=\{0\}\) 且 \(\overline{\img(\lambda\Id-T)}= X\).\\
+            这时, 算子的逆算子 \((\lambda\Id-T)^{-1}\) 是定义在稠密子空间上的有界线性算子, 但不能延拓为整个空间上的有界线性算子.
+        \end{dfn}
+
+        \begin{rmk}
+            一般地, 特征值 / 点谱、剩余谱、连续谱记作 \(\sigma_p, \sigma_r, \sigma_c\).
+        \end{rmk}
+
+        \begin{dfn}
+            {正则点}
+            [Regular Point]
+            设 \(T\) 是 \(X\) 上的一个线性算子. 定义 \(\lambda\) 在 \(T\) 的\textbf{正则点 (Regular Point)}中, 当且仅当线性算子 \(\lambda\Id-T\) 是双射.
+        \end{dfn}
+
+        \begin{dfn}
+            {预解集}
+            [Resolvent Set]
+            算子 \(T\) 的正则点的全体称为\textbf{预解集 (Resolvent Set)}, 记作 \(\rho(T)\).\\
+            预解集是谱的补集, 即 \(\rho(T)=\C\setminus\spec T\).
         \end{dfn}
 
         \begin{thm}
@@ -2667,7 +2726,8 @@
         \end{thm}
 
         \begin{thm}
-            {Riesz-Shauder 定理}
+            [riesz-schauder]
+            {Riesz-Schauder 定理}
             设 \(X,Y\) 是 \(\C\) 上的 Banach 空间, \(T\in\cpt(X,Y)\). 则有:
             \begin{enumerate}
                 \item \(\dim X=+\infty\) 时, \(0\in\spec T\);
@@ -2680,24 +2740,28 @@
     \subsection{Hilbert 空间上的算子}
 
         \begin{dfn}
+            [self-adjoint-operator]
             {自伴随算子}
             [Self-adjoint Operator]
             设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个\textbf{自伴随算子}当且仅当 \(T=T^*\).
         \end{dfn}
 
         \begin{dfn}
+            [normal-operator]
             {正规算子}
             [Normal Operator]
             设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $T$ 是一个\textbf{正规算子}当且仅当 \(T^* T = T T^*\).
         \end{dfn}
 
         \begin{dfn}
+            [eigenspace]
             {特征子空间}
             [Eigenspace]
             设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. $\lambda$ 是 $T$ 的一个特征值. 定义 $\ker (T-\lambda I)$ 是 $T$ 的一个特征子空间.
         \end{dfn}
 
         \begin{dfn}
+            [invariant-subspace]
             {不变子空间}
             [Invariant Subspace]
             设 $H$ 是 Hilbert 空间, $T: H \to H$ 是一个有界线性算子. 定义 $M \subseteq H$ 是 $T$ 的一个不变子空间当且仅当 \(T(M) \subseteq M\).
@@ -2706,17 +2770,17 @@
         \begin{thm}
             [orthogonal-complement-invariant]
             {不变子空间的正交补也是不变子空间}
-            \(T\) 是 Hilbert 空间 \(H\) 上的自伴随算子, \(M\) 是 \(T\) 的一个不变子空间, 则 \(M^\perp\) 也是 \(T\) 的一个不变子空间.
+            \(T\) 是 Hilbert 空间 \(H\) 上的\SelfAdjOp{}, \(M\) 是 \(T\) 的一个不变子空间, 则 \(M^\perp\) 也是 \(T\) 的一个不变子空间.
         \end{thm}
 
         \begin{prf}
             任取 \(z\in W^\perp, x\in W\):
-            \[\expval{Tz, x}=\expval{z, T^* x}=\expval{z, T x}=0.\]
+            \[\overline{\expval{Tz, x}}=\expval{z, T^* x}=\expval{z, T x}=0.\]
         \end{prf}
         
         \begin{thm}
             {自伴随算子作用下的内积是实数}
-            设 \(T\) 是 Hilbert 空间 \(H\) 上的自伴随算子, 则 \(\forall\,x\in H\), \(\expval{Tx, x}\in\R\).
+            设 \(T\) 是 Hilbert 空间 \(H\) 上的\SelfAdjOp{}, 则 \(\forall\,x\in H\), \(\expval{Tx, x}\in\R\).
         \end{thm}
 
         \begin{prf}
@@ -2727,8 +2791,8 @@
 
         \begin{thm}
             {Hilbert 空间上的范数的等价定义}
-            设 \(T\) 是 Hilbert 空间上的自伴随算子, 则
-            \[\norm{T}=\sup_{\substack{\norm{x}=\norm{y}\leq 1}}\expval{Tx, y}.\]
+            设 \(T\) 是 Hilbert 空间上的\SelfAdjOp{}, 则
+            \[\norm{T}=\sup_{\norm{x}=\norm{y}\leq 1}\expval{Tx, y}.\]
         \end{thm}
 
         \begin{prf}
@@ -2748,12 +2812,12 @@
         \begin{thm}
             [definition-norm-self-adjoint-2]
             {自伴随算子范数的等价定义2}
-            设 \(T\) 是 Hilbert 空间上的自伴随算子, 则
+            设 \(T\) 是 Hilbert 空间上的\SelfAdjOp{}, 则
             \[\norm{T}=\sup_{\norm{x}\leq 1}\abs{\expval{Tx, x}}.\]
         \end{thm}
 
         \begin{prf}
-            设右边的值是 \(a\), 则根据自伴随算子作用, \(\expval{Tx, x}\) 是实数. 那么:
+            设右边的值是 \(a\), 则根据\SelfAdjOp{}作用, \(\expval{Tx, x}\) 是实数. 那么:
             \[\expval{T(x+y), x+y}=\expval{Tx, x}+\expval{Ty, y}+2\expval{Tx, y}.\]
             \[\expval{T(x-y), x-y}=\expval{Tx, x}+\expval{Ty, y}-2\expval{Tx, y}.\]
             两式相加:
@@ -2766,8 +2830,9 @@
         \end{prf}
 
         \begin{thm}
+            [orthogonal-eigenspace]
             {不同特征值的特征子空间是正交的}
-            设 \(T\) 是 Hilbert 空间上的自伴随算子, \(\alpha\) 和 \(\beta\) 是 \(T\) 的两个不同的特征值, 则 \(E_\alpha:=\ker (T-\alpha I)\perp E_\beta:=\ker (T-\beta I)\).
+            设 \(T\) 是 Hilbert 空间上的\SelfAdjOp{}, \(\alpha\) 和 \(\beta\) 是 \(T\) 的两个不同的特征值, 则 \(E_\alpha:=\ker (T-\alpha I)\perp E_\beta:=\ker (T-\beta I)\).
         \end{thm}
 
         \begin{prf}
@@ -2780,12 +2845,13 @@
         \end{prf}
 
         \begin{thm}
+            [spectral]
             {谱定理}
             [Spectral Theorem]
-            设 $H$ 是 Hilbert 空间, $T$ 既是自伴随算子又是紧算子, 则:
+            设 $H$ 是 Hilbert 空间, $T$ 既是\SelfAdjOp{}又是\CompactOp{}, 则:
             \begin{enumerate}[label=(\roman*)]
                 \item 存在 \(H\) 的标准正交基 \(\{e_i\}\) 使得 \(e_i\) 可以对角化 \(T\), 即 \(T e_i = \lambda_i e_i\) 其中 \(\lambda_i\) 是 \(T\) 的特征值;
-                \item 特征子空间 \(\ker (T-\lambda I)\) 是有限维的;
+                \item \Eigenspace{} \(\ker (T-\lambda I)\) 是有限维的;
                 \item 所有特征值都是实数, 最多只可能有一个极限点 0: $\forall r>0$, 存在有限多个特征值 $\lambda$ 使得 $|\lambda| > r$.
             \end{enumerate}
         \end{thm}
@@ -2795,20 +2861,27 @@
             \[\norm{T}=\sup_{\norm{x}\leq 1}\expval{Tx, x}\]
             可以找到一列 \(\{x_n\}\), \(\norm{x_n}=1\), 使得
             \[\expval{Tx_n, x_n}\to\lambda\in\R.\]
-            其中 \(|\lambda|=\norm{T}\neq 0\). 因为 \(T\) 是紧算子, \(T x_n\) 有收敛子列 \(Tx_{n_k}\to y\), 所以 \(y\neq 0\):
+            其中 \(|\lambda|=\norm{T}\neq 0\). 因为 \(T\) 是\CompactOp{}, \(T x_n\) 有收敛子列 \(Tx_{n_k}\to y\), 所以 \(y\neq 0\):
             \[\norm{Tx_{n_k}-\lambda x_{n_k}}^2 = \norm{Tx_{n_k}}^2+\lambda^2\norm{x_{n_k}}^2-2\lambda\expval{Tx_{n_k}, x_{n_k}}\leq 2\norm{T}^2-2\lambda\expval{Tx_{n_k}, x_{n_k}}\to 0\]
             这说明随着 \(Tx_{n_k}\to y\), \(\lambda x_{n_k}\to y\):
             \[T y = \lim_{k\to\infty} T x_{n_k} = \lim_{k\to\infty} \lambda x_{n_k} = \lambda y\]
             所以 \(y\) 是 \(T\) 的一个特征向量, \(\lambda\) 是 \(T\) 的一个特征值.\\
             Step2: 根据 Zorn 引理, 可以找到 \(H\) 的某个最大的标准正交基 \(\mathcal{B}\) 使得 \(\mathcal{B}\) 中的每个元素都是 \(T\) 的一个特征向量. 设 \(M=\spn(\mathcal{B})\), 则 \(M\) 是 \(T\) 的一个不变子空间. \\
-            根据定理\ref{thm:orthogonal-complement-invariant}, \(M^\perp\) 也是 \(T\) 的一个不变子空间. 如果 \(M^\perp\neq \{0\}\), 则 \(T\) 限制在 \(M^\perp\) 上也是自伴随算子, 根据 Step1, \(M^\perp\) 中存在一个特征向量, 这与 \(\mathcal{B}\) 的最大性矛盾. 从而 \(M^\perp=\{0\}\), 即 \(\mathcal{B}\) 是 \(H\) 的一个标准正交基.\\
+            根据定理\ref{thm:orthogonal-complement-invariant}, \(M^\perp\) 也是 \(T\) 的一个不变子空间. 如果 \(M^\perp\neq \{0\}\), 则 \(T\) 限制在 \(M^\perp\) 上也是\SelfAdjOp{}, 根据 Step1, \(M^\perp\) 中存在一个特征向量, 这与 \(\mathcal{B}\) 的最大性矛盾. 从而 \(M^\perp=\{0\}\), 即 \(\mathcal{B}\) 是 \(H\) 的一个标准正交基.\\
             所以 \(M^\perp\) 是平凡的, \(M=H\).\\
-            Step3: 我们要证明唯一的可能极限点是 0. 取 \(H\) 的标准正交基 \(\{e_i\}_{i\in I}\). 假如存在某个 \(r>0\) 使得 \(\{|\lambda_i|\geq r\}\) 有无穷个, 则
-            \[\norm{Te_i-Te_j}=\norm{\lambda_ie_i - \lambda_je_j}\]
+            Step3: 我们要证明 \(T\) 的\Eigenspace{}是有限维的. 取 \(H\) 的标准正交基 \(\{e_i\}_{i\in I}\). 在每个\Eigenspace{} \(E_\lambda\) 上 \(T=\lambda\Id\), 如果这是无限维空间, 那么有
+            \[\norm{Te_i-Te_j}=\norm{\lambda e_i - \lambda e_j}\]
             根据勾股定理:
-            \[\norm{\lambda_ie_i - \lambda_je_j}^2=\lambda_i^2+\lambda_j^2\geq 2r^2 >0\]
-            这说明标准正交基在 \(T\) 的像不是列紧的, 与 \(T\) 是紧算子矛盾. 从而 \(T\) 的特征值最多只有一个极限点 0. \\
-            这也体现了 \(\dim E_\lambda<\infty\) 对所有 \(\lambda\neq 0\) 成立.
+            \[\norm{\lambda e_i - \lambda e_j}^2=\lambda^2+\lambda^2\geq 2r^2 >0\]
+            这说明标准正交基在 \(T\) 的像不是列紧的, 与 \(T\) 是\CompactOp{}矛盾. 从而 \(T\) 的\Eigenspace{}是有限维的.\\
+            现在证明 \(T\) 的谱最多只有一个聚点 \(0\). 首先: (i) \CompactOp{}的非零谱点一定是特征值 (定理\ref{thm:riesz-schauder}); (ii) 非零特征值的\Eigenspace{}是有限维的; (iii) 不相同的特征值 \(\lambda_n\) 的\Eigenspace{} \(E_n\) 都是彼此正交的 (定理\ref{thm:orthogonal-eigenspace}).\\
+            假设存在一列特征值 \(\lambda_n\to\lambda\neq 0\), 取各自的单位特征向量, 记作 \(e_i\). 对 \(e_i\) 做 Gram-Schmidt 正交化, 则可以得到一列 \(x_n\) 使得 \(x_n\in E_n\), \(x_n\perp E_{n-1}\), \(\norm{x_n}=1\).\\
+            所以它张成了无穷维的线性空间, 是 \(H\) 的闭子空间. 这时考虑 \(Tx_n=\lambda_n x_n+y_n\):
+            \[Tx_n-Tx_m=\lambda_n x_n+y_n-Tx_m\]
+            \[\Rightarrow\norm{Tx_n-Tx_m}^2=\abs{\lambda_n}^2\norm{x_n}^2 + \norm{y_n-Tx_m}^2\geq \abs{\lambda_n}^2 \]
+            所以
+            \[\norm{Tx_n-Tx_m}\geq \abs{\lambda_n}\to\abs{\lambda} >0\]
+            所以 \(\{Tx_n\}\) 也没有收敛的子列, 这与 \(K\) 是\CompactOp{}矛盾.\\
         \end{prf}
 
         \begin{ins}
@@ -2818,26 +2891,36 @@
             \(V=\) 就是 \([0,1]\) 上的 Volterra 积分算子. \\
             \(V\) 的唯一特征值是 \(0\).
         \end{ins}
+
+        \begin{cxmp}
+            {特征值均为 0 的紧算子不一定是幂零的}
+            上述 Volterra 积分算子 \(V\) 是紧算子, 其唯一特征值是 \(0\), 但是 \(V^n\neq 0\) 对所有 \(n\in\N\) 成立. 依次计算
+            \[V^2 f(x)=\int_0^x\int_0^t f(s)\dd{s}\dd{t}=\int_0^x(x-t)f(t)\dd{t}\]
+            \[V^3 f(x)=\int_0^x\int_0^t\int_0^s f(r)\dd{r}\dd{s}\dd{t}=\int_0^x\frac{(x-t)^2}{2}f(t)\dd{t}\]
+            依次类推, 可以得到
+            \[V^n f(x)=\int_0^x\frac{(x-t)^{n-1}}{(n-1)!}f(t)\dd{t}\]
+            绝不可能是 0. 所以这又是无限维与有限维空间的一个很大的区别.
+        \end{cxmp}
         
         \begin{thm}
             {Hilbert 空间的直和分解}
-            设 \(H\) 是 Hilbert 空间, \(T\) 是 \(H\) 上的一个自伴随算子, 则
-            \[H=\bigoplus_{\lambda\in\sigma(T)}\ker (T-\lambda I).\]
+            设 \(H\) 是 Hilbert 空间, \(T\) 是 \(H\) 上的一个\SelfAdjOp{}, 则
+            \[H=\bigoplus_{\lambda\in\spec T}\ker (T-\lambda I).\]
             并且这是一个正交直和.
         \end{thm}
 
         \begin{thm}
             {自伴随算子可交换等价于可同时对角化}
-            设 \(H\) 是 Hilbert 空间, \(\{T_i\}_{i\in I}\) 是 \(H\) 上的一族自伴随算子, 且满足交换性:
+            设 \(H\) 是 Hilbert 空间, \(\{T_i\}_{i\in I}\) 是 \(H\) 上的一族\SelfAdjOp{}, 且满足交换性:
             \[T_i T_j = T_j T_i, \forall i,j\in I.\]
             则存在 \(H\) 的一个标准正交基 \(\{e_k\}_{k\in K}\) 使得 \(\{e_k\}_{k\in K}\) 同时对角化 \(\{T_i\}_{i\in I}\), 即 \(\forall i\in I, k\in K, T_i e_k = \lambda_{i,k} e_k\).
         \end{thm}
 
         \begin{thm}
             {正规算子可对角化}
-            对于正规算子 \(S\), \(S\) 可被分解为
+            对于\NormalOp{} \(S\), \(S\) 可被分解为
             \[S = A +\ii B\]
-            其中 \(A\) 和 \(B\) 都是自伴随算子, 显式表示为
+            其中 \(A\) 和 \(B\) 都是\SelfAdjOp{}, 显式表示为
             \[A = \frac{1}{2}(S + S^*), \quad B = \frac{1}{2\ii}(S - S^*)\]
             且 \(A\) 和 \(B\) 交换. 从而 \(S\) 可被一个标准正交基对角化.
         \end{thm}
@@ -2864,6 +2947,7 @@
 
         \begin{xmp}
             {Hilbert-Schmidt 算子}
+            [Hilbert-Schmidt Operator]
             设 \(H\) 是 Hilbert 空间, \(\{e_i\}_{i\in I}\) 是 \(H\) 的标准正交基. 定义 \(T: H \to H\) 是一个\textbf{Hilbert-Schmidt 算子}当且仅当
             \[\sum_{i\in I} \norm{Te_i}^2 < +\infty.\]
             其 Hilbert-Schmidt 范数定义为
@@ -2888,7 +2972,7 @@
 
         \begin{thm}
             {Hilbert-Schmidt 算子是紧算子}
-            设 \(H\) 是 Hilbert 空间, 则 \(H\) 上的 Hilbert-Schmidt 算子都是紧算子.
+            设 \(H\) 是 Hilbert 空间, 则 \(H\) 上的 Hilbert-Schmidt 算子都是\CompactOp{}.
         \end{thm}
 
         \begin{prf}
@@ -2900,7 +2984,7 @@
             \[\norm{Tx-T_nx}^2 = \norm{\sum_{i>n}c_iTe_i}^2\leq\qty(\sum_{i\in I}|c_i|^2)\qty(\sum_{i>n}\norm{Te_i}^2)\]
             由于
             \[\sum_{i\in I}|c_i|^2=\norm{x}^2=1, \qquad \sum_{i>n}\norm{Te_i}^2\to 0\]
-            所以 \(T_n\) 收敛到 \(T\). 从而 \(T\) 可以被一列有限秩算子近似, 是一个紧算子.
+            所以 \(T_n\) 收敛到 \(T\). 从而 \(T\) 可以被一列有限秩算子近似, 是一个\CompactOp{}.
         \end{prf}
 
         \begin{thm}
@@ -2915,6 +2999,11 @@
             \[\norm{Tx}^2 = \norm{\sum_{i\in I}c_iTe_i}^2\leq\qty(\sum_{i\in I}|c_i|^2)\qty(\sum_{i\in I}\norm{Te_i}^2)=\norm{T}_2^2.\]
             取上确界, 得证.
         \end{prf}
+
+        \begin{rmk}
+            [Dedicatia]
+            这其实和有限维线性空间上的线性代数的结论是一致的. 矩阵的 Frobenius 范数是其特征值的 2 范数, 而算子范数是其特征值的无穷范数. 所以 Forbenius 范数总是大于等于算子范数.
+        \end{rmk}
         
         \begin{thm}
             {Hilbert-Schmidt 算子是 Hilbert 空间}
@@ -2945,7 +3034,7 @@
             [Dedicatia]
             如果放到有限维的情形, 这个关系可以表示为
             \[\dim X = \dim\ker T + \dim\img T, \qquad \dim Y = \dim\img T + \codim\img T.\]
-            这正是\textbf{线性代数基本定理}的内容: 秩 = 零化度 + 维数. 但是在无限维的情形, 这个关系不再成立了, 因为 \(\img T\) 不一定是闭的, 这时的 \(Y/\img T\) 甚至不一定是 Hausdorff 空间, 也就没有维数的概念. 所以我们需要要求 \(\img T\) 是闭的, 从而 \(\coker T\) 是一个 Banach 空间, 才能定义维数.
+            这正是\textbf{线性代数基本定理}的内容: 维数 = 秩 + 零化度. 但是在无限维的情形, 这个关系不再成立了, 因为 \(\img T\) 不一定是闭的, 这时的 \(Y/\img T\) 甚至不一定是 Hausdorff 空间. 所以要求 \(\img T\) 是闭的是为了保证 \(\coker T\) 良定且是一个 Banach 空间. 这也是为什么有些教材不提及这一点.
         \end{rmk}
 
         \begin{dfn}
@@ -3010,28 +3099,33 @@
             设 \(X,Y\) 是 Banach 空间. \(T\in\fred(X,Y)\). \(\epsilon>0\) 是小量, 则 \(\forall\,S\in\blo(X,Y)\land \norm{S}<\epsilon\), \(T+S\in\fred(X,Y)\), \(\ind(T+S)=\ind T\).
         \end{thm}
 
+        \begin{rmk}
+            [Dedicatia]
+            这表明在每个连通分支上 Fredholm 算子的指数是常数. 
+        \end{rmk}
+
         \begin{thm}
             {紧算子与 Fredholm 算子的关系}
             \(X\) 是 Banach 空间. \(K\in\cpt(X,X)\). \(T=\Id+K\). 则 \(T\in\fred(X,X)\), \(\ind T=0\).
         \end{thm}
 
         \begin{prf}
-            逐一验证 Frodholm 算子的条件:\\
+            逐一验证 Fredholm 算子的条件:\\
             (1) \(\dim\ker\Id+K<\infty\): 设 \(\{x_n\}\subset\ker(\Id+K)\). \(\norm{x_n}\leq 1,\forall n\). 那么 \(Kx_n\) 有收敛子列, 但是 \((\Id+K)x_n=0\). 
             所以 \(x_n=\Id x_n\) 也存在收敛子列. 由于 \(\{x_n\}\) 是任取的, 所以 \(\ker\Id+K\) 的单位闭球是紧的. 所以是有限维的.\\
             (2) \(\img\Id+K\) 是闭的: 令 \(X=\ker T\oplus V\). 由于 \(V\cong\img T\), 所以 \(T\) 限制在 \(V\) 上是双射. 我们只需要考虑 \(T\) 限制在 \(V\) 上是不是有界的. \\
             反设如果不是双射, 则 \(\exists\{x_n\}\subset V\), 其中 \(\norm{x_n}\geq\epsilon\) 但是 \(Tx_n\to 0\). 
-            利用线性性令 \(y_n=x_n/\norm{x_n}\), 则 \(\norm{y_n}=1\). 同样根据 \(K\) 是紧算子, \(Kx_n\) 有收敛到 \(z\) 的子列, 所以 \(y_n\to -z\), 其中 \(\norm{z}=1\) 显然 \(z\in V\). 但是按照假设 \((\Id+K)z=0\). 矛盾. 所以 \(\img T\) 是闭的.\\
-            (3) \(\dim\coker T<+\infty\): 考虑其对偶算子 \(T^*=\Id+K^*\). 根据定理\ref{thm:schauder} \(K^*\) 是紧算子, 同样有 \(\dim\ker T^*<+\infty\). 而 \(\img T\) 是闭的, 有 
+            利用线性性令 \(y_n=x_n/\norm{x_n}\), 则 \(\norm{y_n}=1\). 同样根据 \(K\) 是\CompactOp{}, \(Kx_n\) 有收敛到 \(z\) 的子列, 所以 \(y_n\to -z\), 其中 \(\norm{z}=1\) 显然 \(z\in V\). 但是按照假设 \((\Id+K)z=0\). 矛盾. 所以 \(\img T\) 是闭的.\\
+            (3) \(\dim\coker T<+\infty\): 考虑其对偶算子 \(T^*=\Id+K^*\). 根据定理\ref{thm:schauder} \(K^*\) 是\CompactOp{}, 同样有 \(\dim\ker T^*<+\infty\). 而 \(\img T\) 是闭的, 有 
             \[\qty(\frac{X}{\img T})^*\cong\ker T^* \]
             所以 \(\dim\coker T=\dim\ker T^*<+\infty\).\\
             (4) \(\ind T=0\): 令 \(T_t:=\Id +tK\). \(\ind\Id=0\), 根据连续性, \(\ind T=0\).
         \end{prf}
 
         \begin{dfn}
-            {算子的模 Frdholm 逆}
+            {算子的模 Fredholm 逆}
             [Parametrix of an Operator]
-            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(S:Y\to X\) 是 \(T\) 的一个\textbf{模 Frdholm 逆}当且仅当 \(ST-\Id_X\) 和 \(TS-\Id_Y\) 都是紧算子.
+            设 \(X\) 和 \(Y\) 是 Banach 空间, \(T:X\to Y\) 是一个有界线性算子. 定义 \(S:Y\to X\) 是 \(T\) 的一个\textbf{模 Frdholm 逆}当且仅当 \(ST-\Id_X\) 和 \(TS-\Id_Y\) 都是\CompactOp{}.
         \end{dfn}
 
         \begin{thm}
@@ -3075,4 +3169,243 @@
             \((\R,+)\) 是一个拓扑群. 因为 \(\R\) 上的加法 (\(+\)) 和取负运算都是连续的.
         \end{ins}
 
-        \bysorry
+        \begin{dfn}
+            {Hausdorff 拓扑群}
+            [Hausdorff Topological Group]
+            设 \(G\) 是一个拓扑群, 若 \(G\) 的拓扑是 Hausdorff 拓扑空间, 则称 \(G\) 是一个\textbf{Hausdorff 拓扑群}.
+        \end{dfn}
+
+        \begin{ins}
+            {强算子拓扑下的有界线性算子群是 Hausdorff 拓扑群}
+            设 \(E\) 是赋范线性空间, \(\Isom(E)\) 是 \(E\) 上全体线性同构的集合. 赋予 \(\Isom(E)\) 强算子拓扑, 则 \(\Isom(E)\) 是一个 Hausdorff 拓扑群.
+        \end{ins}
+
+        \begin{dfn}
+            {局部紧拓扑群}
+            [Locally Compact Topological Group]
+            设 \(G\) 是一个拓扑群, 若 \(G\) 的拓扑是局部紧的, 则称 \(G\) 是一个\textbf{局部紧拓扑群}.
+        \end{dfn}
+
+        \begin{dfn}
+            {Haar 测度}
+            [Haar Measure]
+            设 \(G\) 是一个局部紧的 Hausdorff 拓扑群, 若存在一个非平凡正测度函数 \(\mu\) 使得
+            \[\forall g\in G, \forall A\subseteq G, \mu(gA)=\mu(A)\]
+            则称 \(\mu\) 是 \(G\) 上的一个\textbf{Haar 测度}.
+        \end{dfn}
+
+        \begin{thm}
+            {Haar 测度的存在性与唯一性}
+            [Existence and Uniqueness of Haar Measure]
+            设 \(G\) 是一个局部紧的 Hausdorff 拓扑群, 则 \(G\) 上存在一个 Haar 测度 \(\mu\), 且 \(\mu\) 唯一 (模正常化常数).
+        \end{thm}
+
+\section{Banach 代数及其谱论}
+
+    \subsection{Banach 代数的定义}
+
+        \begin{dfn}
+            [normed-algebra]
+            {赋范代数}
+            [Normed Algebra]
+            设 \(X\) 是一个数域 \(\F\) 上的赋范线性空间, 且 \(X\) 上定义了一个二元运算 \(\cdot\), 满足:
+            \begin{enumerate}[label=(\roman*)]
+                \item \((X, \cdot)\) 是代数, 满足代数运算公理;
+                \item 有界性: \(\exists M\geq 0\) 使得 \(\forall x,y\in X, \norm{x\cdot y}\leq M\norm{x}\norm{y}\).
+            \end{enumerate}
+            则 \(X\) 是一个\textbf{赋范代数}.
+        \end{dfn}
+
+        \begin{rmk}
+            [Dedicatia]
+            需要注意的是, 赋范代数的定义要求很弱, 其中的乘法只需要是半群即可, 不需要有单位元, 不需要有逆元, 也不需要交换. \\
+            其中, 范数的有界性使得乘法成为 \(X\) 上的连续运算, 特别地, 它是左连续和右连续的. 也就是说在 \(x_n\to x\), \(y_n\to y\) 时, 有 \(x_n\cdot y_n\to x\cdot y\). 这保证了代数运算的良定性.
+        \end{rmk}
+
+        \begin{dfn}
+            [banach-algebra]
+            {Banach 代数}
+            [Banach Algebra]
+            设 \(X\) 是一个赋范代数, 且 \(X\) 是完备的, 则称 \(X\) 是一个\textbf{Banach 代数}.
+        \end{dfn}
+
+        \begin{dfn}
+            {交换 Banach 代数}
+            [Commutative Banach Algebra]
+            设 \(X\) 是一个 Banach 代数, 若 \(X\) 的代数运算 \(\cdot\) 是交换的, 则称 \(X\) 是一个\textbf{交换 Banach 代数}.
+        \end{dfn}
+
+        \begin{thm}
+            {Banach 空间与 Banach 代数的兼容性}
+            设 \(X\) 是一个数域 \(\F\) 上的 Banach 空间, 且 \(X\) 上定义了一个代数运算 \(\cdot\), 使得 \(X\) 是一个 \(\F\) 上的代数, 其中 \(\cdot\) 是左连续和右连续的, 则 \(X\) 上存在范数使得其诱导与原先拓扑相同的拓扑并使得 \(X\) 是一个 Banach 代数.
+        \end{thm}
+
+        \begin{ins}
+            {紧拓扑空间上的连续函数构成交换 Banach 代数}
+            设 \(X\) 是一个紧拓扑空间, 则其上的全体连续函数 \(C(X)\) 是一个交换 Banach 代数, 其代数运算为函数的逐点乘积 \((f\cdot g)(x)=f(x)g(x)\), 范数为上确界范数 \(\norm{f}_\infty = \sup_{x\in X}\abs{f(x)}\), 单位元是常函数 \(1\).
+        \end{ins}
+
+        \begin{ins}
+            {\(\C^n\) 是一个交换 Banach 代数}
+            取上述紧拓扑空间为有限集, 由 \(n\) 个点组成, 则 \(C(X)\cong\C^n\) 是一个交换 Banach 代数, 其代数运算为逐点乘积, 范数为上确界范数 \(\norm{(z_1,\ldots,z_n)}_\infty = \max_{1\leq i\leq n}\abs{z_i}\). 由于有限维线性空间的范数都是等价范数, 所以可以认为有限维线性空间只有这一种交换的 Banach 代数结构.
+        \end{ins}
+
+        \begin{ins}
+            {可积函数构成交换 Banach 代数}
+            \(\R\) 上的全体 Lebesgue 可积函数 \(L^1(\R)\) 是一个 Banach 代数, 其代数运算为卷积 
+            \[(f\ast g)(x)=\int_{\R} f(y)g(x-y)\dd{y},\] 
+            范数为 \(L^1\) 范数 
+            \[\norm{f}_1 = \int_{\R} \abs{f(x)}\dd{x}.\]
+            由于卷积是交换的, 所以 \(L^1(\R)\) 是一个交换 Banach 代数. \\
+            要说明的是这个 Banach 代数不含有单位元. 假如存在这样一个单位元 \(e\), 那么
+            \[(\I_{[0,1]}\ast e) (t) = \int_0^1 e(t-s)\dd{s}\]
+            式右是一个 \(\R\) 上的连续函数, 它不可能与 \(\I_{[0,1]}\) 几乎处处相等. 所以 \(L^1(\R)\) 不含有单位元.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            事实上, Banach 代数的定义并不要求其具有乘法单位元. 没有单位元的 Banach 代数可以通过以下方式补充一个: 定义有序对 \((X, \lambda)\) 是 \(X\) 与 \(\F\) 的直和, 其代数运算为
+            \[(x, \lambda)\cdot(y, \mu) = (x\cdot y + \lambda y + \mu x, \lambda\mu),\]
+            范数为
+            \[\norm{(x, \lambda)} = \norm{x} + \abs{\lambda}.\]
+            这时 \((0,1)\) 就是单位元. 考虑映射 
+            \[\iota: X\to X\oplus\F, x\mapsto (x,0)\]
+            则 \(\iota\) 将 \(X\) 嵌入 \(X\oplus\F\) 中,  \(\iota(X)\) 是 \(X\oplus\F\) 的一个闭子代数, \(X\oplus\F\) 是 \(A\) 直和 \(e\) 生成的一维向量空间.
+        \end{rmk}
+
+        \begin{ins}
+            {有界线性算子构成 Banach 代数}
+            设 \(X\) 是一个 Banach 空间, 则 \(X\) 上的全体有界线性算子 \(\blo(X,X)\) 是一个 Banach 代数, 其代数运算为算子复合, 范数为算子范数 \(\norm{T} = \sup_{\norm{x}=1}\norm{Tx}\), 单位元是恒等算子 \(\Id\).\\
+            当 \(\dim X<\infty\) 时, \(\blo(X,X)\cong\C^{n\times n}\) 是一个有限维的 Banach 代数, 其代数运算为矩阵乘法, 范数为矩阵的算子范数, 单位元是单位矩阵 \(I_n\). 这是一个非交换的有限维 Banach 代数的实例.
+        \end{ins}
+
+        \begin{rmk}
+            [Dedicatia]
+            需要注意的是, 我们大多数情况下都将注意力放在复 Banach 代数上, 即默认 \(\F = \C\), 这是因为复 Banach 代数的谱理论更为丰富, 一方面全纯函数的刚性带来了很多良好性质, 另一方面是其具有共轭运算作为自然的非平凡的对合. 但是在很多情况下, 实 Banach 代数也有其独特的应用价值.
+        \end{rmk}
+
+        \begin{dfn}
+            {预解集}
+            [Resolvent Set]
+            设 \(A\) 是一个 Banach 代数, \(e\) 是其单位元, \(x\in A\). 定义 \(x\) 的\textbf{预解集}为
+            \[\qty{\lambda\in\C: \exists\,s\in A, \st s=(x-\lambda e)^{-1}}\]
+            即所有使得 \(x-\lambda e\) 可逆的 \(\lambda\) 的集合.
+        \end{dfn}
+
+        \begin{dfn}
+            [banach-algebra-spectrum]
+            {谱}
+            [Spectrum]
+            设 \(A\) 是一个 Banach 代数, \(e\) 是其单位元, \(x\in A\). 定义 \(x\) 的\textbf{谱}为
+            \[\spec x := \{\lambda\in\C: x-\lambda e \text{ 不是可逆元}\}.\]
+            即 \(x\) 的预解集的补集. 
+        \end{dfn}
+
+    \subsection{谱的基本性质}
+
+        \begin{thm}
+            [neumann-series]
+            {可逆元的 Neumann 级数}
+            设 \(A\) 是 Banach 代数, 其单位元是 \(e\), \(x\in A\), \(\norm{x}<1\), 则 \(e-x\) 是可逆元, 且
+            \[\norm{(e-x)^{-1}-e-x}\leq\frac{\norm{x}^2}{1-\norm{x}} \]
+        \end{thm}
+
+        \begin{prf}
+            考虑元素
+            \[s_n=e+x+x^2+\cdots+x^n\]
+            则 \(s_n\) 是一列 Cauchy 列, 这是因为 \(\norm{x^n}\leq\norm{x}^n\) 总成立. 因为完备性, \(s_n\to s\in A\). 于是
+            \[(e-x)s = \lim_{n\to\infty} (e-x)s_n = \lim_{n\to\infty} s_n(e-x) = e\]
+            又因为乘法是连续的, 所以极限与乘法运算可交换, 所以 \(s\) 就是 \((e-x)^{-1}\). 这就找到了其逆. 于是
+            \[\norm{s-e-x}=\norm{x^2+\cdots+x^n+\cdots}\leq\sum_{n=2}^{\infty} \norm{x}^n= \frac{\norm{x}^2}{1-\norm{x}} \]
+            得证.
+        \end{prf}
+
+        \begin{thm}
+            [banach-algebra-invertible-group]
+            {Banach 代数的全体可逆元构成群}
+            设 \(A\) 是 Banach 代数, 则 \(A\) 中的全体可逆元构成一个群.
+        \end{thm}
+
+        \begin{prf}
+            这是因为 \(y^{-1}x\) 是 \(x^{-1}y\) 的逆元, 所以 \(G\) 是一个群.
+        \end{prf}
+
+        \begin{thm}
+            [banach-algebra-invertible-open]
+            {Banach 代数的全体可逆元构成开集}
+            设 \(A\) 是 Banach 代数, \(x\) 是 \(A\) 中的可逆元, \(h\in A\), \(\norm{h}\leq\frac{1}{2\norm{x}^{-1}} \), 则 \(x+h\) 也是可逆元, 且
+            \[\norm{(x+h)^{-1}-x^{-1}+x^{-1}hx^{-1}}\leq 2\norm{x^{-1}}^3\norm{h}^2 \]
+        \end{thm}
+
+        \begin{prf}
+            因为 \(x+h=x(e+x^{-1}h)\), \(\norm{x^{-1}h}<\frac{1}{2}<1\), 并且根据定理\ref{thm:neumann-series}, \(e+x^{-1}h\) 是可逆元, 所以 \(x+h\) 是可逆元. \\
+            注意到恒等式
+            \[(x+h)^{-1}-x^{-1}+x^{-1}hx^{-1} = (e+x^{-1}h)^{-1}x^{-1}-(e-x^{-1}h)x^{-1}\]
+            这就说明了其范数最多只能是
+            \[\norm{(e+x^{-1}h)^{-1}-(e-x^{-1}h)}\norm{x^{-1}}\leq 2\norm{x^{-1}h}^2\norm{x^{-1}}\]
+        \end{prf}
+
+        \begin{thm}
+            [banach-algebra-invertible-homeomorphism]
+            {元素的逆元映射是同胚映射}
+            设 \(A\) 是 Banach 代数, 则 \(A\) 中的全体可逆元 \(G\) 上的逆元映射
+            \[{\cdot}^{-1}: G\to G, x\mapsto x^{-1}\]
+            是一个同胚映射.
+        \end{thm}
+
+        \begin{prf}
+            这不过是把前面的定理打包了起来. 首先 \(G\) 是 \(A\) 中的开集, 其次 \(x\mapsto x^{-1}\) 将开集拉回开集, 是连续映射, 最后它自己是它自己的逆, 所以是同胚.
+        \end{prf}
+
+        \begin{thm}
+            {Banach 代数的谱是非空的紧集}
+            设 \(A\) 是 Banach 代数, \(x\in A\), 则 \(x\) 的谱 \(\spec x\) 是非空的紧集.
+        \end{thm}
+
+        \begin{prf}
+            先证明有界性: 假如存在一个 \(|\lambda|>\norm{x}\), 那么根据定理\ref{thm:neumann-series}, \(e-\lambda^{-1}x\) 就是可逆的, 所以 \(\lambda\) 不在谱中. 所以谱是有界的. \\
+            再证明闭性: 定义 \(g(\lambda):=\lambda e-x\), \(g\) 是连续映射, \(A\) 中的全体可逆元被拉回到开集. 恰好这个开集就是 \(x\) 的预解集, 所以预解集是开集, 谱就是闭的. \\
+            这时根据 \(\C\) 的 Heine-Borel 性质, 谱是紧集. \\
+            但是空集也是紧的, 为了排除非空性, 定义函数
+            \[f(\lambda):=(\lambda e-x)^{-1}\] 
+            这函数是定义在 \(x\) 的预解集上的. 根据定理\ref{thm:banach-algebra-invertible-open}, 用 \(\lambda e-x\) 代替 \(x\), 用 \((\mu-\lambda)e\) 代替 \(h\), 得到
+            \[\norm{f(\lambda)-f(\mu)+(\mu-\lambda)(f(\lambda))^2}\leq 2\norm{f(\lambda)}^3\abs{\lambda-\mu}^2\]
+            这说明
+            \[\lim_{\mu\to\lambda}\frac{f(\lambda)-f(\mu)}{\lambda-\mu}=-(f(\lambda))^2\]
+            所以 \(f\) 是一个全纯函数, 并且右端项显然不能为 0, 因为它是某个可逆元的逆的平方. 所以 \(f\) 是非平凡的全纯函数. \\
+            由于谱中不可能有复数 \(\lambda\) 的绝对值大于 \(\norm{x}\), 所以这样的元素只能存在于预解集中. 取一个 \(\abs{\mu} \geq\norm{x}\), 展开级数
+            \[f(\mu)=\sum_{n=0}^{\infty}\frac{x^n}{\mu^{n+1}}=\mu^{-1}e+\mu^{-2}x+\mu^{-3}x^2+\cdots\]  
+            选取半径为 \(r\geq\norm{x}\) 的圆周, 这个幂级数在其上一致收敛到 \(f\). 那么为了导出矛盾, 我们显式构造一个积分
+            \[\oint_{\abs{\mu}=r} \mu^n f(\mu)\dd{\mu} = \oint_{\abs{\mu}=r} \sum_{n=0}^{\infty}\frac{x^n}{\mu}\dd{\mu} = 2\pi\ii x^n\]
+            如果谱是空集, 那么 \(f\) 是定义在整个复平面上的全纯函数, 那么根据 Cauchy 积分定理, 上述积分应该为 0. 但是 \(x^n\) 不可能为 0, 除非 \(x=0\). 所以谱不可能是空集.
+        \end{prf}
+
+        \begin{dfn}
+            [spectral-radius]
+            {谱半径}
+            [Spectral Radius]
+            设 \(A\) 是 Banach 代数, \(e\) 是其单位元, \(x\in A\). 定义 \(x\) 的\textbf{谱半径}为
+            \[\radius(x):=\sup_{\lambda\in\spec x}\abs{\lambda}.\]
+        \end{dfn}
+
+        \begin{thm}
+            [spectral-radius-formula]
+            {谱半径公式}
+            设 \(A\) 是 Banach 代数, \(e\) 是其单位元, \(x\in A\). 则
+            \[\radius(x)=\lim_{n\to\infty}\norm{x^n}^{1/n}.\]
+        \end{thm}
+
+        \begin{rmk}
+            [Dedicatia]
+            这个定理并不是一个平凡的结论. 因为我们在定义谱的时候纯粹依赖于 \(A\) 的代数性质, 而谱半径公式却是一个纯粹依赖于 \(A\) 的拓扑性质的结论. 这说明 Banach 代数的代数结构和拓扑结构之间有着非常紧密的联系, 它们分别得到的两个量是相等的.
+        \end{rmk}
+
+        \begin{thm}
+            {Gelfand-Mazur 定理}
+            [Gelfand-Mazur Theorem]
+            设 \(A\) 是一个 Banach 代数, 且 \(A\) 中的每个非零元都是可逆元, 则 \(A\cong\C\).
+        \end{thm}
+
+        \begin{prf}
+            设 \(x\in A\) 是非零元, 则 \(\spec x\neq\emptyset\), 又因为 \(A\) 中只有 0 不可逆, 所以 \(\spec x\) 中恰好只有一个元素. 设其为 \(\lambda\in\spec x\), 则 \(x-\lambda e\) 不是可逆元, \(x-\lambda e=0\), 所以 \(x=\lambda e\). 这说明 \(A\) 中的每个非零元都是单位元的倍数. 所以 \(A\cong\C\).
+        \end{prf}

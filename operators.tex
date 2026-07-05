@@ -44,15 +44,24 @@
 \DeclareMathOperator{\I}{\mathbf{I}}                           % Indicator Function
 
 % Functional Analysis
-\DeclareMathOperator{\slim}{\xrightarrow{s}}
-\DeclareMathOperator{\wlim}{\xrightarrow{w}}
-\DeclareMathOperator{\wslim}{\xrightarrow{w^*}}
-\DeclareMathOperator{\blo}{\mathscr{B}}
-\DeclareMathOperator{\cpt}{\mathscr{K}}
-\DeclareMathOperator{\fnrank}{\mathscr{Fr}}
-\DeclareMathOperator{\fred}{\mathscr{F}}
 \DeclareMathOperator{\Cont}{\mathrm{C}}
 \NewDocumentCommand{\Lp}{O{p}}{\mathrm{L}^{#1}}
-\DeclareMathOperator{\ordinal}{\mathbb{O}}
-\DeclareMathOperator{\ind}{ind}
-\DeclareMathOperator{\spec}{spec}
+
+\newcommand{\ordinal}{\hyperref[dfn:ordinal]{\mathbb{O}}}
+\newcommand{\slim}{\hyperref[dfn:strong-convergence]{\xrightarrow{s}}}
+\newcommand{\wlim}{\hyperref[dfn:weak-convergence]{\xrightarrow{w}}}
+\newcommand{\wslim}{\hyperref[dfn:weak-star-convergence]{\xrightarrow{w^*}}}
+\newcommand{\blo}{\hyperref[dfn:blo]{\mathscr{B}}}
+\newcommand{\cpt}{\hyperref[dfn:compact-operator]{\mathscr{K}}}
+\newcommand{\fnrank}{\hyperref[dfn:finite-rank-operator]{\mathscr{Fr}}}
+\newcommand{\fred}{\hyperref[dfn:fredholm-operator]{\mathscr{F}}}
+\newcommand{\spec}{\hyperref[dfn:spectrum]{\operatorname{spec}}}
+\newcommand{\radius}{\hyperref[dfn:spectral-radius]{\rho}}
+\newcommand{\ind}{\hyperref[dfn:fredholm-index]{\operatorname{ind}}}
+
+% Hyperref
+\newcommand{\SelfAdjOp}{\hyperref[dfn:self-adjoint-operator]{自伴随算子}}
+\newcommand{\NormalOp}{\hyperref[dfn:normal-operator]{正规算子}}
+\newcommand{\Eigenspace}{\hyperref[dfn:eigenspace]{特征子空间}}
+\newcommand{\InvariantSubspace}{\hyperref[dfn:invariant-subspace]{不变子空间}}
+\newcommand{\CompactOp}{\hyperref[dfn:compact-operator]{紧算子}}
